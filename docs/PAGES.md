@@ -2,7 +2,7 @@
 
 Five routes. No more until a human adds one.
 
-All pages share the same chrome: wordmark, section links, `⌘K`, waitlist verb.
+All pages share the same chrome: wordmark, section links, `⌘K`.
 
 ---
 
@@ -10,20 +10,15 @@ All pages share the same chrome: wordmark, section links, `⌘K`, waitlist verb.
 
 **Job:** State the method in one screen, then make the reader look at a claim they already hold.
 
-Display line (pick one, do not stack):
+Home is, in this order:
 
-- `The first question is cheap.`
-- `ELENCHUS`
-- `Start from a statement you already believe.`
+1. Display line: `The first question is cheap.`
+2. Under it: 2–3 sentences from the canonical paragraph. Not a rewrite.
+3. Closing question: `What would have to be true for that to hold?`
 
-Under it: 2–3 sentences from the canonical paragraph. Not a rewrite.
-
-Primary action: `Examine a claim` (anchor to a single field: paste or type a statement).
-Secondary: `The method`
+No field, no form, no primary action. The closing question appears once, as the closer; no second copy of it elsewhere on home.
 
 Do not put pricing, logos, or a feature grid here.
-
-Close the page with: `What would have to be true for that to hold?`
 
 ---
 
@@ -85,13 +80,9 @@ Close with: `Which of your current beliefs have never been through the second qu
 
 ## `/ask`
 
-**Job:** Waitlist as a first practice, not an email harvest dressed as a mission.
+**Job:** Copy only: a heading, one short paragraph, and the closing question.
 
-One field for email or contact.
-One optional field: `A claim you already believe.`
-One verb: `Hold this claim` or `Join the waitlist`.
-
-Copy: we will not send a newsletter of answers. We will send the next exercise.
+No fields. No button that pretends to submit.
 
 Close with: `What statement are you least willing to put under examination?`
 
@@ -106,6 +97,7 @@ Close with: `What statement are you least willing to put under examination?`
 - Team page with bios
 - Social proof wall
 - Chat widget that answers questions
+- Waitlist, email capture, or any fillable form
 
 ## Nav order
 

@@ -52,7 +52,7 @@ Allowed:
 
 - Lenis (or equivalent) smooth scroll
 - Hero question settling after load (40–80ms, no bounce)
-- Command palette (`⌘K`) that jumps to sections and later to saved claims
+- Command palette (`⌘K`) that jumps to sections
 - 120ms ink wipes on buttons
 - Staggered section labels on first intersection
 
@@ -67,8 +67,8 @@ Forbidden:
 
 Use sparingly, as proof the site is an instrument:
 
-- Top status: `ELENCHUS · PRACTICE · WAITLIST OPEN`
-- Command palette placeholder: `Examine a claim` or `Jump to a section`
+- Top status: `ELENCHUS · PRACTICE`
+- Command palette placeholder: `Jump to a section`. The palette only navigates; it saves nothing.
 - Footer path: `elenchus / constitution / v1`
 
 Do not build a fake terminal that types marketing copy.
@@ -76,14 +76,14 @@ Do not build a fake terminal that types marketing copy.
 ## Components
 
 Buttons are rectangular, hairline border, no pill shapes.
-Forms are one field + one verb (`Ask` or `Hold this claim`), not "Subscribe for updates."
+No forms in v1. Nothing on the site collects input.
 Images: none required for v1. If used, they must be diagrams or photographs of text, not stock thinkers.
 
 ## Accessibility
 
 - Ink on paper contrast ≥ 7:1 for body.
 - Focus rings visible (ink outline, 2px).
-- Keyboard: `⌘K`, `Esc`, tab order through nav and form.
+- Keyboard: `⌘K`, `Esc`, tab order through nav.
 - Reduced-motion: skip Lenis and hero settle.
 
 ## Test
