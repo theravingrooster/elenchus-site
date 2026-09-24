@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+/*
+  Tokens from /docs/DESIGN.md. Two colors plus paper, no third hue.
+  The default Tailwind palette is reset so a stray `bg-blue-500` fails to exist.
+*/
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-paper: #f4efe4;
+  --color-ink: #1a1714;
+  --color-rule: rgba(26, 23, 20, 0.12);
+
+  --shadow-*: initial;
+  --drop-shadow-*: initial;
+  --inset-shadow-*: initial;
+  --text-shadow-*: initial;
+  --radius-*: initial;
+
+  --ease-settle: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@theme inline {
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-newsreader), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-serif);
+    /* DESIGN.md: never set body below 17px on desktop. */
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 1.1875rem;
+    }
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* DESIGN.md: focus rings visible, ink outline, 2px. */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  input,
+  textarea {
+    border-radius: 0;
+  }
+}
+
+/* Lenis (from lenis/dist/lenis.css, which the package does not export). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+@layer components {
+  /* Rectangular, hairline border, 120ms ink wipe. No pills. */
+  .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--color-ink);
+    padding: 0.8rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    transition: color 120ms var(--ease-settle);
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 120ms var(--ease-settle);
+  }
+  .btn:hover,
+  .btn:focus-visible {
+    color: var(--color-paper);
+  }
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .btn-primary {
+    color: var(--color-paper);
+    background: var(--color-ink);
+  }
+  .btn-primary::before {
+    background: var(--color-paper);
+  }
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    color: var(--color-ink);
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .field {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink);
+    background: transparent;
+    padding: 0.75rem 0;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--color-ink);
+  }
+  .field::placeholder {
+    color: var(--color-ink);
+    opacity: 0.45;
+  }
+  .field:focus-visible {
+    outline-offset: 6px;
+  }
+}
+
+/* Grid overlay at ~8% ink, visible in the hero, fading after first scroll. */
+.hero-grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  /* Hairline grid drawn as an SVG pattern (ink at 8% opacity), not a gradient. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M64 .5H.5V64' fill='none' stroke='%231A1714' stroke-opacity='.08'/%3E%3C/svg%3E");
+  background-size: 64px 64px;
+  opacity: 1;
+  transition: opacity 600ms var(--ease-settle);
+}
+.hero-grid[data-faded="true"] {
+  opacity: 0;
+}
+
+/* Hero question settles after load: 80ms, no bounce. */
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(0.06em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.settle {
+  animation: settle 80ms var(--ease-settle) 40ms both;
+}
+
+/* Staggered section labels on first intersection. */
+.reveal-part {
+  display: inline-block;
+  transition:
+    opacity 240ms var(--ease-settle),
+    transform 240ms var(--ease-settle);
+}
+[data-reveal="hidden"] .reveal-part {
+  opacity: 0;
+  transform: translateY(0.4em);
+}
+
+/* Command palette (cmdk). Hairlines, no shadow. */
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+[cmdk-dialog] {
+  position: fixed;
+  z-index: 51;
+  top: 18vh;
+  left: 50%;
+  width: min(36rem, calc(100vw - 2rem));
+  transform: translateX(-50%);
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+}
+[cmdk-input] {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  background: transparent;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  outline: none;
+}
+[cmdk-input]::placeholder {
+  color: var(--color-ink);
+  opacity: 0.5;
+}
+[cmdk-list] {
+  max-height: 20rem;
+  overflow: auto;
+  padding: 0.5rem 0;
+}
+[cmdk-item] {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+[cmdk-item][data-selected="true"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+[cmdk-empty] {
+  padding: 0.7rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+/* DESIGN.md: reduced motion skips Lenis (in JS) and the hero settle. */
+@media (prefers-reduced-motion: reduce) {
+  .settle {
+    animation: none;
+  }
+  .reveal-part,
+  .hero-grid,
+  .btn,
+  .btn::before {
+    transition: none;
+  }
+  [data-reveal="hidden"] .reveal-part {
+    opacity: 1;
+    transform: none;
+  }
+}
