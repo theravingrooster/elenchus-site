@@ -9,20 +9,20 @@ export const chrome = {
   footerPath: "elenchus / constitution / v1",
   waitlistVerb: "Join the waitlist",
   nav: {
-    home: "[placeholder: home label for the command palette]",
+    home: "Home",
     method: "Method",
     practice: "Practice",
     for: "For",
     ask: "Ask",
   },
   menu: {
-    open: "[placeholder: open menu]",
-    close: "[placeholder: close menu]",
+    open: "Menu",
+    close: "Close",
   },
   palette: {
     placeholder: "Jump to a section",
-    empty: "[placeholder: no matching section]",
-    label: "[placeholder: command palette label]",
+    empty: "No section by that name.",
+    label: "Jump to a section",
     hint: "⌘K",
   },
 };

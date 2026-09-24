@@ -6,23 +6,23 @@ export const forPage = {
   title: "For",
   intro: {
     label: "01 / FOR",
-    heading: "[placeholder: who this is for]",
+    heading: "Who stops at the first fluent answer?",
   },
   columns: [
     {
       id: "A",
       heading: "Students",
-      body: "[placeholder: who are rewarded for fluent first answers]",
+      body: "You are rewarded for fluent first answers. Exams end before the second question starts. Ask it anyway.",
     },
     {
       id: "B",
       heading: "Operators",
-      body: "[placeholder: who ship on claims they have not tested]",
+      body: "You ship on claims you have not tested: a metric, a vendor's promise, a model's summary. Name the source before you build on it.",
     },
     {
       id: "C",
       heading: "Anyone",
-      body: "[placeholder: who notices they stop at the first sentence that sounds finished]",
+      body: "You notice that you stop at the first sentence that sounds finished. Noticing is not enough. Ask what that sentence rests on.",
     },
   ],
   closing: {
