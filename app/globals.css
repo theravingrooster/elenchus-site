@@ -119,18 +119,6 @@ html.lenis body {
     transform: scaleX(1);
   }
 
-  .btn-primary {
-    color: var(--color-paper);
-    background: var(--color-ink);
-  }
-  .btn-primary::before {
-    background: var(--color-paper);
-  }
-  .btn-primary:hover,
-  .btn-primary:focus-visible {
-    color: var(--color-ink);
-  }
-
   .mono-label {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -138,24 +126,6 @@ html.lenis body {
     text-transform: uppercase;
   }
 
-  .field {
-    display: block;
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid var(--color-ink);
-    background: transparent;
-    padding: 0.75rem 0;
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-    color: var(--color-ink);
-  }
-  .field::placeholder {
-    color: var(--color-ink);
-    opacity: 0.7;
-  }
-  .field:focus-visible {
-    outline-offset: 6px;
-  }
 }
 
 /* Grid overlay at ~8% ink, visible in the hero, fading after first scroll. */
