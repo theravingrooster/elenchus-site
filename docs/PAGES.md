@@ -10,19 +10,15 @@ All pages share the same chrome: wordmark, section links, `⌘K`.
 
 **Job:** State the method in one screen, then make the reader look at a claim they already hold.
 
-Display line (pick one, do not stack):
+Home is, in this order:
 
-- `The first question is cheap.`
-- `ELENCHUS`
-- `Start from a statement you already believe.`
+1. Display line: `The first question is cheap.`
+2. Under it: 2–3 sentences from the canonical paragraph. Not a rewrite.
+3. Closing question: `What would have to be true for that to hold?`
 
-Directly under it, the method question, word for word: `What would have to be true for that to hold?`
-
-The display line and the method question only. No sentences under the display line, no field, no form, no primary action.
+No field, no form, no primary action. The closing question appears once, as the closer; no second copy of it elsewhere on home.
 
 Do not put pricing, logos, or a feature grid here.
-
-The method question is also the page's close; home ends there.
 
 ---
 
