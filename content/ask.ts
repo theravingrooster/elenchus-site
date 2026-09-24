@@ -6,13 +6,13 @@ export const ask = {
   title: "Ask",
   intro: {
     label: "01 / ASK",
-    heading: "[placeholder: ask heading]",
-    body: "[placeholder: we will not send a newsletter of answers; we will send the next exercise]",
+    heading: "Start from a statement you already believe.",
+    body: "The waitlist asks for two things. A way to reach you. And, if you choose, one claim you already believe. We will not send a newsletter of answers. We will send the next exercise. Writing a claim down is where the drill starts. It turns a belief into a statement you can test. Leave the field blank if you prefer. The exercise still comes. Which claim would you hand over first?",
   },
   form: {
-    contactLabel: "[placeholder: email or contact field label]",
+    contactLabel: "Email or contact",
     claimLabel: "A claim you already believe.",
-    optional: "[placeholder: optional]",
+    optional: "optional",
     verb: "Hold this claim",
   },
   closing: {

@@ -4,15 +4,15 @@
 
 export const home = {
   // PAGES.md: pick one display line, do not stack.
-  display: "[placeholder: display line, one of the three in PAGES.md]",
+  display: "The first question is cheap.",
   // PAGES.md: 2–3 sentences from the canonical paragraph. VOICE.md: ≤ 40 words.
-  body: "[placeholder: 2–3 sentences from the canonical paragraph in VOICE.md]",
+  body: "The work begins with the second. We start from a statement someone already believes, including statements produced by institutions, media, peers, and machines, and we ask what would have to be true for that statement to hold.",
   primaryAction: "Examine a claim",
   secondaryAction: "The method",
   examine: {
     label: "01 / EXAMINE",
-    fieldLabel: "[placeholder: field label, paste or type a statement]",
-    verb: "[placeholder: verb]",
+    fieldLabel: "What statement do you already believe?",
+    verb: "Ask",
   },
   closing: {
     label: "02 / THE SECOND QUESTION",
