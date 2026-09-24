@@ -4,9 +4,11 @@ import { home } from "@/content/home";
 // PAGES.md home, in order and nothing else: display line, 2–3 canonical sentences,
 // closing question. One block, all inside the first screen at 1280×800 and 390×844,
 // so the reader meets a question before scrolling (DESIGN.md "Test").
+// The section is at least a full viewport tall, so the grid covers the whole first
+// screen and its bottom edge is never in view: the grid fades on first scroll (#10).
 export default function Home() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative min-h-svh overflow-hidden">
       <HeroGrid />
       <div className="relative mx-auto max-w-[88rem] px-6 pt-10 pb-16 md:px-12 md:pt-16 md:pb-24 lg:px-20">
         <h1 className="settle max-w-[16ch] font-serif text-[clamp(3rem,7.5vw,7rem)] leading-[0.95] tracking-[-0.025em]">
