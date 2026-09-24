@@ -54,9 +54,6 @@ export function SiteHeader() {
           >
             {chrome.palette.hint}
           </button>
-          <Link href="/ask" className="btn btn-primary hidden md:inline-flex">
-            {chrome.waitlistVerb}
-          </Link>
           <button
             type="button"
             className="btn md:hidden"
@@ -85,11 +82,6 @@ export function SiteHeader() {
                 </Link>
               </li>
             ))}
-            <li className="py-4">
-              <Link href="/ask" onClick={() => setDrawerOpen(false)} className="btn btn-primary">
-                {chrome.waitlistVerb}
-              </Link>
-            </li>
           </ul>
         </nav>
       )}

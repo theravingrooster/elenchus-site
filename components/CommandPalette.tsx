@@ -11,7 +11,7 @@ type Props = {
   onOpenChange: (open: boolean) => void;
 };
 
-// DESIGN.md: ⌘K jumps to sections (routes in v1, saved claims later). Esc closes.
+// DESIGN.md: ⌘K only navigates between the five routes and saves nothing. Esc closes.
 export function CommandPalette({ open, onOpenChange }: Props) {
   const router = useRouter();
 
