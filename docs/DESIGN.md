@@ -52,7 +52,7 @@ Allowed:
 
 - Lenis (or equivalent) smooth scroll
 - Hero question settling after load (40–80ms, no bounce)
-- Command palette (`⌘K`) that jumps to sections and later to saved claims
+- Command palette (`⌘K`) that jumps to sections
 - 120ms ink wipes on buttons
 - Staggered section labels on first intersection
 
@@ -68,7 +68,7 @@ Forbidden:
 Use sparingly, as proof the site is an instrument:
 
 - Top status: `ELENCHUS · PRACTICE`
-- Command palette placeholder: `Examine a claim` or `Jump to a section`
+- Command palette placeholder: `Jump to a section`. The palette only navigates; it saves nothing.
 - Footer path: `elenchus / constitution / v1`
 
 Do not build a fake terminal that types marketing copy.

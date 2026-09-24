@@ -16,13 +16,13 @@ Display line (pick one, do not stack):
 - `ELENCHUS`
 - `Start from a statement you already believe.`
 
-Under it: 2–3 sentences from the canonical paragraph. Not a rewrite.
+Directly under it, the method question, word for word: `What would have to be true for that to hold?`
 
-No field, no form, no primary action. The display line and the method question only.
+The display line and the method question only. No sentences under the display line, no field, no form, no primary action.
 
 Do not put pricing, logos, or a feature grid here.
 
-Close the page with: `What would have to be true for that to hold?`
+The method question is also the page's close; home ends there.
 
 ---
 
