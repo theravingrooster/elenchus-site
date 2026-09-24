@@ -12,7 +12,7 @@ export const home = {
   examine: {
     label: "01 / EXAMINE",
     fieldLabel: "What statement do you already believe?",
-    verb: "Ask the second question",
+    verb: "Ask",
   },
   closing: {
     label: "02 / THE SECOND QUESTION",
