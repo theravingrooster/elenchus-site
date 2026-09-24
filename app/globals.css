@@ -151,7 +151,7 @@ html.lenis body {
   }
   .field::placeholder {
     color: var(--color-ink);
-    opacity: 0.45;
+    opacity: 0.7;
   }
   .field:focus-visible {
     outline-offset: 6px;
@@ -226,11 +226,15 @@ html.lenis body {
   font-family: var(--font-mono);
   font-size: 0.875rem;
   color: var(--color-ink);
-  outline: none;
 }
+[cmdk-input]:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: -3px;
+}
+/* Placeholders at 0.7 ink keep contrast above 4.5:1 on paper. */
 [cmdk-input]::placeholder {
   color: var(--color-ink);
-  opacity: 0.5;
+  opacity: 0.7;
 }
 [cmdk-list] {
   max-height: 20rem;

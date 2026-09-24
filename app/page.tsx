@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Closing } from "@/components/Closing";
+import { ExamineForm } from "@/components/ExamineForm";
 import { HeroGrid } from "@/components/HeroGrid";
 import { Section } from "@/components/Section";
 import { home } from "@/content/home";
@@ -28,17 +29,7 @@ export default function Home() {
 
       {/* PAGES.md: primary action anchors to a single field. One field, one verb. */}
       <Section id="examine" label={home.examine.label}>
-        <form className="flex flex-col gap-6" action="#examine">
-          <label htmlFor="claim" className="mono-label">
-            {home.examine.fieldLabel}
-          </label>
-          <textarea id="claim" name="claim" rows={3} className="field resize-none" />
-          <div>
-            <button type="submit" className="btn btn-primary">
-              {home.examine.verb}
-            </button>
-          </div>
-        </form>
+        <ExamineForm />
       </Section>
 
       <Closing label={home.closing.label} question={home.closing.question} />
