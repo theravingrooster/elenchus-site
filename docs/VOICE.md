@@ -63,7 +63,6 @@ Verbs of practice, not capture.
 
 - Examine a claim
 - Hold this question
-- Join the waitlist
 - Ask the second question
 
 Never: Get started, Learn more, Book a demo, Unlock access.

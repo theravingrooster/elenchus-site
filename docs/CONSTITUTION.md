@@ -49,7 +49,7 @@ Questioning is the drill. Judgment is the destination.
 
 ## v1 product boundary
 
-v1 of the site is a manifesto + method + waitlist.
+v1 of the site is a manifesto + method. It collects nothing: no waitlist, no forms, no email capture.
 It is not an LMS, not a course marketplace, not a social network, not a news feed, and not a chatbot that answers questions for the user.
 
 If a feature broadcasts answers instead of training the second question, it is out of scope.
