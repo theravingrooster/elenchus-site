@@ -5,9 +5,8 @@
 export const chrome = {
   siteName: "Elenchus",
   wordmark: "ELENCHUS",
-  status: "ELENCHUS · PRACTICE · WAITLIST OPEN",
+  status: "ELENCHUS · PRACTICE",
   footerPath: "elenchus / constitution / v1",
-  waitlistVerb: "Join the waitlist",
   nav: {
     home: "Home",
     method: "Method",

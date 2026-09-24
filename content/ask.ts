@@ -1,19 +1,13 @@
 // Owner: Elenchus Voice. Route: /ask
 // Section labels (`NN / WORD`) are structural stand-ins from Studio; Voice may rename the word.
-// Spec: /docs/PAGES.md "`/ask`". Waitlist as a first practice.
+// Spec: /docs/PAGES.md "`/ask`". Copy only: heading, one short paragraph, closing question.
 
 export const ask = {
   title: "Ask",
   intro: {
     label: "01 / ASK",
     heading: "Start from a statement you already believe.",
-    body: "The waitlist asks for two things. A way to reach you. And, if you choose, one claim you already believe. We will not send a newsletter of answers. We will send the next exercise. Writing a claim down is where the drill starts. It turns a belief into a statement you can test. Leave the field blank if you prefer. The exercise still comes. Which claim would you hand over first?",
-  },
-  form: {
-    contactLabel: "Email or contact",
-    claimLabel: "A claim you already believe.",
-    optional: "optional",
-    verb: "Hold this claim",
+    body: "Write it down, even if only for yourself. Define its terms. Name its source. Surface the assumption under it. Ask what would falsify it. Then decide. Do you still hold it, and on what grounds?",
   },
   closing: {
     label: "02 / THE SECOND QUESTION",
