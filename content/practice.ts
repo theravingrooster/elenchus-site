@@ -30,7 +30,7 @@ export const practice = {
   intro: {
     label: "01 / PRACTICE",
     heading: "Take one claim. Run the drill.",
-    body: "This is the habit, run once, slowly. Choose one of three claims. Scroll, and five steps follow, in order. Each step asks one question of the claim, not of the person who said it, and notes what that question found. The page stops before the answer. That part is yours. Nothing here is scored. There is no right response to reveal, only a decision to make. Which claim would you run next?",
+    body: "This is the habit, run once, slowly. Choose one of three claims. Scroll, and four questions follow, in order, then a stop to decide. Each question is asked of the claim, not of the person who said it, and a note shows what it found. The page stops before the answer. That part is yours. Nothing here is scored. There is no right response to reveal, only a decision to make. Which claim would you run next?",
   },
   demo: {
     label: "02 / EXAMINE",
