@@ -48,18 +48,20 @@ Close with: `Where does this claim break if the hidden premise is false?`
 
 **Job:** Show the habit as something you do, not a description of virtue.
 
-v1 may fake the interaction as a static walkthrough if the product is not built:
+v1 demo: one tall card with a hairline border, no shadow.
 
-1. A claim appears (institutional, media, peer, or machine — rotate examples, none partisan-coded).
-2. The drill plays on scroll, one step at a time: Define the terms, Name the source, Surface the assumption, Ask what would falsify it, Decide.
-3. Each step shows one sample question and a one-sentence note labeled Gap, Premise, or Contradiction.
-4. The page stops before announcing the "right" answer.
+1. Top of the card: three equal bars switch among three fixed sample claims: Wine, Water, Divorce. Default is Wine. The reader does not type.
+2. Under the bars: the claim, large.
+3. Under the claim: a vertical thread that reveals one full-width row at a time on scroll. Rows alternate a question, then a short note labeled Gap, Premise, or Contradiction, following Define the terms, Name the source, Surface the assumption, Ask what would falsify it. The thread ends on a Decide line.
+4. The page stops before announcing the "right" answer. No side-by-side columns at any width. Reduced motion shows the whole thread static.
 
-v1 demo: three fixed sample claims, switched with three text buttons (default is the second). The reader does not type. Reduced motion shows every step static.
+The claims and threads are fixed text set by Ryan and live in `content/practice.ts`:
 
-1. “If it is trending, it is important.”
-2. “The first answer that sounds finished is good enough.”
-3. “A fluent explanation is the same thing as understanding.”
+1. Wine: “A glass of red wine a day is good for your heart.”
+2. Water: “You should drink eight glasses of water a day.”
+3. Divorce: “Half of all marriages end in divorce.”
+
+Never label a note as AI output.
 
 Do not score the user. Do not award badges.
 If a live quiz exists later, it still must end on a decision the user owns.
