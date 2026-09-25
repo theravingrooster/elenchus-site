@@ -171,13 +171,13 @@ html.lenis body {
 }
 
 /* /practice demo (#13). Claim switcher is plain text buttons: the active claim is
-   underlined and full ink, the others sit at 0.7 ink. No tabs, no cards, no shadow. */
+   underlined and full ink, the others sit at 0.8 ink (8.7:1, above the 7:1 body rule). No tabs, no cards, no shadow. */
 .demo-claim-btn {
   color: var(--color-ink);
   cursor: pointer;
 }
 .demo-claim-btn[aria-pressed="false"] > span:last-child {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .demo-claim-btn[aria-pressed="true"] > span:last-child,
 .demo-claim-btn:hover > span:last-child {

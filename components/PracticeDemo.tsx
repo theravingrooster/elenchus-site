@@ -94,7 +94,7 @@ export function PracticeDemo() {
                   {String(i + 1).padStart(2, "0")} / {stepName}
                 </p>
                 <p className="mt-6 font-serif text-2xl leading-snug md:text-3xl">{step.question}</p>
-                <p className="mt-6 grid grid-cols-[8.5rem_1fr] items-baseline gap-3 md:grid-cols-[10rem_1fr]">
+                <p className="mt-6 flex flex-col gap-2 md:grid md:grid-cols-[10rem_1fr] md:items-baseline md:gap-3">
                   <span className="mono-label">{step.note.kind}</span>
                   <span>{step.note.text}</span>
                 </p>
