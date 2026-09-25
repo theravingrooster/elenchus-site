@@ -130,43 +130,37 @@ html.lenis body {
 
 }
 
-/* Grid overlay at ~8% ink, visible in the hero, fading after first scroll. */
-.hero-grid {
+/* Grid overlay at ~8% ink on every page (#25). Fixed behind all content, always visible:
+   no scroll listener, no fade. */
+.site-grid {
   pointer-events: none;
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: -1;
   /* Hairline grid drawn as an SVG pattern (ink at 8% opacity), not a gradient. */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M64 .5H.5V64' fill='none' stroke='%23EDE6D6' stroke-opacity='.08'/%3E%3C/svg%3E");
   background-size: 64px 64px;
-  opacity: 1;
-  transition: opacity 600ms var(--ease-settle);
-}
-.hero-grid[data-faded="true"] {
-  opacity: 0;
 }
 
-/* Home Socrates mark (#21). public/socrates.png is Ryan's drawing with each pixel's
-   brightness kept as alpha and the colour set to ink, so the lines are exactly #EDE6D6
-   and the ground is transparent: no rectangle edge, nothing brighter than ink.
-   Capped at 30vw so it never reaches the text column at lg and up. */
+/* Home Socrates mark (#21, moved in #25). public/socrates.png is Ryan's drawing with each
+   pixel's brightness kept as alpha and the colour set to ink, so the lines are exactly
+   #EDE6D6 and the ground is transparent. It sits in its own column beside the type, top
+   aligned with the display line, so no type ever sits on the lines. Hidden on phones. */
 .socrates-mark {
   display: none;
   pointer-events: none;
-  position: absolute;
-  top: 2rem;
-  right: 0;
-  bottom: 0;
-  width: 30vw;
+  flex: none;
+  aspect-ratio: 454 / 1168;
 }
 @media (min-width: 768px) {
   .socrates-mark {
     display: block;
-    opacity: 0.22;
+    height: min(52svh, 26rem);
   }
 }
 @media (min-width: 1024px) {
   .socrates-mark {
-    opacity: 1;
+    height: min(66svh, 34rem);
   }
 }
 
@@ -327,7 +321,6 @@ html.lenis body {
   .reveal-part,
   .chat-row,
   .claim-bar,
-  .hero-grid,
   .btn,
   .btn::before {
     transition: none;

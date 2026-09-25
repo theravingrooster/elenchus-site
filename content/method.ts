@@ -7,7 +7,8 @@ export const method = {
   title: "Method",
   header: {
     label: "01 / METHOD",
-    heading: "Test the claim against its own premises.",
+    heading:
+      "Critical thinking is the habit of refusing to stop at the first answer.",
   },
   steps: {
     label: "02 / STEPS",

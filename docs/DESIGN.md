@@ -43,7 +43,7 @@ Rules:
 
 - Wide margins. Content column ~64–72ch for reading, full bleed only for the hero wordmark.
 - Hairline rules instead of cards-with-shadows.
-- Grid overlay at ~8% ink, visible in the hero, fading after first scroll.
+- Grid overlay at ~8% ink, the same grid on Home, Method, Examine, and Who. It stays mounted and visible while scrolling; never fade it to zero.
 - Section labels in mono, left or overline: `01 / METHOD`, `02 / DRILL`.
 
 ## Motion
@@ -77,7 +77,7 @@ Do not build a fake terminal that types marketing copy.
 
 Buttons are rectangular, hairline border, no pill shapes. The one exception to square corners is the Examine chat bubbles, which may be rounded rectangles with a hairline border and no fill color beyond paper and ink.
 No forms in v1. Nothing on the site collects input.
-Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
+Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12, and never covering the display line or the sentence under it. Scaled so it sits close to the type without empty space beneath. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
 
 ## Accessibility
 

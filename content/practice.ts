@@ -24,7 +24,8 @@ export const practice = {
   title: "Practice",
   intro: {
     label: "01 / PRACTICE",
-    heading: "Take one claim. Run the drill.",
+    heading:
+      "The questions we ask, not the things we memorize, are what matter.",
     body: "These are claims people already repeat. Watch the second question hit them. Do not look for a dunk. The page will not score you. It will not tell you that you are sharp. It will not hand you the answer. Follow the question that appears. Stop when you can decide.",
   },
   demo: {
