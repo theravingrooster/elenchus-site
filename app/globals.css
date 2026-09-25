@@ -170,30 +170,42 @@ html.lenis body {
   transform: translateY(0.4em);
 }
 
-/* /practice demo (#13). Claim switcher is plain text buttons: the active claim is
-   underlined and full ink, the others sit at 0.8 ink (8.7:1, above the 7:1 body rule). No tabs, no cards, no shadow. */
-.demo-claim-btn {
+/* /practice card (#15). Three equal bars: the selected bar inverts to paper on ink,
+   the others are full ink on paper (well above 7:1). No tabs styling, no shadow. */
+.claim-bar {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-ink);
+  background: var(--color-paper);
   cursor: pointer;
+  transition:
+    color 120ms var(--ease-settle),
+    background-color 120ms var(--ease-settle);
 }
-.demo-claim-btn[aria-pressed="false"] > span:last-child {
-  opacity: 0.8;
+.claim-bar[aria-pressed="true"] {
+  color: var(--color-paper);
+  background: var(--color-ink);
 }
-.demo-claim-btn[aria-pressed="true"] > span:last-child,
-.demo-claim-btn:hover > span:last-child {
-  opacity: 1;
+.claim-bar[aria-pressed="false"]:hover {
   text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.3em;
+}
+.claim-bar:focus-visible {
+  outline-offset: -5px;
+}
+.claim-bar[aria-pressed="true"]:focus-visible {
+  outline-color: var(--color-paper);
 }
 
-/* One step reveals as it scrolls into view. A short fade and lift, no bounce. */
-.demo-step {
+/* Each thread row reveals as it enters the viewport. A short fade and lift, no bounce. */
+.thread-row {
   transition:
     opacity 320ms var(--ease-settle),
     transform 320ms var(--ease-settle);
 }
-.demo-step[data-reveal-step="hidden"] {
+.thread-row[data-hidden="true"] {
   opacity: 0;
   transform: translateY(0.75rem);
 }
@@ -264,14 +276,15 @@ html.lenis body {
     animation: none;
   }
   .reveal-part,
-  .demo-step,
+  .thread-row,
+  .claim-bar,
   .hero-grid,
   .btn,
   .btn::before {
     transition: none;
   }
   [data-reveal="hidden"] .reveal-part,
-  .demo-step[data-reveal-step="hidden"] {
+  .thread-row[data-hidden="true"] {
     opacity: 1;
     transform: none;
   }
