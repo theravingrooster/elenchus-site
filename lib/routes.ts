@@ -10,5 +10,7 @@ export const routes = [
   { href: "/ask", label: chrome.nav.ask },
 ] as const;
 
-// Nav order: Method · Practice · For · Ask. The wordmark links home.
-export const navRoutes = routes.slice(1);
+// PAGES.md nav order: Method · Examine · Who (/method, /practice, /for).
+// /ask stays a page and stays in the ⌘K palette, but is not in the nav.
+// The wordmark links home.
+export const navRoutes = routes.filter((r) => r.href !== "/" && r.href !== "/ask");
