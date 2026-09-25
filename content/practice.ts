@@ -1,26 +1,42 @@
 // Owner: Elenchus Voice. Route: /practice
 // Section labels (`NN / WORD`) are structural stand-ins from Studio; Voice may rename the word.
-// Spec: /docs/PAGES.md "`/practice`". Scroll demo for v1 (#13).
+// Spec: /docs/PAGES.md "`/practice`". Card demo for v1 (#15).
 //
-// Studio set up this shape; Voice wrote the questions and notes.
-// The three claims and the five step names are Ryan's, word for word; do not rewrite them.
+// Studio set up this shape. Every string marked [VOICE] is a placeholder.
+// Voice pastes Ryan's three bars, claims, and threads word for word; no rewrites.
 
 export type NoteKind = "Gap" | "Premise" | "Contradiction";
 
-export type DemoStep = {
-  // One sample question for this step, applied to this claim.
+// One exchange in the thread: a question, then a short note on what it found.
+// The note is never labeled AI, never scored, never "correct".
+export type Exchange = {
   question: string;
-  // One sentence on what that question found, labeled Gap, Premise, or Contradiction.
-  // Never a score, never "correct".
   note: { kind: NoteKind; text: string };
 };
 
 export type DemoClaim = {
-  id: string;
+  // Short word on the switch bar.
+  bar: string;
+  // The claim, shown large under the bars.
   text: string;
-  // Exactly five, in the order of `practice.demo.steps`.
-  steps: [DemoStep, DemoStep, DemoStep, DemoStep, DemoStep];
+  // Four exchanges in order: define the terms, name the source,
+  // surface the assumption, ask what would falsify it.
+  thread: [Exchange, Exchange, Exchange, Exchange];
+  // The closing Decide line.
+  decide: string;
 };
+
+const placeholderClaim = (n: number): DemoClaim => ({
+  bar: `[VOICE] Bar ${n}`,
+  text: `[VOICE] Claim ${n}`,
+  thread: [
+    { question: "[VOICE] Q", note: { kind: "Gap", text: "[VOICE] Note" } },
+    { question: "[VOICE] Q", note: { kind: "Premise", text: "[VOICE] Note" } },
+    { question: "[VOICE] Q", note: { kind: "Premise", text: "[VOICE] Note" } },
+    { question: "[VOICE] Q", note: { kind: "Contradiction", text: "[VOICE] Note" } },
+  ],
+  decide: "[VOICE] Decide line",
+});
 
 export const practice = {
   title: "Practice",
@@ -31,163 +47,15 @@ export const practice = {
   },
   demo: {
     label: "02 / EXAMINE",
-    // Accessible name for the group of three claim buttons.
+    // Accessible name for the row of three bars.
     switcherLabel: "Choose a claim",
-    // Mono label above the claim being examined.
+    // Mono labels in the card.
     claimLabel: "Claim",
-    // The five steps, in order (Ryan's spec, verbatim).
-    steps: [
-      "Define the terms",
-      "Name the source",
-      "Surface the assumption",
-      "Ask what would falsify it",
-      "Decide",
-    ],
-    // Mono label above each sample question.
     questionLabel: "Question",
-    // Default claim is the second (index 1).
-    defaultClaim: 1,
-    claims: [
-      {
-        id: "C-01",
-        text: "If it is trending, it is important.",
-        steps: [
-          {
-            question:
-              "Trending where, by what count, over what window? And important to whom?",
-            note: {
-              kind: "Gap",
-              text: "The claim uses “important” without saying for whom or for what.",
-            },
-          },
-          {
-            question:
-              "Who decides what trends: the people reading, or the feed that ranks them?",
-            note: {
-              kind: "Premise",
-              text: "The ranking comes from a system built to hold attention, not to weigh consequences.",
-            },
-          },
-          {
-            question: "What must be true for attention to measure importance?",
-            note: {
-              kind: "Premise",
-              text: "It assumes that what many people look at is what matters to them.",
-            },
-          },
-          {
-            question:
-              "Can you name something that trended and changed nothing, or something important that never trended?",
-            note: {
-              kind: "Contradiction",
-              text: "One case of either breaks the “if, then” the claim depends on.",
-            },
-          },
-          {
-            question:
-              "What is left of the claim once trending is only a count of attention?",
-            note: {
-              kind: "Gap",
-              text: "A narrower claim about attention remains, and whether you hold it is yours to decide.",
-            },
-          },
-        ],
-      },
-      {
-        id: "C-02",
-        text: "The first answer that sounds finished is good enough.",
-        steps: [
-          {
-            question:
-              "Good enough for what: a bus time, a diagnosis, a decision you cannot undo?",
-            note: {
-              kind: "Gap",
-              text: "“Good enough” names no purpose, so there is nothing to check it against.",
-            },
-          },
-          {
-            question:
-              "Where did the first answer come from, and what made it sound finished?",
-            note: {
-              kind: "Premise",
-              text: "Sounding finished describes how an answer is delivered, not how it was checked.",
-            },
-          },
-          {
-            question:
-              "What must be true for the first finished answer to be the right one?",
-            note: {
-              kind: "Premise",
-              text: "It assumes an answer that sounds complete has already been tested.",
-            },
-          },
-          {
-            question:
-              "When did a first answer sound finished and turn out wrong?",
-            note: {
-              kind: "Contradiction",
-              text: "If you can recall one, the claim cannot hold as a rule.",
-            },
-          },
-          {
-            question:
-              "For this question, what would you need before you called an answer enough?",
-            note: {
-              kind: "Gap",
-              text: "The claim now depends on the stakes, and naming them is your decision.",
-            },
-          },
-        ],
-      },
-      {
-        id: "C-03",
-        text: "A fluent explanation is the same thing as understanding.",
-        steps: [
-          {
-            question:
-              "What does “understanding” mean here: repeating it, applying it, or predicting with it?",
-            note: {
-              kind: "Gap",
-              text: "The claim treats three different abilities as one word.",
-            },
-          },
-          {
-            question:
-              "Whose fluency: a teacher’s, a textbook’s, a machine’s, or your own?",
-            note: {
-              kind: "Premise",
-              text: "Fluency belongs to the speaker and shows nothing yet about what the listener can do.",
-            },
-          },
-          {
-            question:
-              "What must be true for smooth words to prove a grasp of the thing?",
-            note: {
-              kind: "Premise",
-              text: "It assumes no one can explain well what they do not understand.",
-            },
-          },
-          {
-            question:
-              "Can someone explain it fluently and still fail the first new case?",
-            note: {
-              kind: "Contradiction",
-              text: "If fluency survives a failed application, it is not the same thing as understanding.",
-            },
-          },
-          {
-            question:
-              "What test would you want to pass before you say you understand this?",
-            note: {
-              kind: "Gap",
-              text: "The claim leaves open what counts as proof, and choosing that test is yours.",
-            },
-          },
-        ],
-      },
-    ] satisfies DemoClaim[],
-    // Shown after the last step. The page stops before any answer.
-    stop: "The drill stops here. The decision is yours.",
+    decideLabel: "Decide",
+    // Default claim is the first (Wine).
+    defaultClaim: 0,
+    claims: [placeholderClaim(1), placeholderClaim(2), placeholderClaim(3)] satisfies DemoClaim[],
   },
   closing: {
     label: "03 / THE SECOND QUESTION",
