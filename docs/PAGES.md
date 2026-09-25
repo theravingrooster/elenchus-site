@@ -10,13 +10,18 @@ All pages share the same chrome: wordmark, section links, `⌘K`.
 
 **Job:** State the method in one screen, then make the reader look at a claim they already hold.
 
-Home is, in this order:
+First screen, in this order:
 
-1. Display line: `The first question is cheap.`
-2. Under it: 2–3 sentences from the canonical paragraph. Not a rewrite.
-3. Closing question: `What would have to be true for that to hold?`
+1. Display line (no second motto stacked on it): `Elenchus is bringing questioning back to the center of thinking.`
+2. Under it, these three sentences, verbatim:
+   - We start from a statement someone already believes — from institutions, media, peers, and machines — and ask what would have to be true for it to hold.
+   - Critical thinking is the habit of refusing to stop at the first answer.
+   - The questions we ask, not the things we memorize, are what matter.
+3. Close: `What would have to be true for that to hold?`
 
-No field, no form, no primary action. The closing question appears once, as the closer; no second copy of it elsewhere on home.
+Second block, below the first screen: Ryan's text beginning "A claim can sound finished and still rest on an assumption you never agreed to." Close: `Which claim did you let stand this week because it sounded complete?`
+
+No field, no form, no paste box, no primary action, no origin story, no founder biography.
 
 Do not put pricing, logos, or a feature grid here.
 
@@ -26,27 +31,21 @@ Do not put pricing, logos, or a feature grid here.
 
 **Job:** Teach the name without a history lecture.
 
-Blocks:
+Blocks, each ending on its own closing question:
 
-1. What elenchus is — short, disciplined questions that test a claim against its own premises.
-2. What we do not start from — no doctrine to defend.
-3. The five-step drill:
-   - Define the terms
-   - Name the source
-   - Surface the assumption
-   - Ask what would falsify it
-   - Decide
-4. Destination — judgment, not performance.
+1. The five steps: Define the terms. Name the source. Surface the assumption. Ask what would falsify it. Decide. Close: `What would falsify it?`
+2. Piercing vs noise: a question that performs doubt versus one that reaches the frame. Close: `Where does this claim break if the hidden premise is false?`
+3. Machines (optional, Method only): institutions produce claims, machines return them fluently, treat both as sources. Close: `What would have to be true for the sentence you just accepted from a model?`
 
-Optional mono aside: `claim → premises → contradiction | gap | hidden assumption`
-
-Close with: `Where does this claim break if the hidden premise is false?`
+Exact text is Ryan's (Sep 25). Sections whose closers are not his are cut, not given invented questions.
 
 ---
 
 ## `/practice`
 
 **Job:** Show the habit as something you do, not a description of virtue.
+
+Instruction line above the card is Ryan's text beginning "These are claims people already repeat." No paste box.
 
 v1 demo: one tall card with a hairline border, no shadow.
 
@@ -74,24 +73,20 @@ Close with: `What would falsify the claim you just let stand?`
 
 **Job:** Name who this is for without segment marketing.
 
-Three short columns, same weight:
+Two stacked full-width sections, no columns:
 
-- Students — who are rewarded for fluent first answers
-- Operators — who ship on claims they have not tested
-- Anyone who notices they stop at the first sentence that sounds finished
+1. Who it is for: the eighteen-year-old looking for an anchor, students rewarded for the first polished answer, operators who ship on an untested sentence, anyone who stops when the sentence sounds done. Ends "Elenchus is not for everyone. It is hard on purpose." Close: `Which of your current beliefs have never been through the second question?`
+2. What it will not do: no conspiracy circuits, no IQ promise, no looking clever, no team, no answering for you. "It teaches you to question. That is it." Close: `What statement are you least willing to put under examination?`
 
-No "personas," no stock photos, no "enterprise."
-If campuses or institutions come later, they get a single sentence and a contact, not a sales page.
-
-Close with: `Which of your current beliefs have never been through the second question?`
+Exact text is Ryan's (Sep 25). No stock photos, no "enterprise," no founder biography.
 
 ---
 
 ## `/ask`
 
-**Job:** Copy only: a heading, one short paragraph, and the closing question.
+**Job:** Copy only: a heading, the line "It teaches you to question. That is it.", and the closing question.
 
-No fields. No button that pretends to submit.
+No fields. No button that pretends to submit. Not in the nav.
 
 Close with: `What statement are you least willing to put under examination?`
 
@@ -107,6 +102,7 @@ Close with: `What statement are you least willing to put under examination?`
 - Social proof wall
 - Chat widget that answers questions
 - Waitlist, email capture, or any fillable form
+- `/about` or any founder biography
 
 ## Nav order
 

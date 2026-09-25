@@ -4,7 +4,7 @@ Write as if the reader already thinks. Do not warm them up. Do not congratulate 
 
 ## Source paragraph (canonical)
 
-Elenchus exists to bring questioning back to the center of thinking. The name is the method: Socratic elenchus — short, disciplined questions that test a claim against its own premises until a contradiction, a gap, or a hidden assumption appears. We do not start from a doctrine to defend. We start from a statement someone already believes, including statements produced by institutions, media, peers, and machines, and we ask what would have to be true for that statement to hold. The first question is cheap. The work begins with the second.
+Elenchus is bringing questioning back to the center of thinking. The name is the method: Socratic elenchus — short, disciplined questions that test a claim against its own premises until a contradiction, a gap, or a hidden assumption appears. We do not start from a doctrine to defend. We start from a statement someone already believes, including statements produced by institutions, media, peers, and machines, and we ask what would have to be true for that statement to hold. The first question is cheap. The work begins with the second.
 
 The mission is to restore critical thinking as a practice, not a slogan. Critical thinking is not a personality, a political camp, or a pile of correct opinions. It is the habit of refusing to stop at the first fluent answer. Elenchus trains that habit: define the terms, name the source, surface the assumption, ask what would falsify it, and only then decide. The aim is not to make people clever in argument or cynical about everything. It is to make them harder to fool — including by themselves — so they can act with clearer judgment.
 
@@ -41,6 +41,10 @@ Bad: `Shall we begin the journey?`
 - cynicism as personality: "trust no one," "everything is propaganda"
 - therapy-speak and guru-speak
 - exclamation points
+- book counts, Instagram, Stanford as a credential, premed
+- religion as a campaign, movement language
+- IQ claims (Ryan's exact /for line "We will not promise a higher IQ." stays)
+- Get started
 
 ## Claims about machines
 
@@ -69,6 +73,6 @@ Never: Get started, Learn more, Book a demo, Unlock access.
 
 ## Length
 
-Home hero: ≤ 40 words under the display line.
-Section body: 60–120 words.
+Home hero: the three sentences set in PAGES.md, verbatim. Otherwise ≤ 40 words under the display line.
+Section body: 60–120 words, unless PAGES.md or Ryan gives the exact text.
 If you need more, add another section rather than a longer paragraph.
