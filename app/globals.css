@@ -170,6 +170,34 @@ html.lenis body {
   transform: translateY(0.4em);
 }
 
+/* /practice demo (#13). Claim switcher is plain text buttons: the active claim is
+   underlined and full ink, the others sit at 0.8 ink (8.7:1, above the 7:1 body rule). No tabs, no cards, no shadow. */
+.demo-claim-btn {
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.demo-claim-btn[aria-pressed="false"] > span:last-child {
+  opacity: 0.8;
+}
+.demo-claim-btn[aria-pressed="true"] > span:last-child,
+.demo-claim-btn:hover > span:last-child {
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* One step reveals as it scrolls into view. A short fade and lift, no bounce. */
+.demo-step {
+  transition:
+    opacity 320ms var(--ease-settle),
+    transform 320ms var(--ease-settle);
+}
+.demo-step[data-reveal-step="hidden"] {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
 /* Command palette (cmdk). Hairlines, no shadow. */
 [cmdk-overlay] {
   position: fixed;
@@ -236,12 +264,14 @@ html.lenis body {
     animation: none;
   }
   .reveal-part,
+  .demo-step,
   .hero-grid,
   .btn,
   .btn::before {
     transition: none;
   }
-  [data-reveal="hidden"] .reveal-part {
+  [data-reveal="hidden"] .reveal-part,
+  .demo-step[data-reveal-step="hidden"] {
     opacity: 1;
     transform: none;
   }

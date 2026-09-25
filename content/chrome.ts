@@ -10,8 +10,8 @@ export const chrome = {
   nav: {
     home: "Home",
     method: "Method",
-    practice: "Practice",
-    for: "For",
+    practice: "Examine",
+    for: "Who",
     ask: "Ask",
   },
   menu: {

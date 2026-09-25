@@ -51,8 +51,15 @@ Close with: `Where does this claim break if the hidden premise is false?`
 v1 may fake the interaction as a static walkthrough if the product is not built:
 
 1. A claim appears (institutional, media, peer, or machine — rotate examples, none partisan-coded).
-2. The drill runs in four lines.
-3. The page stops before announcing the "right" answer.
+2. The drill plays on scroll, one step at a time: Define the terms, Name the source, Surface the assumption, Ask what would falsify it, Decide.
+3. Each step shows one sample question and a one-sentence note labeled Gap, Premise, or Contradiction.
+4. The page stops before announcing the "right" answer.
+
+v1 demo: three fixed sample claims, switched with three text buttons (default is the second). The reader does not type. Reduced motion shows every step static.
+
+1. “If it is trending, it is important.”
+2. “The first answer that sounds finished is good enough.”
+3. “A fluent explanation is the same thing as understanding.”
 
 Do not score the user. Do not award badges.
 If a live quiz exists later, it still must end on a decision the user owns.
@@ -101,6 +108,8 @@ Close with: `What statement are you least willing to put under examination?`
 
 ## Nav order
 
-`Method · Practice · For · Ask`
+`Method · Examine · Who`
+
+`/method` is Method, `/practice` is Examine, `/for` is Who. `/ask` stays a page but is not in the nav. The word Drill is never a nav label.
 
 Wordmark home. No hamburger animation beyond a simple drawer on small screens.
