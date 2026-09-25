@@ -73,6 +73,6 @@ Never: Get started, Learn more, Book a demo, Unlock access.
 
 ## Length
 
-Home hero: the three sentences set in PAGES.md, verbatim. Otherwise ≤ 40 words under the display line.
+Home hero: the one sentence set in PAGES.md, verbatim, with no closing question (Ryan's exception to the rule above).
 Section body: 60–120 words, unless PAGES.md or Ryan gives the exact text.
 If you need more, add another section rather than a longer paragraph.

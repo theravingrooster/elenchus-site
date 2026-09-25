@@ -13,11 +13,8 @@ All pages share the same chrome: wordmark, section links, `⌘K`.
 First screen, in this order:
 
 1. Display line (no second motto stacked on it): `Elenchus is bringing questioning back to the center of thinking.`
-2. Under it, these three sentences, verbatim:
-   - We start from a statement someone already believes — from institutions, media, peers, and machines — and ask what would have to be true for it to hold.
-   - Critical thinking is the habit of refusing to stop at the first answer.
-   - The questions we ask, not the things we memorize, are what matter.
-3. Close: `What would have to be true for that to hold?`
+2. Under it, one sentence only, verbatim: `Our inspiration came from Socrates’ habit of pressing a statement until hidden assumptions show.`
+3. Nothing else in the hero, not even a closing question (Ryan, Sep 25, 3:09 PM PT). The Socrates drawing sits close under and beside the type, never under it.
 
 Second block, below the first screen: Ryan's text beginning "A claim can sound finished and still rest on an assumption you never agreed to." Close: `Which claim did you let stand this week because it sounded complete?`
 
@@ -30,6 +27,8 @@ Do not put pricing, logos, or a feature grid here.
 ## `/method`
 
 **Job:** Teach the name without a history lecture.
+
+Title line: `Critical thinking is the habit of refusing to stop at the first answer.`
 
 Blocks, each ending on its own closing question:
 
@@ -44,6 +43,8 @@ Exact text is Ryan's (Sep 25). Sections whose closers are not his are cut, not g
 ## `/practice`
 
 **Job:** Show the habit as something you do, not a description of virtue.
+
+Title line: `The questions we ask, not the things we memorize, are what matter.`
 
 Instruction line above the card is Ryan's text beginning "These are claims people already repeat." No paste box.
 
