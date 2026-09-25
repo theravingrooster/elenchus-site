@@ -13,15 +13,25 @@ export const forPage = {
   sections: [
     {
       label: "02 / WHO",
-      lead: "[VOICE] who it is for, lead",
-      paragraphs: ["[VOICE] who it is for, body"],
-      question: "Which of your current beliefs have never been through the second question?",
+      lead: "For the eighteen-year-old who thought college would teach something that mattered and found a sequence of boxes instead.",
+      paragraphs: [
+        "They can feel the missing piece and cannot name it. Feeds hand them claims whose costs stay offstage. Parties arrive already finished. They do not want a side yet. They are looking for an anchor.",
+        "The anchor is not a feed, a party, or a fluent machine. You become it by pressing the next claim you already hold.",
+        "Also for students rewarded for the first polished answer. For operators who ship on a sentence no one tested. For anyone who notices they stop when the sentence sounds done.",
+        "Elenchus is not for everyone. It is hard on purpose.",
+      ],
+      question:
+        "Which of your current beliefs have never been through the second question?",
     },
     {
       label: "03 / NOT",
-      lead: "[VOICE] what it will not do, lead",
-      paragraphs: ["[VOICE] what it will not do, body"],
-      question: "What statement are you least willing to put under examination?",
+      lead: "We will not walk conspiracy circuits.",
+      paragraphs: [
+        "We will not promise a higher IQ. We will not make you look clever in a room. We will not pick a team for you. We will not answer the question so you can skip the work.",
+        "It teaches you to question. That is it.",
+      ],
+      question:
+        "What statement are you least willing to put under examination?",
     },
   ],
 };
