@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HeroGrid } from "@/components/HeroGrid";
 import { QuestionBlock } from "@/components/Section";
 import { home } from "@/content/home";
@@ -12,6 +13,18 @@ export default function Home() {
     <>
       <section className="relative min-h-svh overflow-hidden">
         <HeroGrid />
+        {/* DESIGN.md: one mark, Ryan's Socrates line drawing (#21). Decorative, no caption.
+            Hidden on phones; 0.22 under type on tablets; 1.0 in the empty right column on desktop. */}
+        <div aria-hidden="true" className="socrates-mark">
+          <Image
+            src="/socrates.png"
+            alt=""
+            width={454}
+            height={1168}
+            priority
+            className="h-full w-full object-contain object-right-bottom"
+          />
+        </div>
         <div className="relative mx-auto max-w-[88rem] px-6 pt-10 pb-16 md:px-12 md:pt-16 md:pb-24 lg:px-20">
           <h1 className="settle max-w-[16ch] font-serif text-[clamp(2.5rem,5.6vw,5.5rem)] leading-[0.95] tracking-[-0.025em]">
             {home.display}

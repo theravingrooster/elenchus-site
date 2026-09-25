@@ -77,7 +77,7 @@ Do not build a fake terminal that types marketing copy.
 
 Buttons are rectangular, hairline border, no pill shapes.
 No forms in v1. Nothing on the site collects input.
-Images: none required for v1. If used, they must be diagrams or photographs of text, not stock thinkers.
+Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
 
 ## Accessibility
 
