@@ -145,6 +145,31 @@ html.lenis body {
   opacity: 0;
 }
 
+/* Home Socrates mark (#21). public/socrates.png is Ryan's drawing with each pixel's
+   brightness kept as alpha and the colour set to ink, so the lines are exactly #EDE6D6
+   and the ground is transparent: no rectangle edge, nothing brighter than ink.
+   Capped at 30vw so it never reaches the text column at lg and up. */
+.socrates-mark {
+  display: none;
+  pointer-events: none;
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  bottom: 0;
+  width: 30vw;
+}
+@media (min-width: 768px) {
+  .socrates-mark {
+    display: block;
+    opacity: 0.22;
+  }
+}
+@media (min-width: 1024px) {
+  .socrates-mark {
+    opacity: 1;
+  }
+}
+
 /* Hero question settles after load: 80ms, no bounce. */
 @keyframes settle {
   from {
@@ -244,7 +269,7 @@ html.lenis body {
   outline: 2px solid var(--color-ink);
   outline-offset: -3px;
 }
-/* Placeholders at 0.7 ink keep contrast above 4.5:1 on paper. */
+/* Placeholders at 0.7 ink measure 7.9:1 on paper. */
 [cmdk-input]::placeholder {
   color: var(--color-ink);
   opacity: 0.7;
