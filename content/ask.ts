@@ -7,7 +7,7 @@ export const ask = {
   intro: {
     label: "01 / ASK",
     heading: "Start from a statement you already believe.",
-    body: "It teaches you to question. That is it.",
+    body: "Elenchus teaches you to question. That is it.",
   },
   closing: {
     label: "02 / THE SECOND QUESTION",
