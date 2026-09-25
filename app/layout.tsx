@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Newsreader } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -23,6 +23,9 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: { default: chrome.siteName, template: `%s · ${chrome.siteName}` },
 };
+
+// DESIGN.md: v1 is dark (#19). Browser chrome matches paper.
+export const viewport: Viewport = { themeColor: "#0E0D0B", colorScheme: "dark" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
