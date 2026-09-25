@@ -17,14 +17,14 @@ Two colors plus paper. No gradients.
 
 | Token | Value | Use |
 |---|---|---|
-| Paper | `#F4EFE4` | Page ground |
-| Ink | `#1A1714` | Type, rules, UI |
-| Rule | `rgba(26,23,20,0.12)` | Grid, hairlines |
-| Warn | `#1A1714` | Same as ink. Do not add a "brand accent" red/blue until v2 |
+| Paper | `#0E0D0B` | Page ground |
+| Ink | `#EDE6D6` | Type, rules, UI |
+| Rule | `rgba(237,230,214,0.12)` | Grid, hairlines |
+| Warn | `#EDE6D6` | Same as ink. Do not add a "brand accent" red/blue until v2 |
 
-Hover states lighten or invert ink/paper. Never introduce a third hue.
+Hover states invert ink and paper. Never introduce a third hue. No glow.
 
-If a dark theme is needed later: invert to `#0E0D0B` paper and `#EDE6D6` ink. Do not mix themes on one page.
+v1 is dark by default (Ryan, Sep 25). The light pair, paper `#F4EFE4` and ink `#1A1714`, is retired and is not a toggle. There is one theme, and themes are never mixed on one page.
 
 ## Type
 
