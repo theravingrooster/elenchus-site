@@ -28,3 +28,36 @@ export function SectionHeading({ children }: { children: ReactNode }) {
 export function SectionBody({ children }: { children: ReactNode }) {
   return <p className="mt-6">{children}</p>;
 }
+
+// A section's own closing question: hairline above, serif italic. Smaller than the page
+// Closing so several can sit on one page (PAGES.md: every section ends on its question).
+export function SectionQuestion({ children }: { children: ReactNode }) {
+  return (
+    <p className="mt-12 max-w-[26ch] border-t border-rule pt-8 font-serif text-2xl italic leading-[1.1] tracking-[-0.01em] md:mt-16 md:pt-10 md:text-4xl">
+      {children}
+    </p>
+  );
+}
+
+// A block of Ryan's exact text: lead sentence in serif, body paragraphs, then its question.
+export function QuestionBlock({
+  label,
+  lead,
+  paragraphs,
+  question,
+}: {
+  label: string;
+  lead: string;
+  paragraphs: string[];
+  question: string;
+}) {
+  return (
+    <Section label={label}>
+      <SectionHeading>{lead}</SectionHeading>
+      {paragraphs.map((p, i) => (
+        <SectionBody key={i}>{p}</SectionBody>
+      ))}
+      <SectionQuestion>{question}</SectionQuestion>
+    </Section>
+  );
+}
