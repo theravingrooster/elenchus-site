@@ -47,18 +47,21 @@ Exact text is Ryan's (Sep 25). Sections whose closers are not his are cut, not g
 
 Instruction line above the card is Ryan's text beginning "These are claims people already repeat." No paste box.
 
-v1 demo: one tall card with a hairline border, no shadow.
+v1 demo: one tall card with a hairline border, no shadow. It is a recording of someone learning to ask better questions, not the five-step lecture and not the site answering the claim.
 
-1. Top of the card: three equal bars switch among three fixed sample claims: Wine, Water, Divorce. Default is Wine. The reader does not type.
-2. Under the bars: the claim, large.
-3. Under the claim: a vertical thread that reveals one full-width row at a time on scroll. Rows alternate a question, then a short note labeled Gap, Premise, or Contradiction, following Define the terms, Name the source, Surface the assumption, Ask what would falsify it. The thread ends on a Decide line.
-4. The page stops before announcing the "right" answer. No side-by-side columns at any width. Reduced motion shows the whole thread static.
+1. Top of the card: three equal bars switch among three fixed claims: Wine, Water, Divorce. Default is Wine. The selected bar inverts, and unselected bars keep at least 7:1 contrast. The reader does not type.
+2. Under the bars: one vertical chat column, full width. The claim is a bubble on the left. Each question (what a person asks about the claim) is a bubble on the right. Each feedback (about that question: whether it reaches the frame or only performs doubt) is a bubble on the left. Four question and feedback pairs per claim, stacking as you scroll.
+3. No side-by-side columns at any width. No typewriter. Reduced motion shows the whole thread static.
 
-The claims and threads are fixed text set by Ryan and live in `content/practice.ts`:
+Feedback rules: nudge the next question, never supply the conclusion, never score, never say "good job" or "correct," never dump the answer to the claim. A first question may be weak on purpose so the feedback can show why it does not pierce.
+
+The claims and threads are Ryan's fixed text (Sep 25, 2:59 PM PT), live in `content/practice.ts`, and are not rewritten:
 
 1. Wine: “A glass of red wine a day is good for your heart.”
 2. Water: “You should drink eight glasses of water a day.”
 3. Divorce: “Half of all marriages end in divorce.”
+
+No text box, no "type your question," no accounts, no modules. Those are later.
 
 Never label a note as AI output.
 

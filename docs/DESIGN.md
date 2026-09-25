@@ -75,7 +75,7 @@ Do not build a fake terminal that types marketing copy.
 
 ## Components
 
-Buttons are rectangular, hairline border, no pill shapes.
+Buttons are rectangular, hairline border, no pill shapes. The one exception to square corners is the Examine chat bubbles, which may be rounded rectangles with a hairline border and no fill color beyond paper and ink.
 No forms in v1. Nothing on the site collects input.
 Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
 

@@ -197,7 +197,7 @@ html.lenis body {
   transform: translateY(0.4em);
 }
 
-/* /practice card (#15). Three equal bars: the selected bar inverts to paper on ink,
+/* /practice card (#15, #23). Three equal bars: the selected bar inverts to paper on ink,
    the others are full ink on paper (well above 7:1). No tabs styling, no shadow. */
 .claim-bar {
   font-family: var(--font-mono);
@@ -226,13 +226,34 @@ html.lenis body {
   outline-color: var(--color-paper);
 }
 
-/* Each thread row reveals as it enters the viewport. A short fade and lift, no bounce. */
-.thread-row {
+/* Examine chat (#23). DESIGN.md: bubbles are the one exception to square corners.
+   Rounded rectangles, 1px ink hairline, paper fill, no shadow. The corner nearest the
+   speaker's side is tighter, so left and right read as two voices without a third color. */
+.chat-bubble {
+  border: 1px solid var(--color-ink);
+  border-radius: 1rem;
+  background: var(--color-paper);
+  padding: 1rem 1.25rem;
+}
+@media (min-width: 768px) {
+  .chat-bubble {
+    padding: 1.25rem 1.5rem;
+  }
+}
+.chat-row[data-side="left"] .chat-bubble {
+  border-bottom-left-radius: 0.25rem;
+}
+.chat-row[data-side="right"] .chat-bubble {
+  border-bottom-right-radius: 0.25rem;
+}
+
+/* Each bubble reveals as it enters the viewport. A short fade and lift, no bounce. */
+.chat-row {
   transition:
     opacity 320ms var(--ease-settle),
     transform 320ms var(--ease-settle);
 }
-.thread-row[data-hidden="true"] {
+.chat-row[data-hidden="true"] {
   opacity: 0;
   transform: translateY(0.75rem);
 }
@@ -304,7 +325,7 @@ html.lenis body {
     animation: none;
   }
   .reveal-part,
-  .thread-row,
+  .chat-row,
   .claim-bar,
   .hero-grid,
   .btn,
@@ -312,7 +333,7 @@ html.lenis body {
     transition: none;
   }
   [data-reveal="hidden"] .reveal-part,
-  .thread-row[data-hidden="true"] {
+  .chat-row[data-hidden="true"] {
     opacity: 1;
     transform: none;
   }
