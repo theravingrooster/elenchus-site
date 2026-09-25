@@ -5,6 +5,9 @@
 export const home = {
   // PAGES.md: the display line. Do not stack a second motto on it.
   display: "Elenchus is bringing questioning back to the center of thinking.",
+  // PAGES.md: one sentence under the display line, verbatim (#25).
+  sentence: "[VOICE] Home hero sentence",
+  // Retired by #25: no longer rendered. Voice deletes these.
   // PAGES.md: three sentences, verbatim, one per entry. Each renders as its own paragraph.
   sentences: [
     "We start from a statement someone already believes — from institutions, media, peers, and machines — and ask what would have to be true for it to hold.",

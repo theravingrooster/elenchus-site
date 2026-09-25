@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Newsreader } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SiteGrid } from "@/components/SiteGrid";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { chrome } from "@/content/chrome";
@@ -30,7 +31,9 @@ export const viewport: Viewport = { themeColor: "#0E0D0B", colorScheme: "dark" }
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${newsreader.variable} ${plexMono.variable}`}>
-      <body className="flex min-h-screen flex-col bg-paper text-ink">
+      <body className="flex min-h-screen flex-col text-ink">
+        {/* Paper comes from <html>, so the fixed grid at z-index -1 shows through the body. */}
+        <SiteGrid />
         <SmoothScroll />
         <SiteHeader />
         <main className="flex-1">{children}</main>
