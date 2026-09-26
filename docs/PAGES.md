@@ -1,6 +1,6 @@
 # Elenchus — Pages (v1)
 
-Five routes. No more until a human adds one.
+Pages: `/` (Home, one long scroll holding Examine and Who), `/method`, and `/ask` (out of the nav). `/practice` and `/for` are permanent redirects to `/#examine` and `/#who`, never 404s. No more pages until a human adds one.
 
 All pages share the same chrome: wordmark, section links, `⌘K`.
 
@@ -22,6 +22,13 @@ No field, no form, no paste box, no primary action, no origin story, no founder 
 
 Do not put pricing, logos, or a feature grid here.
 
+Then, on the same page (Ryan, Sep 26):
+
+- The full Examine block, `id="examine"`: everything described under `/practice` below, unchanged.
+- The full Who block, `id="who"`: everything described under `/for` below, unchanged.
+
+Leave space between sections so they don't collide.
+
 ---
 
 ## `/method`
@@ -40,7 +47,7 @@ Exact text is Ryan's (Sep 25). Sections whose closers are not his are cut, not g
 
 ---
 
-## `/practice`
+## Examine (on Home at `/#examine`; `/practice` redirects there)
 
 **Job:** Show the habit as something you do, not a description of virtue.
 
@@ -73,7 +80,7 @@ Close with: `What would falsify the claim you just let stand?`
 
 ---
 
-## `/for`
+## Who (on Home at `/#who`; `/for` redirects there)
 
 **Job:** Name who this is for without segment marketing.
 
@@ -112,6 +119,6 @@ Close with: `What statement are you least willing to put under examination?`
 
 `Method · Examine · Who`
 
-`/method` is Method, `/practice` is Examine, `/for` is Who. `/ask` stays a page but is not in the nav. The word Drill is never a nav label.
+METHOD goes to `/method`, EXAMINE goes to `/#examine`, and WHO goes to `/#who`, scrolling Home rather than opening a new page. ⌘K jumps to the same targets. `/ask` stays a page but is not in the nav. The word Drill is never a nav label.
 
-Wordmark home. No hamburger animation beyond a simple drawer on small screens.
+The ELENCHUS wordmark goes to the top of `/`. No hamburger animation beyond a simple drawer on small screens.
