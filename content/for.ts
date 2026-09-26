@@ -6,13 +6,13 @@
 export const forPage = {
   title: "For",
   intro: {
-    label: "01 / FOR",
+    label: "06 / FOR",
     heading: "Who stops at the first fluent answer?",
   },
   // `lead` is set large in serif; `paragraphs` is one entry per paragraph.
   sections: [
     {
-      label: "02 / WHO",
+      label: "07 / WHO",
       lead: "For the eighteen-year-old who thought college would teach something that mattered and found a sequence of boxes instead.",
       paragraphs: [
         "They can feel the missing piece and cannot name it. Feeds hand them claims whose costs stay offstage. Parties arrive already finished. They do not want a side yet. They are looking for an anchor.",
@@ -24,7 +24,7 @@ export const forPage = {
         "Which of your current beliefs have never been through the second question?",
     },
     {
-      label: "03 / NOT",
+      label: "08 / NOT",
       lead: "We will not walk conspiracy circuits.",
       paragraphs: [
         "We will not promise a higher IQ. We will not make you look clever in a room. We will not pick a team for you. We will not answer the question so you can skip the work.",
