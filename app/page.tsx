@@ -1,11 +1,14 @@
 import Image from "next/image";
+import { ExamineBlock } from "@/components/ExamineBlock";
 import { QuestionBlock } from "@/components/Section";
+import { WhoBlock } from "@/components/WhoBlock";
 import { home } from "@/content/home";
 
 // PAGES.md home. First screen: the display line and one sentence under it, nothing else
 // (#25). The grid is site-wide and fixed (components/SiteGrid.tsx), so it stays visible
 // here on scroll and on the way back up.
 // The second block sits below the first screen and ends on its own question (#17).
+// Then the full Examine block (#examine) and the full Who block (#who), one long scroll (#27).
 export default function Home() {
   return (
     <>
@@ -33,6 +36,10 @@ export default function Home() {
       </section>
 
       <QuestionBlock {...home.second} />
+
+      <ExamineBlock />
+
+      <WhoBlock />
     </>
   );
 }
