@@ -21,8 +21,11 @@ export function Section({ label, id, wide, children }: Props) {
   );
 }
 
-export function SectionHeading({ children }: { children: ReactNode }) {
-  return <h2 className="font-serif text-3xl leading-[1.1] tracking-[-0.01em] md:text-5xl">{children}</h2>;
+// `level` changes only the outline, never the look: blocks nested under a section title
+// (Who on Home) use h3 so a screen reader hears them as parts of it (#29).
+export function SectionHeading({ children, level = 2 }: { children: ReactNode; level?: 2 | 3 }) {
+  const Heading = level === 2 ? "h2" : "h3";
+  return <Heading className="font-serif text-3xl leading-[1.1] tracking-[-0.01em] md:text-5xl">{children}</Heading>;
 }
 
 export function SectionBody({ children }: { children: ReactNode }) {
@@ -45,15 +48,17 @@ export function QuestionBlock({
   lead,
   paragraphs,
   question,
+  level = 2,
 }: {
   label: string;
   lead: string;
   paragraphs: string[];
   question: string;
+  level?: 2 | 3;
 }) {
   return (
     <Section label={label}>
-      <SectionHeading>{lead}</SectionHeading>
+      <SectionHeading level={level}>{lead}</SectionHeading>
       {paragraphs.map((p, i) => (
         <SectionBody key={i}>{p}</SectionBody>
       ))}
