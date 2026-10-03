@@ -15,7 +15,7 @@ Keep the Socrates drawing beside the text on wider screens. Do not add a second 
 
 Follow with two compact sections:
 
-- Examine (`id="examine"`): a short heading and instruction beside a browsable example panel. Wine, Water, and Divorce select three fixed claims. Show one question and one short explanatory note at a time. Previous/Next move through four steps; disable controls at the bounds. Selecting a claim resets to the first question. The examples teach how to examine a claim; they do not provide medical advice, statistical conclusions, or scores.
+- Examine (`id="examine"`): a short heading and instruction beside an example conversation. Wine, Water, and Divorce select three fixed claims. The initial claim and first exchange appear as alternating chat bubbles. The send-style composer shows the next prepared question; activating it appends the question and reply while retaining earlier messages. Previous removes the latest exchange; disable controls at the bounds. Selecting a claim resets to the first exchange. Keep the chat height bounded, its history scrollable by mouse and keyboard, and its latest exchange in view. The examples teach how to examine a claim; they do not provide medical advice, statistical conclusions, or scores.
 - Who (`id="who"`): one short audience note and one concrete question. Avoid audience stereotypes and lists of negative promises.
 
 Remove the separate Claim section and repeated full-size headings and closing blocks. There is no input field, form, pricing, biography, or capture flow.

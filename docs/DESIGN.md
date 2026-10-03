@@ -76,7 +76,7 @@ Do not build a fake terminal that types marketing copy.
 
 ## Components
 
-Buttons and the example panel are rectangular, with hairline rules. No pill shapes or chat bubbles. The example panel presents one question and a short note at a time, with Previous/Next controls and a visible step count. It is a browsable example, never a simulated live chat.
+Site buttons stay rectangular. The Oct 2, 2026 follow-up makes the demo an example conversation: a rounded panel with short message bubbles, reader questions on the right in ink-on-paper inversion, and Elenchus replies on the left. Small example selectors replace the three full-width table cells. Keep the history in a bounded, keyboard-scrollable area; adding a question appends its reply and scrolls only the chat. The composer is a button for the next prepared question, with a send arrow. Previous removes the latest exchange; choosing a claim resets the conversation. Keep the Example label clear. Do not add a fake input field, fabricated online status, or live generation.
 No forms in v1. Nothing on the site collects input.
 Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12, and never covering the display line or the sentence under it. Scaled so it sits close to the type without empty space beneath. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
 

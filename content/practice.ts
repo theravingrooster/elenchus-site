@@ -25,14 +25,17 @@ export const practice = {
     methodLink: "Read the method",
   },
   demo: {
-    // Accessible name for the row of three bars.
+    name: "Elenchus",
+    avatar: "E",
+    exampleLabel: "Example",
+    conversationLabel: "Example conversation",
+    readerLabel: "You",
+    endLabel: "End of example",
+    // Accessible name for the example selectors.
     switcherLabel: "Choose a claim",
-    // Small labels within the example.
+    // The first message identifies the claim being examined.
     claimLabel: "Claim",
-    questionLabel: "Question",
-    feedbackLabel: "Why this question",
     previousLabel: "Previous",
-    nextLabel: "Next",
     previousAction: "Previous question",
     nextAction: "Next question",
     // Default claim is the first (Wine).

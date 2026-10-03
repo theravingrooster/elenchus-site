@@ -11,7 +11,7 @@ GitHub Actions runs lint, tests, and the production build on pushes and pull req
 Vercel's existing Git integration publishes `main`; no deployment secrets are needed in CI.
 
 The tests exercise navigation state, history events, the mobile drawer, the command
-palette, claim switching, and Previous/Next question navigation including bounds and reset. They use the real React components and mock the Next.js
+palette, claim switching, and cumulative chat navigation including append, truncation, bounds, and reset. They use the real React components and mock the Next.js
 router. Check the built site in a browser for actual scrolling, keyboard focus, and
 layout before publishing interface changes.
 
