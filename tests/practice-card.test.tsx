@@ -4,12 +4,12 @@ import { expect, it } from "vitest";
 import { PracticeCard } from "@/components/PracticeCard";
 import { practice } from "@/content/practice";
 
-function expectTranscript(claim: typeof practice.demo.claims[number], index: number) {
+function expectTranscript(claim: typeof practice.demo.claims[number], sentTurns: number) {
   const messages = within(screen.getByRole("log", { name: "Example conversation" }));
-  expect(messages.getAllByRole("listitem")).toHaveLength(1 + 2 * (index + 1));
+  expect(messages.getAllByRole("listitem")).toHaveLength(1 + 2 * sentTurns);
   expect(messages.getByText(claim.claim)).toBeVisible();
   for (const [turnIndex, turn] of claim.thread.entries()) {
-    if (turnIndex <= index) {
+    if (turnIndex < sentTurns) {
       expect(messages.getByText(turn.question)).toBeVisible();
       expect(messages.getByText(turn.feedback)).toBeVisible();
     } else {
@@ -17,7 +17,7 @@ function expectTranscript(claim: typeof practice.demo.claims[number], index: num
       expect(messages.queryByText(turn.feedback)).not.toBeInTheDocument();
     }
   }
-  expect(screen.getByText(`${String(index + 1).padStart(2, "0")} / ${String(claim.thread.length).padStart(2, "0")}`)).toBeVisible();
+  expect(screen.getByText(`${String(sentTurns).padStart(2, "0")} / ${String(claim.thread.length).padStart(2, "0")}`)).toBeVisible();
 }
 
 it.each(practice.demo.claims)("appends and removes recorded $bar replies within the conversation", async (claim) => {
@@ -34,23 +34,29 @@ it.each(practice.demo.claims)("appends and removes recorded $bar replies within 
   const next = screen.getByRole("button", { name: /^Next question:/ });
   expect(previous).toBeDisabled();
   expect(next).toBeEnabled();
-  expect(next).toHaveAccessibleName(`Next question: ${claim.thread[1].question}`);
+  expect(next).toHaveAccessibleName(`Next question: ${claim.thread[0].question}`);
   expectTranscript(claim, 0);
   await user.click(previous);
   expectTranscript(claim, 0);
 
-  for (let index = 1; index < claim.thread.length; index++) {
+  for (let sentTurns = 1; sentTurns <= claim.thread.length; sentTurns++) {
     await user.click(next);
-    expectTranscript(claim, index);
+    expectTranscript(claim, sentTurns);
     expect(previous).toBeEnabled();
   }
   expect(next).toBeDisabled();
   expect(next).toHaveAccessibleName("Next question: End of example");
   await user.click(next);
-  expectTranscript(claim, claim.thread.length - 1);
+  expectTranscript(claim, claim.thread.length);
+  for (let sentTurns = claim.thread.length - 1; sentTurns >= 0; sentTurns--) {
+    await user.click(previous);
+    expectTranscript(claim, sentTurns);
+    expect(next).toBeEnabled();
+  }
+  expect(previous).toBeDisabled();
+  expect(next).toHaveAccessibleName(`Next question: ${claim.thread[0].question}`);
   await user.click(previous);
-  expectTranscript(claim, claim.thread.length - 2);
-  expect(next).toBeEnabled();
+  expectTranscript(claim, 0);
 });
 
 it("starts with the default example and replaces the transcript when a claim is selected", async () => {
@@ -60,12 +66,14 @@ it("starts with the default example and replaces the transcript when a claim is 
   render(<PracticeCard />);
   expect(screen.getByRole("button", { name: initialClaim.bar })).toHaveAttribute("aria-pressed", "true");
   expectTranscript(initialClaim, 0);
+  expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveAccessibleName(`Next question: ${initialClaim.thread[0].question}`);
   await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   expectTranscript(initialClaim, 2);
 
   await user.click(screen.getByRole("button", { name: alternativeClaim.bar }));
   expectTranscript(alternativeClaim, 0);
+  expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveAccessibleName(`Next question: ${alternativeClaim.thread[0].question}`);
   const messages = within(screen.getByRole("log", { name: "Example conversation" }));
   expect(messages.queryByText(initialClaim.claim)).not.toBeInTheDocument();
   for (const turn of initialClaim.thread) {
@@ -75,6 +83,7 @@ it("starts with the default example and replaces the transcript when a claim is 
   expect(screen.getByRole("button", { name: "Previous question" })).toBeDisabled();
   await user.click(screen.getByRole("button", { name: initialClaim.bar }));
   expectTranscript(initialClaim, 0);
+  expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveAccessibleName(`Next question: ${initialClaim.thread[0].question}`);
   await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   await user.click(screen.getByRole("button", { name: initialClaim.bar }));
   expectTranscript(initialClaim, 0);
