@@ -69,6 +69,7 @@ Use sparingly, as proof the site is an instrument:
 
 - Top status: `ELENCHUS · PRACTICE`
 - Command palette placeholder: `Jump to a section`. The palette only navigates; it saves nothing.
+- On phones, the palette has a visible `Jump` button beside `Menu`; wider screens keep the `⌘K` hint.
 - Footer path: `elenchus / constitution / v1`
 
 Do not build a fake terminal that types marketing copy.
@@ -84,6 +85,8 @@ Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets
 - Ink on paper contrast ≥ 7:1 for body.
 - Focus rings visible (ink outline, 2px).
 - Keyboard: `⌘K`, `Esc`, tab order through nav.
+- `Skip to content` is the first keyboard stop, appears on focus, and targets the main content.
+- Navigation marks the selected Home fragment with `aria-current="location"`; full pages use `aria-current="page"`.
 - Reduced-motion: skip Lenis and hero settle.
 
 ## Test

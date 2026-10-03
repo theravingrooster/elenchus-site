@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { QuestionBlock, Section, SectionHeading, SectionQuestion } from "@/components/Section";
 import { method } from "@/content/method";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = { title: method.title };
+export const metadata: Metadata = getPageMetadata("/method");
 
 // PAGES.md /method: the five steps, piercing vs noise, and the optional machines block.
 // Each block ends on its own closing question (#17).
