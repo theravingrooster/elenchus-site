@@ -4,24 +4,10 @@ export const why = {
   title: "Why we question",
   header: {
     label: "01 / WHY WE QUESTION",
-    heading: "Why we stop asking.",
+    heading: "Why we stopped questioning.",
   },
-  contexts: [
-    {
-      heading: "At school",
-      body: "The right answer can matter more than understanding why.",
-    },
-    {
-      heading: "At work",
-      body: "A question for your boss can be heard as a challenge to their authority.",
-    },
-    {
-      heading: "At home",
-      body: "Questioning a family belief can feel like questioning the people you love.",
-    },
+  paragraphs: [
+    "At school, the right answer can matter more than understanding why. At work, a question for your boss can sound like a challenge to their authority. At home, questioning a family belief can feel like questioning the people you love.",
+    "When asking carries a cost, staying quiet can become a habit. We start accepting answers before examining them. Elenchus makes room to ask again.",
   ],
-  closing: {
-    reflection: "When asking carries a cost, staying quiet can become a habit.",
-    invitation: "Elenchus makes room to ask again.",
-  },
 };
