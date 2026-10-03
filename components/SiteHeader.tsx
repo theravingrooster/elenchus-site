@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { chrome } from "@/content/chrome";
 import { navRoutes } from "@/lib/routes";
 import { CommandPalette } from "./CommandPalette";
@@ -11,6 +11,28 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const syncHash = () => setHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    window.addEventListener("popstate", syncHash);
+    return () => {
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("popstate", syncHash);
+    };
+  }, [pathname]);
+
+  // Next's client navigation uses pushState, which does not emit hashchange.
+  // Update the chosen section for links and the palette; history events sync Back/Forward.
+  const onNavigate = useCallback((href: string) => {
+    setHash(href.startsWith("/#") ? href.slice(1) : "");
+    setDrawerOpen(false);
+  }, []);
+  const currentHref = pathname === "/" ? `/${hash}` : pathname;
+  const currentFor = (href: string) =>
+    currentHref === href ? (href.includes("#") ? "location" : "page") : undefined;
 
   return (
     <header className="border-b border-rule">
@@ -21,8 +43,8 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[88rem] items-center justify-between gap-6 px-6 py-5 md:px-12 lg:px-20">
-        <Link href="/" className="font-serif text-xl tracking-[0.18em]" aria-current={pathname === "/" ? "page" : undefined}>
+      <div className="mx-auto flex max-w-[88rem] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6 md:px-12 lg:px-20">
+        <Link href="/" onNavigate={() => onNavigate("/")} className="shrink-0 font-serif text-xl tracking-[0.18em]" aria-current={currentFor("/")}>
           {chrome.wordmark}
         </Link>
 
@@ -36,8 +58,9 @@ export function SiteHeader() {
               )}
               <Link
                 href={route.href}
-                aria-current={pathname === route.href ? "page" : undefined}
-                className="mono-label underline-offset-[6px] hover:underline aria-[current=page]:underline"
+                onNavigate={() => onNavigate(route.href)}
+                aria-current={currentFor(route.href)}
+                className="mono-label underline-offset-[6px] hover:underline aria-[current=page]:underline aria-[current=location]:underline"
               >
                 {route.label}
               </Link>
@@ -45,18 +68,22 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <button
             type="button"
-            className="btn hidden sm:inline-flex"
-            onClick={() => setPaletteOpen(true)}
+            className="btn max-sm:px-3"
+            onClick={() => {
+              setDrawerOpen(false);
+              setPaletteOpen(true);
+            }}
             aria-label={chrome.palette.placeholder}
           >
-            {chrome.palette.hint}
+            <span className="sm:hidden">{chrome.palette.trigger}</span>
+            <span className="hidden sm:inline">{chrome.palette.hint}</span>
           </button>
           <button
             type="button"
-            className="btn md:hidden"
+            className="btn max-sm:px-3 md:hidden"
             aria-expanded={drawerOpen}
             aria-controls="site-drawer"
             onClick={() => setDrawerOpen((v) => !v)}
@@ -75,8 +102,9 @@ export function SiteHeader() {
                 <Link
                   href={route.href}
                   onClick={() => setDrawerOpen(false)}
-                  aria-current={pathname === route.href ? "page" : undefined}
-                  className="mono-label block py-4 aria-[current=page]:underline"
+                  onNavigate={() => onNavigate(route.href)}
+                  aria-current={currentFor(route.href)}
+                  className="mono-label block py-4 aria-[current=page]:underline aria-[current=location]:underline"
                 >
                   {route.label}
                 </Link>
@@ -86,7 +114,7 @@ export function SiteHeader() {
         </nav>
       )}
 
-      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} onNavigate={onNavigate} />
     </header>
   );
 }

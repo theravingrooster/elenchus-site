@@ -9,10 +9,11 @@ import { routes } from "@/lib/routes";
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onNavigate: (href: string) => void;
 };
 
 // DESIGN.md: ⌘K only jumps to Home, Method, Examine, Who, and Ask and saves nothing. Esc closes.
-export function CommandPalette({ open, onOpenChange }: Props) {
+export function CommandPalette({ open, onOpenChange, onNavigate }: Props) {
   const router = useRouter();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export function CommandPalette({ open, onOpenChange }: Props) {
             value={`${route.label} ${route.href}`}
             onSelect={() => {
               onOpenChange(false);
+              onNavigate(route.href);
               router.push(route.href);
             }}
           >

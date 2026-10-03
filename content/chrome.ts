@@ -6,6 +6,7 @@ export const chrome = {
   siteName: "Elenchus",
   wordmark: "ELENCHUS",
   status: "ELENCHUS · PRACTICE",
+  skipToContent: "Skip to content",
   footerPath: "elenchus / constitution / v1",
   nav: {
     home: "Home",
@@ -23,5 +24,6 @@ export const chrome = {
     empty: "No section by that name.",
     label: "Jump to a section",
     hint: "⌘K",
+    trigger: "Jump",
   },
 };
