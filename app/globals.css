@@ -297,21 +297,28 @@ html.lenis body {
   position: relative;
   width: min(88%, 32rem);
 }
-.chat-message[data-phase="waiting"] .chat-reveal-copy {
+.chat-reveal-copy { position: relative; }
+.chat-reveal-layout { visibility: hidden; }
+.chat-reveal-line {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
   visibility: hidden;
-}
-.chat-message[data-phase="revealing"] .chat-reveal-copy {
-  /* A two-rem feather rolls down the already laid-out text, without moving it. */
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
+  pointer-events: none;
+  /* Each native line uncovers through a soft edge moving from left to right. */
+  mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
   mask-repeat: no-repeat;
-  mask-position: 0 -2rem;
-  animation-name: chat-uncover;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: both;
+  mask-position: -2rem 0;
 }
-@keyframes chat-uncover {
-  from { mask-size: 100% 2rem; }
-  to { mask-size: 100% calc(100% + 4rem); }
+.chat-reveal-line p { position: absolute; left: 0; }
+.chat-reveal-copy[data-revealing="true"] .chat-reveal-line {
+  animation-name: chat-uncover-line;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes chat-uncover-line {
+  from { visibility: visible; mask-size: 2rem 100%; }
+  to { visibility: visible; mask-size: calc(100% + 4rem) 100%; }
 }
 .chat-typing-dots {
   position: absolute;
@@ -336,7 +343,8 @@ html.lenis body {
 }
 @media (prefers-reduced-motion: reduce) {
   .chat-typing-dots span { animation: none; }
-  .chat-message[data-phase="revealing"] .chat-reveal-copy {
+  .chat-reveal-copy[data-revealing="true"] .chat-reveal-line {
+    visibility: visible;
     animation: none;
     mask-image: none;
   }

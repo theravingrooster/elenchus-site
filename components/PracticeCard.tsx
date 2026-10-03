@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { practice } from "@/content/practice";
+import { ReplyReveal } from "@/components/ReplyReveal";
 
 export function PracticeCard() {
   const { demo } = practice;
@@ -141,9 +142,11 @@ export function PracticeCard() {
               <span aria-hidden="true" className="chat-avatar">{demo.avatar}</span>
               <div className="chat-bubble chat-reply">
                 {/* Lay out the whole reply once so uncovering it never shifts the history. */}
-                <p className="chat-reveal-copy" style={{ animationDuration: demo.responseRevealMs + "ms" }}>
-                  {current.thread[sentTurns - 1].feedback}
-                </p>
+                <ReplyReveal
+                  text={current.thread[sentTurns - 1].feedback}
+                  revealing={isReplyRevealing}
+                  durationMs={demo.responseRevealMs}
+                />
                 {!isReplyRevealing && <span className="chat-typing-dots"><span /><span /><span /></span>}
               </div>
             </li>
