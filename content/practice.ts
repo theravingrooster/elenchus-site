@@ -42,7 +42,10 @@ export const practice = {
     previousAction: "Previous question",
     nextAction: "Next question",
     typingLabel: "Preparing a reply…",
+    streamingLabel: "Replying…",
     responseDelayMs: 800,
+    responseChunkSize: 2,
+    responseChunkDelayMs: 100,
     // Default claim is the first (Medicine).
     defaultClaim: 0,
     claims: [
