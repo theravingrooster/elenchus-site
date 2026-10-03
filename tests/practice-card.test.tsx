@@ -17,7 +17,7 @@ function expectTranscript(claim: typeof practice.demo.claims[number], index: num
       expect(messages.queryByText(turn.feedback)).not.toBeInTheDocument();
     }
   }
-  expect(screen.getByText(`${String(index + 1).padStart(2, "0")} / 04`)).toBeVisible();
+  expect(screen.getByText(`${String(index + 1).padStart(2, "0")} / ${String(claim.thread.length).padStart(2, "0")}`)).toBeVisible();
 }
 
 it.each(practice.demo.claims)("appends and removes recorded $bar replies within the conversation", async (claim) => {
@@ -53,28 +53,48 @@ it.each(practice.demo.claims)("appends and removes recorded $bar replies within 
   expect(next).toBeEnabled();
 });
 
-it("starts with Wine and replaces the transcript when a claim is selected", async () => {
+it("starts with the default example and replaces the transcript when a claim is selected", async () => {
   const user = userEvent.setup();
-  const [wine, water] = practice.demo.claims;
+  const initialClaim = practice.demo.claims[practice.demo.defaultClaim];
+  const alternativeClaim = practice.demo.claims.find((claim) => claim !== initialClaim)!;
   render(<PracticeCard />);
-  expect(screen.getByRole("button", { name: "Wine" })).toHaveAttribute("aria-pressed", "true");
-  expectTranscript(wine, 0);
+  expect(screen.getByRole("button", { name: initialClaim.bar })).toHaveAttribute("aria-pressed", "true");
+  expectTranscript(initialClaim, 0);
   await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   await user.click(screen.getByRole("button", { name: /^Next question:/ }));
-  expectTranscript(wine, 2);
+  expectTranscript(initialClaim, 2);
 
-  await user.click(screen.getByRole("button", { name: water.bar }));
-  expectTranscript(water, 0);
+  await user.click(screen.getByRole("button", { name: alternativeClaim.bar }));
+  expectTranscript(alternativeClaim, 0);
   const messages = within(screen.getByRole("log", { name: "Example conversation" }));
-  expect(messages.queryByText(wine.claim)).not.toBeInTheDocument();
-  for (const turn of wine.thread) {
+  expect(messages.queryByText(initialClaim.claim)).not.toBeInTheDocument();
+  for (const turn of initialClaim.thread) {
     expect(messages.queryByText(turn.question)).not.toBeInTheDocument();
     expect(messages.queryByText(turn.feedback)).not.toBeInTheDocument();
   }
   expect(screen.getByRole("button", { name: "Previous question" })).toBeDisabled();
-  await user.click(screen.getByRole("button", { name: wine.bar }));
-  expectTranscript(wine, 0);
+  await user.click(screen.getByRole("button", { name: initialClaim.bar }));
+  expectTranscript(initialClaim, 0);
   await user.click(screen.getByRole("button", { name: /^Next question:/ }));
-  await user.click(screen.getByRole("button", { name: wine.bar }));
-  expectTranscript(wine, 0);
+  await user.click(screen.getByRole("button", { name: initialClaim.bar }));
+  expectTranscript(initialClaim, 0);
+});
+
+it("shows each example's sources and clears sources from the previous example", async () => {
+  const user = userEvent.setup();
+  render(<PracticeCard />);
+  for (const claim of practice.demo.claims) {
+    await user.click(screen.getByRole("button", { name: claim.bar }));
+    const messages = within(screen.getByRole("log", { name: "Example conversation" }));
+    const sourceLinks = messages.getAllByRole("link");
+    expect(sourceLinks).toHaveLength(claim.sources.length);
+    for (const source of claim.sources) {
+      expect(messages.getByRole("link", { name: (name) => name.startsWith(source.label) })).toHaveAttribute("href", source.href);
+    }
+    for (const other of practice.demo.claims.filter((item) => item !== claim)) {
+      for (const source of other.sources.filter((item) => !claim.sources.some((current) => current.href === item.href))) {
+        expect(sourceLinks.some((link) => link.getAttribute("href") === source.href)).toBe(false);
+      }
+    }
+  }
 });

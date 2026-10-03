@@ -20,10 +20,10 @@ export function PracticeCard() {
     ]),
   ];
 
-  // Keep the newest exchange in view without moving the page or keyboard focus.
+  // Start each example at its headline; keep appended exchanges in view.
   useEffect(() => {
     const log = logRef.current;
-    if (log) log.scrollTop = log.scrollHeight;
+    if (log) log.scrollTop = step === 0 ? 0 : log.scrollHeight;
   }, [active, step]);
 
   function selectClaim(index: number) {
@@ -77,6 +77,17 @@ export function PracticeCard() {
               <div className="chat-bubble">
                 {message.claim && <span className="mono-label mb-2 block">{demo.claimLabel}</span>}
                 <p>{message.text}</p>
+                {message.claim && (
+                  <div className="chat-sources" aria-label={demo.sourcesLabel}>
+                    <span className="mono-label">{demo.sourcesLabel}</span>
+                    {current.sources.map((source) => (
+                      <a key={source.href} href={source.href} target="_blank" rel="noreferrer">
+                        {source.label}<span className="sr-only"> (opens in a new tab)</span>
+                        <span aria-hidden="true"> ↗</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             </li>
           ))}
