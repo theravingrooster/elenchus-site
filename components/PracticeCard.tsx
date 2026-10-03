@@ -1,104 +1,76 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useId, useState } from "react";
 import { practice } from "@/content/practice";
 
-type Bubble = { key: string; side: "left" | "right"; kind: "claim" | "question" | "feedback"; label: string; text: string };
-
-// /practice demo (#23): a recording of someone learning to ask better questions.
-// One tall card, hairline border, no shadow. Top: three equal bars switch the claim.
-// Then one vertical chat column, full width: the claim on the left, each question on the
-// right, each feedback on the left, stacking as you scroll. No side-by-side columns at any
-// width, no typewriter. Reduced motion shows the whole thread static. Server render is fully
-// visible, so the thread reads without JavaScript.
 export function PracticeCard() {
   const { demo } = practice;
-  const [active, setActive] = useState<number>(demo.defaultClaim);
+  const [active, setActive] = useState(demo.defaultClaim);
+  const [step, setStep] = useState(0);
+  const exampleId = useId();
   const current = demo.claims[active];
+  const turn = current.thread[step];
 
-  const bubbles: Bubble[] = [
-    { key: "claim", side: "left", kind: "claim", label: demo.claimLabel, text: current.claim },
-    ...current.thread.flatMap((turn, i): Bubble[] => [
-      { key: `q${i}`, side: "right", kind: "question", label: demo.questionLabel, text: turn.question },
-      { key: `f${i}`, side: "left", kind: "feedback", label: demo.feedbackLabel, text: turn.feedback },
-    ]),
-  ];
-
-  const refs = useRef<(HTMLLIElement | null)[]>([]);
-  const [hidden, setHidden] = useState<boolean[]>(() => bubbles.map(() => false));
-
-  // On mount and on every claim switch: bubbles still below the fold hide, then reveal
-  // one at a time as each enters the viewport. Bubbles already in view stay shown.
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const els = refs.current;
-    const below = els.map((el) => !!el && el.getBoundingClientRect().top > window.innerHeight * 0.9);
-    setHidden(below);
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          io.unobserve(entry.target);
-          const i = Number((entry.target as HTMLElement).dataset.bubble);
-          setHidden((prev) => prev.map((h, j) => (j === i ? false : h)));
-        }
-      },
-      { rootMargin: "0px 0px -12% 0px" },
-    );
-    els.forEach((el, i) => el && below[i] && io.observe(el));
-    return () => io.disconnect();
-  }, [active]);
+  function selectClaim(index: number) {
+    setActive(index);
+    setStep(0);
+  }
 
   return (
-    <div className="border border-ink">
-      {/* Three equal bars. Selected inverts; the others are full ink on paper. */}
+    <div className="overflow-hidden border border-ink bg-paper">
       <div role="group" aria-label={demo.switcherLabel} className="grid grid-cols-3 border-b border-ink">
-        {demo.claims.map((c, i) => (
+        {demo.claims.map((claim, index) => (
           <button
-            key={i}
+            key={claim.bar}
             type="button"
-            aria-pressed={i === active}
-            onClick={() => setActive(i)}
-            className="claim-bar border-l border-ink py-4 first:border-l-0 md:py-5"
+            aria-pressed={index === active}
+            aria-controls={exampleId}
+            onClick={() => selectClaim(index)}
+            className="claim-bar border-l border-ink py-4 first:border-l-0"
           >
-            {c.bar}
+            {claim.bar}
           </button>
         ))}
       </div>
 
-      {/* The chat. One column; the side of each bubble says who is speaking. */}
-      <ol aria-live="polite" className="flex flex-col gap-6 px-4 py-10 md:gap-8 md:px-10 md:py-14">
-        {bubbles.map((b, i) => (
-          <li
-            key={`${active}-${b.key}`}
-            ref={(el) => {
-              refs.current[i] = el;
-            }}
-            data-bubble={i}
-            data-hidden={hidden[i] ? "true" : "false"}
-            data-side={b.side}
-            className="chat-row flex flex-col"
-          >
-            <p className={`mono-label ${b.side === "right" ? "self-end" : ""}`}>{b.label}</p>
-            <div
-              className={`chat-bubble mt-3 max-w-[88%] md:max-w-[34rem] ${b.side === "right" ? "self-end" : "self-start"}`}
-              data-kind={b.kind}
-            >
-              <p
-                className={
-                  b.kind === "claim"
-                    ? "font-serif text-2xl italic leading-[1.15] md:text-4xl"
-                    : b.kind === "question"
-                      ? "font-serif text-xl leading-snug md:text-2xl"
-                      : ""
-                }
-              >
-                {b.text}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <div id={exampleId} aria-live="polite" aria-atomic="true" className="px-6 pt-7 pb-8 md:px-8 md:pt-8">
+        <p className="mono-label">{demo.claimLabel}</p>
+        <h3 className="mt-4 max-w-[26ch] font-serif text-2xl leading-[1.15] tracking-[-0.015em] md:text-4xl">
+          {current.claim}
+        </h3>
+        <div className="mt-7 border-t border-rule pt-6">
+          <p className="mono-label">{demo.questionLabel}</p>
+          <p className="mt-3 min-h-[2.4em] font-serif text-xl leading-[1.2] md:text-2xl">{turn.question}</p>
+          <p className="mono-label mt-6">{demo.feedbackLabel}</p>
+          <p className="mt-2 max-w-[48ch]">{turn.feedback}</p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-2 border-t border-rule px-3 py-3 md:px-6">
+        <button
+          type="button"
+          aria-label={demo.previousAction}
+          aria-controls={exampleId}
+          disabled={step === 0}
+          onClick={() => setStep((value) => Math.max(0, value - 1))}
+          className="example-nav mono-label"
+        >
+          <span aria-hidden="true">←</span> {demo.previousLabel}
+        </button>
+        <p className="mono-label shrink-0 whitespace-nowrap tabular-nums">
+          {String(step + 1).padStart(2, "0")} / {String(current.thread.length).padStart(2, "0")}
+        </p>
+        <button
+          type="button"
+          aria-label={demo.nextAction}
+          aria-controls={exampleId}
+          disabled={step === current.thread.length - 1}
+          onClick={() => setStep((value) => Math.min(current.thread.length - 1, value + 1))}
+          className="example-nav mono-label"
+        >
+          {demo.nextLabel} <span aria-hidden="true">→</span>
+        </button>
+      </div>
     </div>
   );
 }

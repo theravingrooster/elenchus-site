@@ -1,124 +1,35 @@
 # Elenchus — Pages (v1)
 
-Pages: `/` (Home, one long scroll holding Examine and Who), `/method`, and `/ask` (out of the nav). `/practice` and `/for` are permanent redirects to `/#examine` and `/#who`, never 404s. No more pages until a human adds one.
+The Oct 2, 2026 user request replaces the earlier fixed copy and tall chat layout. Keep the site brief and make the examples easy to browse.
 
-All pages share the same chrome: wordmark, section links, `⌘K`.
+Routes stay unchanged: Home at `/`, Method at `/method`, Ask at `/ask` (outside the nav). `/practice` redirects permanently to `/#examine`; `/for` redirects permanently to `/#who`.
 
----
+## Home
 
-## `/` Home
+The hero contains these exact sentences, in order:
 
-**Job:** State the method in one screen, then make the reader look at a claim they already hold.
+1. Elenchus is bringing questioning back to the center of thinking.
+2. Our inspiration came from Socrates’ habit of pressing a statement until hidden assumptions show.
 
-First screen, in this order:
+Keep the Socrates drawing beside the text on wider screens. Do not add a second motto or call to action in the hero.
 
-1. Display line (no second motto stacked on it): `Elenchus is bringing questioning back to the center of thinking.`
-2. Under it, one sentence only, verbatim: `Our inspiration came from Socrates’ habit of pressing a statement until hidden assumptions show.`
-3. Nothing else in the hero, not even a closing question (Ryan, Sep 25, 3:09 PM PT). The Socrates drawing sits close under and beside the type, never under it.
+Follow with two compact sections:
 
-Second block, below the first screen: Ryan's text beginning "A claim can sound finished and still rest on an assumption you never agreed to." Close: `Which claim did you let stand this week because it sounded complete?`
+- Examine (`id="examine"`): a short heading and instruction beside a browsable example panel. Wine, Water, and Divorce select three fixed claims. Show one question and one short explanatory note at a time. Previous/Next move through four steps; disable controls at the bounds. Selecting a claim resets to the first question. The examples teach how to examine a claim; they do not provide medical advice, statistical conclusions, or scores.
+- Who (`id="who"`): one short audience note and one concrete question. Avoid audience stereotypes and lists of negative promises.
 
-No field, no form, no paste box, no primary action, no origin story, no founder biography.
+Remove the separate Claim section and repeated full-size headings and closing blocks. There is no input field, form, pricing, biography, or capture flow.
 
-Do not put pricing, logos, or a feature grid here.
+## Method
 
-Then, on the same page (Ryan, Sep 26):
+A short heading, five numbered steps, and one practical note. Define the terms, trace the source, find the assumption, ask what would change your mind, and decide. Do not repeat the same principle in several long sections.
 
-- The full Examine block, `id="examine"`: everything described under `/practice` below, unchanged.
-- The full Who block, `id="who"`: everything described under `/for` below, unchanged.
+## Ask
 
-Leave space between sections so they don't collide.
+One brief prompt, one supporting sentence, and one closing question. No form or fake submission action.
 
----
+## Navigation
 
-## `/method`
+Method · Examine · Who. The wordmark links to Home. The palette uses the same targets and also offers Ask. The mobile drawer remains a simple list. The footer links back to the main content.
 
-**Job:** Teach the name without a history lecture.
-
-Title line: `Critical thinking is the habit of refusing to stop at the first answer.`
-
-Blocks, each ending on its own closing question:
-
-1. The five steps: Define the terms. Name the source. Surface the assumption. Ask what would falsify it. Decide. Close: `What would falsify it?`
-2. Piercing vs noise: a question that performs doubt versus one that reaches the frame. Close: `Where does this claim break if the hidden premise is false?`
-3. Machines (optional, Method only): institutions produce claims, machines return them fluently, treat both as sources. Close: `What would have to be true for the sentence you just accepted from a model?`
-
-Exact text is Ryan's (Sep 25). Sections whose closers are not his are cut, not given invented questions.
-
----
-
-## Examine (on Home at `/#examine`; `/practice` redirects there)
-
-**Job:** Show the habit as something you do, not a description of virtue.
-
-Title line: `The questions we ask, not the things we memorize, are what matter.`
-
-Instruction line above the card is Ryan's text beginning "These are claims people already repeat." No paste box.
-
-v1 demo: one tall card with a hairline border, no shadow. It is a recording of someone learning to ask better questions, not the five-step lecture and not the site answering the claim.
-
-1. Top of the card: three equal bars switch among three fixed claims: Wine, Water, Divorce. Default is Wine. The selected bar inverts, and unselected bars keep at least 7:1 contrast. The reader does not type.
-2. Under the bars: one vertical chat column, full width. The claim is a bubble on the left. Each question (what a person asks about the claim) is a bubble on the right. Each feedback (about that question: whether it reaches the frame or only performs doubt) is a bubble on the left. Four question and feedback pairs per claim, stacking as you scroll.
-3. No side-by-side columns at any width. No typewriter. Reduced motion shows the whole thread static.
-
-Feedback rules: nudge the next question, never supply the conclusion, never score, never say "good job" or "correct," never dump the answer to the claim. A first question may be weak on purpose so the feedback can show why it does not pierce.
-
-The claims and threads are Ryan's fixed text (Sep 25, 2:59 PM PT), live in `content/practice.ts`, and are not rewritten:
-
-1. Wine: “A glass of red wine a day is good for your heart.”
-2. Water: “You should drink eight glasses of water a day.”
-3. Divorce: “Half of all marriages end in divorce.”
-
-No text box, no "type your question," no accounts, no modules. Those are later.
-
-Never label a note as AI output.
-
-Do not score the user. Do not award badges.
-If a live quiz exists later, it still must end on a decision the user owns.
-
-Close with: `What would falsify the claim you just let stand?`
-
----
-
-## Who (on Home at `/#who`; `/for` redirects there)
-
-**Job:** Name who this is for without segment marketing.
-
-Two stacked full-width sections, no columns:
-
-1. Who it is for: the eighteen-year-old looking for an anchor, students rewarded for the first polished answer, operators who ship on an untested sentence, anyone who stops when the sentence sounds done. Ends "Elenchus is not for everyone. It is hard on purpose." Close: `Which of your current beliefs have never been through the second question?`
-2. What it will not do: no conspiracy circuits, no IQ promise, no looking clever, no team, no answering for you. "It teaches you to question. That is it." Close: `What statement are you least willing to put under examination?`
-
-Exact text is Ryan's (Sep 25). No stock photos, no "enterprise," no founder biography.
-
----
-
-## `/ask`
-
-**Job:** Copy only: a heading, the line "It teaches you to question. That is it.", and the closing question.
-
-No fields. No button that pretends to submit. Not in the nav.
-
-Close with: `What statement are you least willing to put under examination?`
-
----
-
-## Explicitly not in v1
-
-- Blog
-- Pricing
-- Login / account
-- Shop
-- Team page with bios
-- Social proof wall
-- Chat widget that answers questions
-- Waitlist, email capture, or any fillable form
-- `/about` or any founder biography
-
-## Nav order
-
-`Method · Examine · Who`
-
-METHOD goes to `/method`, EXAMINE goes to `/#examine`, and WHO goes to `/#who`, scrolling Home rather than opening a new page. ⌘K jumps to the same targets. `/ask` stays a page but is not in the nav. The word Drill is never a nav label.
-
-The ELENCHUS wordmark goes to the top of `/`. No hamburger animation beyond a simple drawer on small screens.
+Do not add pages, authentication, pricing, forms, or live answers without a separate human request.

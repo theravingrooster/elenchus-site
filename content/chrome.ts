@@ -1,13 +1,12 @@
 // Owner: Elenchus Voice. Shared chrome strings.
-// Verbatim from /docs/DESIGN.md (status, footer path, palette placeholder)
-// and /docs/PAGES.md (nav order).
+// Navigation order is documented in /docs/PAGES.md.
 
 export const chrome = {
   siteName: "Elenchus",
   wordmark: "ELENCHUS",
-  status: "ELENCHUS · PRACTICE",
   skipToContent: "Skip to content",
-  footerPath: "elenchus / constitution / v1",
+  footerPath: "ELENCHUS",
+  footerTop: "Back to top",
   nav: {
     home: "Home",
     method: "Method",
