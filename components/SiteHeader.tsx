@@ -36,13 +36,6 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-rule">
-      {/* DESIGN.md top status line */}
-      <div className="border-b border-rule">
-        <div className="mx-auto flex max-w-[88rem] items-center justify-between px-6 py-2 md:px-12 lg:px-20">
-          <p className="mono-label">{chrome.status}</p>
-        </div>
-      </div>
-
       <div className="mx-auto flex max-w-[88rem] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6 md:px-12 lg:px-20">
         <Link href="/" onNavigate={() => onNavigate("/")} className="shrink-0 font-serif text-xl tracking-[0.18em]" aria-current={currentFor("/")}>
           {chrome.wordmark}

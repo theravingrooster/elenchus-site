@@ -67,16 +67,16 @@ Forbidden:
 
 Use sparingly, as proof the site is an instrument:
 
-- Top status: `ELENCHUS · PRACTICE`
 - Command palette placeholder: `Jump to a section`. The palette only navigates; it saves nothing.
 - On phones, the palette has a visible `Jump` button beside `Menu`; wider screens keep the `⌘K` hint.
-- Footer path: `elenchus / constitution / v1`
+- Header: wordmark and navigation, without a repeated status bar.
+- Footer: wordmark and a `Back to top` link.
 
 Do not build a fake terminal that types marketing copy.
 
 ## Components
 
-Buttons are rectangular, hairline border, no pill shapes. The one exception to square corners is the Examine chat bubbles, which may be rounded rectangles with a hairline border and no fill color beyond paper and ink.
+Buttons and the example panel are rectangular, with hairline rules. No pill shapes or chat bubbles. The example panel presents one question and a short note at a time, with Previous/Next controls and a visible step count. It is a browsable example, never a simulated live chat.
 No forms in v1. Nothing on the site collects input.
 Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12, and never covering the display line or the sentence under it. Scaled so it sits close to the type without empty space beneath. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
 
@@ -90,6 +90,8 @@ Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets
 - Reduced-motion: skip Lenis and hero settle.
 
 ## Test
+
+The Oct 2, 2026 copy and layout refresh supersedes the previous requirement for tall conversation threads and repeated full-page sections. Keep the two approved hero sentences exact. Below the hero, use compact aligned sections, short headings, and clear spacing. Avoid duplicate labels and oversized closing questions.
 
 Open the page next to nousresearch.com and wyandanch.consulting.
 If it looks like a third SaaS template, it failed.

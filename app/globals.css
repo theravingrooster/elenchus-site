@@ -172,12 +172,12 @@ html.lenis body {
 @media (min-width: 768px) {
   .socrates-mark {
     display: block;
-    height: min(52svh, 26rem);
+    height: min(45svh, 22rem);
   }
 }
 @media (min-width: 1024px) {
   .socrates-mark {
-    height: min(66svh, 34rem);
+    height: min(48svh, 26rem);
   }
 }
 
@@ -208,8 +208,7 @@ html.lenis body {
   transform: translateY(0.4em);
 }
 
-/* /practice card (#15, #23). Three equal bars: the selected bar inverts to paper on ink,
-   the others are full ink on paper (well above 7:1). No tabs styling, no shadow. */
+/* Three equal claim selectors. Selected inverts; all retain the site's contrast. */
 .claim-bar {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
@@ -237,36 +236,21 @@ html.lenis body {
   outline-color: var(--color-paper);
 }
 
-/* Examine chat (#23). DESIGN.md: bubbles are the one exception to square corners.
-   Rounded rectangles, 1px ink hairline, paper fill, no shadow. The corner nearest the
-   speaker's side is tighter, so left and right read as two voices without a third color. */
-.chat-bubble {
-  border: 1px solid var(--color-ink);
-  border-radius: 1rem;
-  background: var(--color-paper);
-  padding: 1rem 1.25rem;
+.example-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
 }
-@media (min-width: 768px) {
-  .chat-bubble {
-    padding: 1.25rem 1.5rem;
-  }
+.example-nav:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
 }
-.chat-row[data-side="left"] .chat-bubble {
-  border-bottom-left-radius: 0.25rem;
-}
-.chat-row[data-side="right"] .chat-bubble {
-  border-bottom-right-radius: 0.25rem;
-}
-
-/* Each bubble reveals as it enters the viewport. A short fade and lift, no bounce. */
-.chat-row {
-  transition:
-    opacity 320ms var(--ease-settle),
-    transform 320ms var(--ease-settle);
-}
-.chat-row[data-hidden="true"] {
-  opacity: 0;
-  transform: translateY(0.75rem);
+.example-nav:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 /* Command palette (cmdk). Hairlines, no shadow. */
@@ -336,14 +320,12 @@ html.lenis body {
     animation: none;
   }
   .reveal-part,
-  .chat-row,
   .claim-bar,
   .btn,
   .btn::before {
     transition: none;
   }
-  [data-reveal="hidden"] .reveal-part,
-  .chat-row[data-hidden="true"] {
+  [data-reveal="hidden"] .reveal-part {
     opacity: 1;
     transform: none;
   }

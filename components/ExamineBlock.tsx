@@ -1,26 +1,22 @@
-import { Closing } from "./Closing";
-import { PageHeader } from "./PageHeader";
+import Link from "next/link";
 import { PracticeCard } from "./PracticeCard";
 import { SectionLabel } from "./SectionLabel";
 import { practice } from "@/content/practice";
 
-// PAGES.md Examine, on Home at /#examine (#27). The former /practice page, unchanged:
-// title and intro, the chat card with its label above it, then the closing question.
 export function ExamineBlock() {
   return (
     <section id="examine" aria-label={practice.title} className="border-t border-rule">
-      <PageHeader level={2} label={practice.intro.label} heading={practice.intro.heading} body={practice.intro.body} />
-
-      <div className="border-t border-rule">
-        <div className="mx-auto max-w-[64rem] px-6 py-20 md:px-12 md:py-28">
-          <SectionLabel>{practice.demo.label}</SectionLabel>
-          <div className="mt-8">
-            <PracticeCard />
-          </div>
+      <div className="mx-auto grid max-w-[88rem] gap-8 px-6 py-14 md:px-12 md:py-20 lg:grid-cols-[18rem_1fr] lg:gap-16 lg:px-20">
+        <div>
+          <SectionLabel>{practice.intro.label}</SectionLabel>
+          <h2 className="mt-5 max-w-[14ch] font-serif text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">{practice.intro.heading}</h2>
+          <p className="mt-5 max-w-[32ch]">{practice.intro.body}</p>
+          <Link href="/method" className="mono-label mt-6 inline-flex items-center gap-3 underline underline-offset-[6px]">
+            {practice.intro.methodLink}<span aria-hidden="true">↗</span>
+          </Link>
         </div>
+        <div className="min-w-0"><PracticeCard /></div>
       </div>
-
-      <Closing label={practice.closing.label} question={practice.closing.question} />
     </section>
   );
 }

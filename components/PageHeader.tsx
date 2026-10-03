@@ -16,12 +16,12 @@ export function PageHeader({
 }) {
   const Heading = level === 1 ? "h1" : "h2";
   return (
-    <div className="mx-auto max-w-[88rem] px-6 pt-20 pb-20 md:px-12 md:pt-32 md:pb-28 lg:px-20">
+    <div className="mx-auto max-w-[88rem] px-6 py-14 md:px-12 md:py-20 lg:px-20">
       <SectionLabel>{label}</SectionLabel>
-      <Heading className="mt-8 max-w-[18ch] font-serif text-5xl leading-[1] tracking-[-0.02em] md:text-8xl">
+      <Heading className="mt-6 max-w-[20ch] font-serif text-4xl leading-[1.05] tracking-[-0.02em] md:text-7xl">
         {heading}
       </Heading>
-      {body && <p className="mt-10 max-w-[60ch]">{body}</p>}
+      {body && <p className="mt-6 max-w-[48ch]">{body}</p>}
     </div>
   );
 }

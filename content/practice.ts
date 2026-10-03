@@ -1,10 +1,6 @@
-// Owner: Elenchus Voice. Route: /practice
-// Section labels (`NN / WORD`) are structural stand-ins from Studio; Voice may rename the word.
-// Spec: /docs/PAGES.md "`/practice`". Chat demo (#23).
-//
-// The bars, claims, questions, and feedback are Ryan's, word for word; do not rewrite them.
+// Examine section on Home. Each example keeps four question and feedback turns.
 
-// One turn in the chat: a question (right bubble), then feedback on that question (left bubble).
+// One example step: a question and a short note about what it examines.
 // Feedback nudges the next question. It never scores, never says "correct", never answers the claim.
 export type Turn = {
   question: string;
@@ -14,7 +10,7 @@ export type Turn = {
 export type DemoClaim = {
   // Short word on the switch bar.
   bar: string;
-  // The claim, the first bubble on the left.
+  // The claim being examined.
   claim: string;
   // Four turns in order.
   thread: [Turn, Turn, Turn, Turn];
@@ -23,19 +19,22 @@ export type DemoClaim = {
 export const practice = {
   title: "Practice",
   intro: {
-    label: "03 / PRACTICE",
-    heading:
-      "The questions we ask, not the things we memorize, are what matter.",
-    body: "These are claims people already repeat. Watch the second question hit them. Do not look for a dunk. The page will not score you. It will not tell you that you are sharp. It will not hand you the answer. Follow the question that appears. Stop when you can decide.",
+    label: "01 / EXAMINE",
+    heading: "Start with a claim.",
+    body: "Choose an example and follow the questions.",
+    methodLink: "Read the method",
   },
   demo: {
-    label: "04 / EXAMINE",
     // Accessible name for the row of three bars.
     switcherLabel: "Choose a claim",
-    // Small mono labels above each bubble.
+    // Small labels within the example.
     claimLabel: "Claim",
     questionLabel: "Question",
-    feedbackLabel: "Feedback",
+    feedbackLabel: "Why this question",
+    previousLabel: "Previous",
+    nextLabel: "Next",
+    previousAction: "Previous question",
+    nextAction: "Next question",
     // Default claim is the first (Wine).
     defaultClaim: 0,
     claims: [
@@ -46,24 +45,22 @@ export const practice = {
           {
             question: "Is wine healthy?",
             feedback:
-              "“Healthy” is the first fluent word. It does not say healthy for whom, compared with what, or measured how. Ask what “good for your heart” is supposed to mean.",
+              "Make “healthy” more precise. Ask what benefit the claim describes.",
           },
           {
-            question:
-              "Good how — fewer deaths, clearer arteries, or a number on a scan?",
+            question: "What does “good for your heart” mean?",
             feedback:
-              "That names the term. The headline still treats those as one thing. Ask who was measured, and against whom.",
+              "Ask how the benefit was measured and who was compared.",
           },
           {
             question: "Who did they compare the wine drinkers with?",
             feedback:
-              "That is closer to the frame. A lot of the coverage sits on observational papers. Ask what has to be true for the glass to be doing the work.",
+              "Examine the comparison. What else could differ between the groups?",
           },
           {
-            question:
-              "What if the benefit is just the kind of person who has a glass at dinner?",
+            question: "What evidence would separate wine from those other factors?",
             feedback:
-              "That presses the hidden premise. Hold the claim only as far as that comparison survives. Do not decide from the headline.",
+              "Name the evidence needed to attribute a difference to wine.",
           },
         ],
       },
@@ -74,23 +71,22 @@ export const practice = {
           {
             question: "Is eight glasses a day true?",
             feedback:
-              "True is too big. The rule is a count. Ask eight glasses of what, and whether food and tea count.",
+              "Define what counts and who the rule applies to.",
           },
           {
-            question: "Does the eight include what you already eat and drink?",
+            question: "Does the count include food and other drinks?",
             feedback:
-              "That opens the term. Now ask where the number came from, not whether water is good.",
+              "Now trace the number to its original source.",
           },
           {
-            question: "Who said eight, and what did they actually measure?",
+            question: "Where did eight come from?",
             feedback:
-              "That goes to the source. The count is a shorthand that leaked into magazines. Ask what would have to be true for a fixed quota to be the method.",
+              "Read what the source measured and the conditions it considered.",
           },
           {
-            question:
-              "What if thirst already does the job for ordinary people?",
+            question: "What evidence would support the same amount for everyone?",
             feedback:
-              "That is a falsifier. Keep the water. Drop the quota unless someone set one for a body in front of them.",
+              "Identify the rule’s assumption. Ask how you could test it.",
           },
         ],
       },
@@ -99,33 +95,27 @@ export const practice = {
         claim: "Half of all marriages end in divorce.",
         thread: [
           {
-            question: "Isn’t that just a known fact?",
+            question: "Is that number accurate?",
             feedback:
-              "“Known fact” is how a number survives the first glance. Ask half of which marriages.",
+              "Ask which marriages, where, and over what period.",
           },
           {
-            question:
-              "Half of first marriages this year, or every marriage ever, in which country?",
+            question: "Half of which marriages?",
             feedback:
-              "That defines the pile. Now ask how the half was built — divorces this year over marriages this year is not a lifetime risk for one couple.",
+              "Define the group. Then inspect how the number was calculated.",
           },
           {
-            question: "What would make 50% the odds for a specific couple?",
+            question: "How was the rate calculated?",
             feedback:
-              "That surfaces the assumption. The headline treats a mixed stack as a fate. Ask what would break the sentence.",
+              "Check whether the calculation answers the claim.",
           },
           {
-            question:
-              "What if you split the stack by year and age and the half disappears?",
+            question: "Would the claim still hold across different years and groups?",
             feedback:
-              "That is the second question doing the work. Do not take “half” as a forecast until the pile is named.",
+              "Ask what evidence would make you narrow or revise the claim.",
           },
         ],
       },
     ] satisfies DemoClaim[],
-  },
-  closing: {
-    label: "05 / THE SECOND QUESTION",
-    question: "What would falsify the claim you just let stand?",
   },
 };

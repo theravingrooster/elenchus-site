@@ -1,78 +1,19 @@
 # Elenchus — Voice
 
-Write as if the reader already thinks. Do not warm them up. Do not congratulate them.
+The Oct 2, 2026 user request supersedes earlier requirements to preserve all copy or to put a long paragraph and a closing question in every section. Only the two Home hero sentences are fixed.
 
-## Source paragraph (canonical)
+Write plainly for a reader who already thinks. Use short, concrete sentences. Describe an action the reader can take: define a term, check a source, identify an assumption, or name evidence that would change their mind.
 
-Elenchus is bringing questioning back to the center of thinking. The name is the method: Socratic elenchus — short, disciplined questions that test a claim against its own premises until a contradiction, a gap, or a hidden assumption appears. We do not start from a doctrine to defend. We start from a statement someone already believes, including statements produced by institutions, media, peers, and machines, and we ask what would have to be true for that statement to hold. The first question is cheap. The work begins with the second.
+- Keep headings brief and useful.
+- Prefer one short paragraph to several explanations of the same principle.
+- Keep example notes to roughly one sentence.
+- Avoid abstract metaphors, audience stereotypes, defensive lists of what the project will not do, and rhetorical grandstanding.
+- Use a closing question when it adds something; do not repeat it as a section requirement.
 
-The mission is to restore critical thinking as a practice, not a slogan. Critical thinking is not a personality, a political camp, or a pile of correct opinions. It is the habit of refusing to stop at the first fluent answer. Elenchus trains that habit: define the terms, name the source, surface the assumption, ask what would falsify it, and only then decide. The aim is not to make people clever in argument or cynical about everything. It is to make them harder to fool — including by themselves — so they can act with clearer judgment.
+The purpose remains Socratic examination: start with a claim, test what it depends on, and let the reader decide. Do not turn examples into authoritative answers, medical advice, scores, or persuasion for a doctrine.
 
-Prefer this language over paraphrases when the page is stating the mission. Cut it for a hero; do not replace it with slogans.
+Avoid marketing and guru language: unlock, empower, revolutionize, supercharge, seamless, next-gen, platform, ecosystem, and solution. No gotchas, congratulation, IQ promises, badges, political teams, urgency, or exclamation points.
 
-## Register
+Machines and institutions are sources like any other. Do not brand Elenchus as anti-AI or as a tutor that supplies the answer.
 
-- Short sentences. Then one longer sentence when the thought needs it.
-- Concrete verbs: test, name, surface, hold, falsify, decide.
-- First person plural only for the project (`we start from a statement`). Never `we get it` / `we're here for you`.
-- Address the reader as someone who already believes things. That is the point.
-
-## Signature lines (use, do not remix into mush)
-
-- The first question is cheap. The work begins with the second.
-- Questioning is the drill. Judgment is the destination.
-- Harder to fool — including by themselves.
-
-## Every section ends on a question
-
-Not a rhetorical wink. A question the reader could actually take to a claim they hold.
-
-Good: `What would have to be true for that to hold?`
-Good: `What would falsify it?`
-Bad: `Ready to think better?`
-Bad: `Shall we begin the journey?`
-
-## Banned
-
-- unlock, empower, revolutionize, supercharge, seamless, next-gen
-- AI-powered, platform, ecosystem, solution
-- "In a world flooded with information…" and other essay openers
-- dunking, "actually," gotcha cadence
-- cynicism as personality: "trust no one," "everything is propaganda"
-- therapy-speak and guru-speak
-- exclamation points
-- book counts, Instagram, Stanford as a credential, premed
-- religion as a campaign, movement language
-- IQ claims (Ryan's exact /for line "We will not promise a higher IQ." stays)
-- Get started
-
-## Claims about machines
-
-Machines produce fluent statements. Treat those statements like any other source.
-Do not brand Elenchus as anti-AI or as "the human alternative to ChatGPT."
-Do not brand it as an AI tutor that answers for the student.
-
-## Headlines
-
-A headline is either the method, a claim under examination, or a question.
-It is not a benefit statement.
-
-Yes: `The first question is cheap.`
-Yes: `Start from a statement you already believe.`
-No: `The critical thinking toolkit for modern learners.`
-
-## CTAs
-
-Verbs of practice, not capture.
-
-- Examine a claim
-- Hold this question
-- Ask the second question
-
-Never: Get started, Learn more, Book a demo, Unlock access.
-
-## Length
-
-Home hero: the one sentence set in PAGES.md, verbatim, with no closing question (Ryan's exception to the rule above).
-Section body: 60–120 words, unless PAGES.md or Ryan gives the exact text.
-If you need more, add another section rather than a longer paragraph.
+Keep authored strings in `content/`. When changing wording, keep the visible page and metadata consistent.

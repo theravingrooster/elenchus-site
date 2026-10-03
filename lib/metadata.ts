@@ -9,11 +9,11 @@ export const SITE_ORIGIN = "https://elenchus-site.vercel.app";
 const pages = {
   "/": {
     title: chrome.siteName,
-    description: `${home.display} The first question is cheap. The work begins with the second.`,
+    description: `${home.display} ${home.sentence}`,
   },
   "/method": {
     title: method.title,
-    description: `${method.steps.steps.join(". ")}. Questioning is the drill. Judgment is the destination.`,
+    description: `${method.steps.steps.join(". ")}.`,
   },
   "/ask": {
     title: ask.title,
