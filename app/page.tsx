@@ -8,23 +8,23 @@ export default function Home() {
   return (
     <>
       <section className="relative">
-        <div className="relative mx-auto flex max-w-[88rem] items-center justify-between gap-10 px-6 pt-12 pb-16 md:px-12 md:pt-16 md:pb-20 lg:gap-16 lg:px-20">
+        <div className="relative mx-auto grid max-w-[88rem] items-center gap-8 px-6 pt-12 pb-16 md:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] md:gap-10 md:px-12 md:pt-16 md:pb-20 lg:gap-12 lg:px-20">
           <div className="min-w-0">
             <h1 className="settle max-w-[16ch] font-serif text-[clamp(2.5rem,5.6vw,5.5rem)] leading-[0.95] tracking-[-0.025em]">
               {home.display}
             </h1>
             <p className="mt-6 max-w-[48ch] md:mt-8">{home.sentence}</p>
           </div>
-          {/* DESIGN.md: one mark, Ryan's Socrates line drawing (#21). Decorative, no caption.
-              Its own column beside the type, never under it; hidden on phones. */}
+          {/* Complete reclining figure, kept separate from the text at every width. */}
           <div aria-hidden="true" className="socrates-mark">
             <Image
-              src="/socrates.png"
+              src="/socrates-reclining.webp"
               alt=""
-              width={454}
-              height={1168}
-              priority
-              className="h-full w-full object-contain object-top"
+              width={1254}
+              height={1254}
+              sizes="(min-width: 1408px) 560px, (min-width: 768px) 42vw, 88vw"
+              preload
+              className="h-auto w-full"
             />
           </div>
         </div>
