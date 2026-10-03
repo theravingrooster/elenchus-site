@@ -1,20 +1,26 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it } from "vitest";
 import { PracticeCard } from "@/components/PracticeCard";
 import { practice } from "@/content/practice";
 
-function expectTurn(claim: typeof practice.demo.claims[number], index: number) {
-  expect(screen.getByText(claim.claim)).toBeVisible();
-  expect(screen.getByText(claim.thread[index].question)).toBeVisible();
-  expect(screen.getByText(claim.thread[index].feedback)).toBeVisible();
-  for (const [otherIndex, turn] of claim.thread.entries()) {
-    if (otherIndex !== index) expect(screen.queryByText(turn.question)).not.toBeInTheDocument();
+function expectTranscript(claim: typeof practice.demo.claims[number], index: number) {
+  const messages = within(screen.getByRole("log", { name: "Example conversation" }));
+  expect(messages.getAllByRole("listitem")).toHaveLength(1 + 2 * (index + 1));
+  expect(messages.getByText(claim.claim)).toBeVisible();
+  for (const [turnIndex, turn] of claim.thread.entries()) {
+    if (turnIndex <= index) {
+      expect(messages.getByText(turn.question)).toBeVisible();
+      expect(messages.getByText(turn.feedback)).toBeVisible();
+    } else {
+      expect(messages.queryByText(turn.question)).not.toBeInTheDocument();
+      expect(messages.queryByText(turn.feedback)).not.toBeInTheDocument();
+    }
   }
   expect(screen.getByText(`${String(index + 1).padStart(2, "0")} / 04`)).toBeVisible();
 }
 
-it.each(practice.demo.claims)("shows and navigates one $bar question at a time", async (claim) => {
+it.each(practice.demo.claims)("appends and removes recorded $bar replies within the conversation", async (claim) => {
   const user = userEvent.setup();
   render(<PracticeCard />);
   await user.click(screen.getByRole("button", { name: claim.bar }));
@@ -25,42 +31,50 @@ it.each(practice.demo.claims)("shows and navigates one $bar question at a time",
   }
 
   const previous = screen.getByRole("button", { name: "Previous question" });
-  const next = screen.getByRole("button", { name: "Next question" });
+  const next = screen.getByRole("button", { name: /^Next question:/ });
   expect(previous).toBeDisabled();
   expect(next).toBeEnabled();
-  expectTurn(claim, 0);
+  expect(next).toHaveAccessibleName(`Next question: ${claim.thread[1].question}`);
+  expectTranscript(claim, 0);
   await user.click(previous);
-  expectTurn(claim, 0);
+  expectTranscript(claim, 0);
 
   for (let index = 1; index < claim.thread.length; index++) {
     await user.click(next);
-    expectTurn(claim, index);
+    expectTranscript(claim, index);
     expect(previous).toBeEnabled();
   }
   expect(next).toBeDisabled();
+  expect(next).toHaveAccessibleName("Next question: End of example");
   await user.click(next);
-  expectTurn(claim, claim.thread.length - 1);
+  expectTranscript(claim, claim.thread.length - 1);
   await user.click(previous);
-  expectTurn(claim, claim.thread.length - 2);
+  expectTranscript(claim, claim.thread.length - 2);
   expect(next).toBeEnabled();
 });
 
-it("starts with Wine and resets to the first question whenever a claim is selected", async () => {
+it("starts with Wine and replaces the transcript when a claim is selected", async () => {
   const user = userEvent.setup();
   const [wine, water] = practice.demo.claims;
   render(<PracticeCard />);
   expect(screen.getByRole("button", { name: "Wine" })).toHaveAttribute("aria-pressed", "true");
-  expectTurn(wine, 0);
-  await user.click(screen.getByRole("button", { name: "Next question" }));
-  await user.click(screen.getByRole("button", { name: "Next question" }));
-  expectTurn(wine, 2);
+  expectTranscript(wine, 0);
+  await user.click(screen.getByRole("button", { name: /^Next question:/ }));
+  await user.click(screen.getByRole("button", { name: /^Next question:/ }));
+  expectTranscript(wine, 2);
 
   await user.click(screen.getByRole("button", { name: water.bar }));
-  expectTurn(water, 0);
+  expectTranscript(water, 0);
+  const messages = within(screen.getByRole("log", { name: "Example conversation" }));
+  expect(messages.queryByText(wine.claim)).not.toBeInTheDocument();
+  for (const turn of wine.thread) {
+    expect(messages.queryByText(turn.question)).not.toBeInTheDocument();
+    expect(messages.queryByText(turn.feedback)).not.toBeInTheDocument();
+  }
   expect(screen.getByRole("button", { name: "Previous question" })).toBeDisabled();
   await user.click(screen.getByRole("button", { name: wine.bar }));
-  expectTurn(wine, 0);
-  await user.click(screen.getByRole("button", { name: "Next question" }));
+  expectTranscript(wine, 0);
+  await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   await user.click(screen.getByRole("button", { name: wine.bar }));
-  expectTurn(wine, 0);
+  expectTranscript(wine, 0);
 });
