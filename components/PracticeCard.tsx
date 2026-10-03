@@ -7,16 +7,21 @@ export function PracticeCard() {
   const { demo } = practice;
   const [active, setActive] = useState(demo.defaultClaim);
   const [sentTurns, setSentTurns] = useState(0);
+  const [isReplyPending, setIsReplyPending] = useState(false);
   const conversationId = useId();
   const logRef = useRef<HTMLDivElement>(null);
+  const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const current = demo.claims[active];
   const atEnd = sentTurns === current.thread.length;
-  const nextPrompt = atEnd ? demo.endLabel : current.thread[sentTurns].question;
+  const nextPrompt = isReplyPending ? demo.typingLabel : atEnd ? demo.endLabel : current.thread[sentTurns].question;
+  const answeredTurns = sentTurns - (isReplyPending ? 1 : 0);
   const messages = [
     { key: "claim", side: "incoming", claim: true, text: current.claim },
     ...current.thread.slice(0, sentTurns).flatMap((turn, index) => [
       { key: "question-" + index, side: "outgoing", claim: false, text: turn.question },
-      { key: "reply-" + index, side: "incoming", claim: false, text: turn.feedback },
+      ...(index < answeredTurns ? [
+        { key: "reply-" + index, side: "incoming", claim: false, text: turn.feedback },
+      ] : []),
     ]),
   ];
 
@@ -24,11 +29,28 @@ export function PracticeCard() {
   useEffect(() => {
     const log = logRef.current;
     if (log) log.scrollTop = sentTurns === 0 ? 0 : log.scrollHeight;
-  }, [active, sentTurns]);
+  }, [active, sentTurns, isReplyPending]);
+
+  useEffect(() => () => {
+    if (replyTimer.current !== null) clearTimeout(replyTimer.current);
+  }, []);
 
   function selectClaim(index: number) {
+    if (replyTimer.current !== null) clearTimeout(replyTimer.current);
+    replyTimer.current = null;
+    setIsReplyPending(false);
     setActive(index);
     setSentTurns(0);
+  }
+
+  function sendQuestion() {
+    if (atEnd || replyTimer.current !== null) return;
+    setSentTurns((value) => value + 1);
+    setIsReplyPending(true);
+    replyTimer.current = setTimeout(() => {
+      replyTimer.current = null;
+      setIsReplyPending(false);
+    }, demo.responseDelayMs);
   }
 
   return (
@@ -91,6 +113,15 @@ export function PracticeCard() {
               </div>
             </li>
           ))}
+          {isReplyPending && (
+            <li className="chat-message" data-side="incoming">
+              <span aria-hidden="true" className="chat-avatar">{demo.avatar}</span>
+              <div role="status" className="chat-bubble chat-typing">
+                <span className="sr-only">{demo.typingLabel}</span>
+                <span aria-hidden="true" className="chat-typing-dots"><span /><span /><span /></span>
+              </div>
+            </li>
+          )}
         </ol>
       </div>
 
@@ -100,7 +131,7 @@ export function PracticeCard() {
             type="button"
             aria-label={demo.previousAction}
             aria-controls={conversationId}
-            disabled={sentTurns === 0}
+            disabled={sentTurns === 0 || isReplyPending}
             onClick={() => setSentTurns((value) => Math.max(0, value - 1))}
             className="example-nav mono-label"
           >
@@ -114,8 +145,9 @@ export function PracticeCard() {
           type="button"
           aria-label={demo.nextAction + ": " + nextPrompt}
           aria-controls={conversationId}
-          disabled={atEnd}
-          onClick={() => setSentTurns((value) => Math.min(current.thread.length, value + 1))}
+          disabled={atEnd && !isReplyPending}
+          aria-disabled={atEnd || isReplyPending}
+          onClick={sendQuestion}
           className="chat-send"
         >
           <span>{nextPrompt}</span>
