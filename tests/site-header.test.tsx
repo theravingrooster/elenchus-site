@@ -46,8 +46,8 @@ function primaryLink(name: string) {
 
 describe("site navigation", () => {
   it.each([
+    ["method", "Method"],
     ["examine", "Examine"],
-    ["who", "Who"],
   ])("marks the section on an initial #%s visit", (hash, label) => {
     window.history.replaceState(null, "", `/#${hash}`);
     render(<SiteHeader />);
@@ -58,39 +58,41 @@ describe("site navigation", () => {
   it("updates for hash changes and browser history events", () => {
     render(<SiteHeader />);
     act(() => {
-      window.history.pushState(null, "", "/#who");
+      window.history.pushState(null, "", "/#examine");
       window.dispatchEvent(new HashChangeEvent("hashchange"));
     });
-    expect(primaryLink("Who")).toHaveAttribute("aria-current", "location");
+    expect(primaryLink("Examine")).toHaveAttribute("aria-current", "location");
 
     act(() => {
-      window.history.replaceState(null, "", "/#examine");
+      window.history.replaceState(null, "", "/#method");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
-    expect(primaryLink("Examine")).toHaveAttribute("aria-current", "location");
-    expect(primaryLink("Who")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Method")).toHaveAttribute("aria-current", "location");
+    expect(primaryLink("Examine")).not.toHaveAttribute("aria-current");
 
     act(() => {
       window.history.replaceState(null, "", "/");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
-    expect(primaryLink("Examine")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Method")).not.toHaveAttribute("aria-current");
     expect(screen.getByRole("link", { name: "ELENCHUS" })).toHaveAttribute("aria-current", "page");
   });
 
   it("updates ordinary Link navigation without waiting for hashchange", async () => {
     const user = userEvent.setup();
-    const { rerender } = render(<SiteHeader />);
+    render(<SiteHeader />);
+    const navigationLinks = within(screen.getByRole("navigation", { name: "Primary" })).getAllByRole("link");
+    expect(navigationLinks.map((link) => link.getAttribute("href"))).toEqual(["/#method", "/#examine"]);
+    await user.click(primaryLink("Method"));
+    expect(primaryLink("Method")).toHaveAttribute("aria-current", "location");
     await user.click(primaryLink("Examine"));
     expect(primaryLink("Examine")).toHaveAttribute("aria-current", "location");
-    await user.click(primaryLink("Who"));
-    expect(primaryLink("Who")).toHaveAttribute("aria-current", "location");
-    expect(primaryLink("Examine")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Method")).not.toHaveAttribute("aria-current");
 
-    await user.click(primaryLink("Method"));
-    rerender(<SiteHeader />); // Next emits a pathname update when the page changes.
-    expect(primaryLink("Method")).toHaveAttribute("aria-current", "page");
-    expect(primaryLink("Who")).not.toHaveAttribute("aria-current");
+    await user.click(screen.getByRole("link", { name: "ELENCHUS" }));
+    expect(screen.getByRole("link", { name: "ELENCHUS" })).toHaveAttribute("aria-current", "page");
+    expect(primaryLink("Method")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Examine")).not.toHaveAttribute("aria-current");
   });
 
   it.each(["Control", "Meta"])("opens with %s+K and closes with Escape", async (modifier) => {
@@ -107,12 +109,18 @@ describe("site navigation", () => {
     const user = userEvent.setup();
     render(<SiteHeader />);
     await user.click(screen.getByRole("button", { name: "Jump to a section" }));
-    await user.type(screen.getByRole("combobox"), "Who");
-    expect(screen.getByRole("option", { name: "Who" })).toBeVisible();
+    expect(screen.getAllByRole("option")).toHaveLength(3);
+    for (const name of ["Home", "Method", "Examine"]) {
+      expect(screen.getByRole("option", { name })).toBeVisible();
+    }
+    expect(screen.queryByRole("option", { name: "Who" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("option", { name: "Ask" })).not.toBeInTheDocument();
+    await user.type(screen.getByRole("combobox"), "Method");
+    expect(screen.getByRole("option", { name: "Method" })).toBeVisible();
     await user.keyboard("{Enter}");
-    expect(navigation.push).toHaveBeenCalledWith("/#who");
+    expect(navigation.push).toHaveBeenCalledWith("/#method");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(primaryLink("Who")).toHaveAttribute("aria-current", "location");
+    expect(primaryLink("Method")).toHaveAttribute("aria-current", "location");
   });
 
   it("dismisses the mobile drawer after selecting a section", async () => {

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { ExamineBlock } from "@/components/ExamineBlock";
-import { WhoBlock } from "@/components/WhoBlock";
+import { MethodBlock } from "@/components/MethodBlock";
 import { home } from "@/content/home";
 
-// Keep the two approved hero sentences; follow them with a compact example and audience note.
+// The whole site reads in order: introduction, method, and example conversation.
 export default function Home() {
   return (
     <>
@@ -30,9 +30,8 @@ export default function Home() {
         </div>
       </section>
 
+      <MethodBlock />
       <ExamineBlock />
-
-      <WhoBlock />
     </>
   );
 }
