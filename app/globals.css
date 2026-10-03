@@ -299,6 +299,9 @@ html.lenis body {
   align-items: center;
   min-height: 3rem;
 }
+.chat-streaming {
+  width: min(88%, 32rem);
+}
 .chat-typing-dots {
   display: flex;
   gap: 0.3rem;

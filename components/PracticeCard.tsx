@@ -8,12 +8,16 @@ export function PracticeCard() {
   const [active, setActive] = useState(demo.defaultClaim);
   const [sentTurns, setSentTurns] = useState(0);
   const [isReplyPending, setIsReplyPending] = useState(false);
+  const [streamedReply, setStreamedReply] = useState<string | null>(null);
   const conversationId = useId();
   const logRef = useRef<HTMLDivElement>(null);
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const current = demo.claims[active];
   const atEnd = sentTurns === current.thread.length;
-  const nextPrompt = isReplyPending ? demo.typingLabel : atEnd ? demo.endLabel : current.thread[sentTurns].question;
+  const replyStatus = streamedReply === null ? demo.typingLabel : demo.streamingLabel;
+  const nextPrompt = isReplyPending
+    ? replyStatus
+    : atEnd ? demo.endLabel : current.thread[sentTurns].question;
   const answeredTurns = sentTurns - (isReplyPending ? 1 : 0);
   const messages = [
     { key: "claim", side: "incoming", claim: true, text: current.claim },
@@ -25,11 +29,11 @@ export function PracticeCard() {
     ]),
   ];
 
-  // Start each example at its headline; keep appended exchanges in view.
+  // Start at the headline; keep only the inner history following the reply.
   useEffect(() => {
     const log = logRef.current;
     if (log) log.scrollTop = sentTurns === 0 ? 0 : log.scrollHeight;
-  }, [active, sentTurns, isReplyPending]);
+  }, [active, sentTurns, isReplyPending, streamedReply]);
 
   useEffect(() => () => {
     if (replyTimer.current !== null) clearTimeout(replyTimer.current);
@@ -39,18 +43,33 @@ export function PracticeCard() {
     if (replyTimer.current !== null) clearTimeout(replyTimer.current);
     replyTimer.current = null;
     setIsReplyPending(false);
+    setStreamedReply(null);
     setActive(index);
     setSentTurns(0);
   }
 
   function sendQuestion() {
-    if (atEnd || replyTimer.current !== null) return;
+    if (atEnd || isReplyPending || replyTimer.current !== null) return;
+    const words = current.thread[sentTurns].feedback.split(/\s+/);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let revealedWords = 0;
+
+    function revealReply() {
+      revealedWords = Math.min(revealedWords + demo.responseChunkSize, words.length);
+      if (reducedMotion || revealedWords === words.length) {
+        replyTimer.current = null;
+        setStreamedReply(null);
+        setIsReplyPending(false);
+        return;
+      }
+      setStreamedReply(words.slice(0, revealedWords).join(" "));
+      replyTimer.current = setTimeout(revealReply, demo.responseChunkDelayMs);
+    }
+
     setSentTurns((value) => value + 1);
+    setStreamedReply(null);
     setIsReplyPending(true);
-    replyTimer.current = setTimeout(() => {
-      replyTimer.current = null;
-      setIsReplyPending(false);
-    }, demo.responseDelayMs);
+    replyTimer.current = setTimeout(revealReply, demo.responseDelayMs);
   }
 
   return (
@@ -114,16 +133,20 @@ export function PracticeCard() {
             </li>
           ))}
           {isReplyPending && (
-            <li className="chat-message" data-side="incoming">
+            <li className="chat-message" data-side="incoming" aria-hidden="true">
               <span aria-hidden="true" className="chat-avatar">{demo.avatar}</span>
-              <div role="status" className="chat-bubble chat-typing">
-                <span className="sr-only">{demo.typingLabel}</span>
-                <span aria-hidden="true" className="chat-typing-dots"><span /><span /><span /></span>
+              <div className={"chat-bubble " + (streamedReply === null ? "chat-typing" : "chat-streaming")}>
+                {streamedReply === null
+                  ? <span className="chat-typing-dots"><span /><span /><span /></span>
+                  : <p>{streamedReply}</p>}
               </div>
             </li>
           )}
         </ol>
       </div>
+
+      {/* Announce the phase once; the log receives the full reply when finished. */}
+      <p role="status" className="sr-only">{isReplyPending ? nextPrompt : ""}</p>
 
       <div className="border-t border-rule px-4 pt-2 pb-4 md:px-5">
         <div className="mb-2 flex items-center justify-between gap-3">
