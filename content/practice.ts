@@ -24,7 +24,7 @@ export const practice = {
     label: "02 / EXAMINE",
     heading: "Start with a claim.",
     body: "Choose an example and follow the questions.",
-    methodLink: "Read the method",
+    whyLink: "Why we question",
   },
   demo: {
     name: "Elenchus",

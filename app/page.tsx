@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { ExamineBlock } from "@/components/ExamineBlock";
-import { MethodBlock } from "@/components/MethodBlock";
+import { WhyBlock } from "@/components/WhyBlock";
 import { home } from "@/content/home";
 
-// The whole site reads in order: introduction, method, and example conversation.
+// The whole site reads in order: introduction, why we question, and example conversation.
 export default function Home() {
   return (
     <>
@@ -30,7 +30,7 @@ export default function Home() {
         </div>
       </section>
 
-      <MethodBlock />
+      <WhyBlock />
       <ExamineBlock />
     </>
   );
