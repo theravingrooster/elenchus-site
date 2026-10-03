@@ -6,15 +6,15 @@ import { practice } from "@/content/practice";
 export function PracticeCard() {
   const { demo } = practice;
   const [active, setActive] = useState(demo.defaultClaim);
-  const [step, setStep] = useState(0);
+  const [sentTurns, setSentTurns] = useState(0);
   const conversationId = useId();
   const logRef = useRef<HTMLDivElement>(null);
   const current = demo.claims[active];
-  const atEnd = step === current.thread.length - 1;
-  const nextPrompt = atEnd ? demo.endLabel : current.thread[step + 1].question;
+  const atEnd = sentTurns === current.thread.length;
+  const nextPrompt = atEnd ? demo.endLabel : current.thread[sentTurns].question;
   const messages = [
     { key: "claim", side: "incoming", claim: true, text: current.claim },
-    ...current.thread.slice(0, step + 1).flatMap((turn, index) => [
+    ...current.thread.slice(0, sentTurns).flatMap((turn, index) => [
       { key: "question-" + index, side: "outgoing", claim: false, text: turn.question },
       { key: "reply-" + index, side: "incoming", claim: false, text: turn.feedback },
     ]),
@@ -23,12 +23,12 @@ export function PracticeCard() {
   // Start each example at its headline; keep appended exchanges in view.
   useEffect(() => {
     const log = logRef.current;
-    if (log) log.scrollTop = step === 0 ? 0 : log.scrollHeight;
-  }, [active, step]);
+    if (log) log.scrollTop = sentTurns === 0 ? 0 : log.scrollHeight;
+  }, [active, sentTurns]);
 
   function selectClaim(index: number) {
     setActive(index);
-    setStep(0);
+    setSentTurns(0);
   }
 
   return (
@@ -100,14 +100,14 @@ export function PracticeCard() {
             type="button"
             aria-label={demo.previousAction}
             aria-controls={conversationId}
-            disabled={step === 0}
-            onClick={() => setStep((value) => Math.max(0, value - 1))}
+            disabled={sentTurns === 0}
+            onClick={() => setSentTurns((value) => Math.max(0, value - 1))}
             className="example-nav mono-label"
           >
             <span aria-hidden="true">←</span> {demo.previousLabel}
           </button>
           <p className="mono-label shrink-0 whitespace-nowrap tabular-nums">
-            {String(step + 1).padStart(2, "0")} / {String(current.thread.length).padStart(2, "0")}
+            {String(sentTurns).padStart(2, "0")} / {String(current.thread.length).padStart(2, "0")}
           </p>
         </div>
         <button
@@ -115,7 +115,7 @@ export function PracticeCard() {
           aria-label={demo.nextAction + ": " + nextPrompt}
           aria-controls={conversationId}
           disabled={atEnd}
-          onClick={() => setStep((value) => Math.min(current.thread.length - 1, value + 1))}
+          onClick={() => setSentTurns((value) => Math.min(current.thread.length, value + 1))}
           className="chat-send"
         >
           <span>{nextPrompt}</span>
