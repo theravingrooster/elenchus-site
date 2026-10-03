@@ -21,10 +21,6 @@ function finishReply() {
   act(() => vi.runAllTimers());
 }
 
-function partialReply(text: string, chunks: number) {
-  return text.split(/\s+/).slice(0, chunks * practice.demo.responseChunkSize).join(" ");
-}
-
 function expectTranscript(claim: typeof practice.demo.claims[number], sentTurns: number) {
   const messages = within(screen.getByRole("log", { name: "Example conversation" }));
   expect(messages.getAllByRole("listitem")).toHaveLength(1 + 2 * sentTurns);
@@ -129,7 +125,7 @@ it("shows each example's sources and clears sources from the previous example", 
   }
 });
 
-it("buffers the reply, reveals words in chunks, and releases controls only at completion", () => {
+it("buffers the reply, unveils an inaccessible provisional row, and releases controls at completion", () => {
   const claim = practice.demo.claims[practice.demo.defaultClaim];
   render(<PracticeCard />);
   const next = screen.getByRole("button", { name: /^Next question:/ });
@@ -139,7 +135,10 @@ it("buffers the reply, reveals words in chunks, and releases controls only at co
   fireEvent.click(next);
   const messages = within(screen.getByRole("log", { name: "Example conversation" }));
   expect(messages.getByText(claim.thread[0].question)).toBeVisible();
-  expect(messages.queryByText(claim.thread[0].feedback)).not.toBeInTheDocument();
+  const provisionalRow = messages.getByText(claim.thread[0].feedback).closest("[data-phase]");
+  expect(provisionalRow).toHaveAttribute("aria-hidden", "true");
+  expect(provisionalRow).toHaveAttribute("data-phase", "waiting");
+  expect(messages.getAllByRole("listitem")).toHaveLength(2);
   expect(screen.getByRole("status")).toHaveTextContent(practice.demo.typingLabel);
   expect(next).toHaveAttribute("aria-disabled", "true");
   expect(next).not.toBeDisabled();
@@ -151,29 +150,26 @@ it("buffers the reply, reveals words in chunks, and releases controls only at co
   expect(messages.getAllByText(claim.thread[0].question)).toHaveLength(1);
   expect(vi.getTimerCount()).toBe(1);
   act(() => vi.advanceTimersByTime(practice.demo.responseDelayMs - 1));
-  expect(messages.queryByText(claim.thread[0].feedback)).not.toBeInTheDocument();
+  expect(messages.getAllByRole("listitem")).toHaveLength(2);
+  expect(provisionalRow).toHaveAttribute("data-phase", "waiting");
   expect(screen.getByRole("status")).toHaveTextContent(practice.demo.typingLabel);
   act(() => vi.advanceTimersByTime(1));
-  expect(screen.getByText(partialReply(claim.thread[0].feedback, 1))).toBeVisible();
-  expect(screen.getByText(partialReply(claim.thread[0].feedback, 1)).closest('[aria-hidden="true"]')).not.toBeNull();
-  expect(messages.queryByText(claim.thread[0].feedback)).not.toBeInTheDocument();
+  expect(messages.getByText(claim.thread[0].feedback).closest('[aria-hidden="true"]')).not.toBeNull();
+  expect(provisionalRow).toHaveAttribute("data-phase", "revealing");
+  expect(messages.getAllByRole("listitem")).toHaveLength(2);
   expect(screen.getByRole("status")).toHaveTextContent(practice.demo.streamingLabel);
   expect(next).toHaveAttribute("aria-disabled", "true");
   expect(previous).toBeDisabled();
   expect(next).toHaveFocus();
 
-  act(() => vi.advanceTimersByTime(practice.demo.responseChunkDelayMs - 1));
-  expect(screen.getByText(partialReply(claim.thread[0].feedback, 1))).toBeVisible();
-  act(() => vi.advanceTimersByTime(1));
-  expect(screen.getByText(partialReply(claim.thread[0].feedback, 2))).toBeVisible();
-  expect(screen.getByText(partialReply(claim.thread[0].feedback, 2)).closest('[aria-hidden="true"]')).not.toBeNull();
   fireEvent.click(next);
   expect(messages.getAllByText(claim.thread[0].question)).toHaveLength(1);
   expect(vi.getTimerCount()).toBe(1);
 
-  const chunks = Math.ceil(claim.thread[0].feedback.split(/\s+/).length / practice.demo.responseChunkSize);
-  act(() => vi.advanceTimersByTime((chunks - 2) * practice.demo.responseChunkDelayMs - 1));
-  expect(messages.queryByText(claim.thread[0].feedback)).not.toBeInTheDocument();
+  act(() => vi.advanceTimersByTime(practice.demo.responseRevealMs - 1));
+  expect(messages.getByText(claim.thread[0].feedback).closest('[aria-hidden="true"]')).not.toBeNull();
+  expect(messages.getAllByRole("listitem")).toHaveLength(2);
+  expect(screen.getByRole("status")).toHaveTextContent(practice.demo.streamingLabel);
   expect(next).toHaveAttribute("aria-disabled", "true");
   expect(previous).toBeDisabled();
   act(() => vi.advanceTimersByTime(1));
@@ -190,15 +186,16 @@ it("buffers the reply, reveals words in chunks, and releases controls only at co
 it.each([
   { selection: "changing", phase: "waiting" },
   { selection: "reselecting", phase: "waiting" },
-  { selection: "changing", phase: "streaming" },
-  { selection: "reselecting", phase: "streaming" },
+  { selection: "changing", phase: "revealing" },
+  { selection: "reselecting", phase: "revealing" },
 ])("cancels the $phase reply when $selection an example", ({ selection, phase }) => {
   const claim = practice.demo.claims[practice.demo.defaultClaim];
   const selected = selection === "changing" ? practice.demo.claims.find((item) => item !== claim)! : claim;
   render(<PracticeCard />);
   fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
-  act(() => vi.advanceTimersByTime(phase === "waiting" ? Math.floor(practice.demo.responseDelayMs / 2) : practice.demo.responseDelayMs + practice.demo.responseChunkDelayMs));
+  act(() => vi.advanceTimersByTime(phase === "waiting" ? Math.floor(practice.demo.responseDelayMs / 2) : practice.demo.responseDelayMs + Math.floor(practice.demo.responseRevealMs / 2)));
   expect(vi.getTimerCount()).toBe(1);
+  expect(screen.getByText(claim.thread[0].feedback).closest("[data-phase]")).toHaveAttribute("data-phase", phase);
   fireEvent.click(screen.getByRole("button", { name: selected.bar }));
   expectTranscript(selected, 0);
   expect(screen.getByRole("status")).toBeEmptyDOMElement();
@@ -214,10 +211,10 @@ it.each([
   expectTranscript(selected, 1);
 });
 
-it.each(["waiting", "streaming"])("clears the %s timer when the conversation unmounts", (phase) => {
+it.each(["waiting", "revealing"])("clears the %s timer when the conversation unmounts", (phase) => {
   const { unmount } = render(<PracticeCard />);
   fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
-  if (phase === "streaming") act(() => vi.advanceTimersByTime(practice.demo.responseDelayMs));
+  if (phase === "revealing") act(() => vi.advanceTimersByTime(practice.demo.responseDelayMs));
   expect(vi.getTimerCount()).toBe(1);
   unmount();
   expect(vi.getTimerCount()).toBe(0);
@@ -231,7 +228,7 @@ it("shows the whole reply after the buffer when reduced motion is preferred", ()
   render(<PracticeCard />);
   fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
   act(() => vi.advanceTimersByTime(practice.demo.responseDelayMs - 1));
-  expect(screen.queryByText(claim.thread[0].feedback)).not.toBeInTheDocument();
+  expect(within(screen.getByRole("log", { name: "Example conversation" })).getAllByRole("listitem")).toHaveLength(2);
   expect(screen.getByRole("status")).toHaveTextContent(practice.demo.typingLabel);
   act(() => vi.advanceTimersByTime(1));
   expectTranscript(claim, 1);

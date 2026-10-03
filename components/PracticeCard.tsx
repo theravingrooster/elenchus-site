@@ -8,13 +8,13 @@ export function PracticeCard() {
   const [active, setActive] = useState(demo.defaultClaim);
   const [sentTurns, setSentTurns] = useState(0);
   const [isReplyPending, setIsReplyPending] = useState(false);
-  const [streamedReply, setStreamedReply] = useState<string | null>(null);
+  const [isReplyRevealing, setIsReplyRevealing] = useState(false);
   const conversationId = useId();
   const logRef = useRef<HTMLDivElement>(null);
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const current = demo.claims[active];
   const atEnd = sentTurns === current.thread.length;
-  const replyStatus = streamedReply === null ? demo.typingLabel : demo.streamingLabel;
+  const replyStatus = isReplyRevealing ? demo.streamingLabel : demo.typingLabel;
   const nextPrompt = isReplyPending
     ? replyStatus
     : atEnd ? demo.endLabel : current.thread[sentTurns].question;
@@ -33,7 +33,7 @@ export function PracticeCard() {
   useEffect(() => {
     const log = logRef.current;
     if (log) log.scrollTop = sentTurns === 0 ? 0 : log.scrollHeight;
-  }, [active, sentTurns, isReplyPending, streamedReply]);
+  }, [active, sentTurns, isReplyPending, isReplyRevealing]);
 
   useEffect(() => () => {
     if (replyTimer.current !== null) clearTimeout(replyTimer.current);
@@ -43,33 +43,32 @@ export function PracticeCard() {
     if (replyTimer.current !== null) clearTimeout(replyTimer.current);
     replyTimer.current = null;
     setIsReplyPending(false);
-    setStreamedReply(null);
+    setIsReplyRevealing(false);
     setActive(index);
     setSentTurns(0);
   }
 
   function sendQuestion() {
     if (atEnd || isReplyPending || replyTimer.current !== null) return;
-    const words = current.thread[sentTurns].feedback.split(/\s+/);
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let revealedWords = 0;
 
-    function revealReply() {
-      revealedWords = Math.min(revealedWords + demo.responseChunkSize, words.length);
-      if (reducedMotion || revealedWords === words.length) {
-        replyTimer.current = null;
-        setStreamedReply(null);
-        setIsReplyPending(false);
-        return;
-      }
-      setStreamedReply(words.slice(0, revealedWords).join(" "));
-      replyTimer.current = setTimeout(revealReply, demo.responseChunkDelayMs);
+    function finishReply() {
+      replyTimer.current = null;
+      setIsReplyRevealing(false);
+      setIsReplyPending(false);
     }
 
     setSentTurns((value) => value + 1);
-    setStreamedReply(null);
+    setIsReplyRevealing(false);
     setIsReplyPending(true);
-    replyTimer.current = setTimeout(revealReply, demo.responseDelayMs);
+    replyTimer.current = setTimeout(() => {
+      if (reducedMotion) {
+        finishReply();
+      } else {
+        setIsReplyRevealing(true);
+        replyTimer.current = setTimeout(finishReply, demo.responseRevealMs);
+      }
+    }, demo.responseDelayMs);
   }
 
   return (
@@ -133,12 +132,19 @@ export function PracticeCard() {
             </li>
           ))}
           {isReplyPending && (
-            <li className="chat-message" data-side="incoming" aria-hidden="true">
+            <li
+              className="chat-message"
+              data-side="incoming"
+              data-phase={isReplyRevealing ? "revealing" : "waiting"}
+              aria-hidden="true"
+            >
               <span aria-hidden="true" className="chat-avatar">{demo.avatar}</span>
-              <div className={"chat-bubble " + (streamedReply === null ? "chat-typing" : "chat-streaming")}>
-                {streamedReply === null
-                  ? <span className="chat-typing-dots"><span /><span /><span /></span>
-                  : <p>{streamedReply}</p>}
+              <div className="chat-bubble chat-reply">
+                {/* Lay out the whole reply once so uncovering it never shifts the history. */}
+                <p className="chat-reveal-copy" style={{ animationDuration: demo.responseRevealMs + "ms" }}>
+                  {current.thread[sentTurns - 1].feedback}
+                </p>
+                {!isReplyRevealing && <span className="chat-typing-dots"><span /><span /><span /></span>}
               </div>
             </li>
           )}

@@ -147,17 +147,16 @@ html.lenis body {
 
 }
 
-/* Grid overlay at ~8% ink on every page (#25). Fixed behind all content, always visible:
-   no scroll listener, no fade. */
-.site-grid {
+/* Static ink contours and stippling over the black ground, quiet behind the type. */
+.site-backdrop {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: -1;
-  /* Hairline grid drawn as an SVG pattern (ink at 8% opacity), not a gradient. */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M64 .5H.5V64' fill='none' stroke='%23EDE6D6' stroke-opacity='.08'/%3E%3C/svg%3E");
-  background-size: 64px 64px;
+  overflow: hidden;
+  color: var(--color-ink);
 }
+.site-backdrop svg { display: block; width: 100%; height: 100%; }
 
 /* Home Socrates mark (#21, moved in #25). public/socrates.png is Ryan's drawing with each
    pixel's brightness kept as alpha and the colour set to ink, so the lines are exactly
@@ -235,7 +234,7 @@ html.lenis body {
   text-underline-offset: 0.3em;
 }
 .demo-chat-log {
-  height: 26rem;
+  height: 32rem;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -294,15 +293,31 @@ html.lenis body {
   background: var(--color-ink);
   color: var(--color-paper);
 }
-.chat-typing {
-  display: flex;
-  align-items: center;
-  min-height: 3rem;
-}
-.chat-streaming {
+.chat-reply {
+  position: relative;
   width: min(88%, 32rem);
 }
+.chat-message[data-phase="waiting"] .chat-reveal-copy {
+  visibility: hidden;
+}
+.chat-message[data-phase="revealing"] .chat-reveal-copy {
+  /* A two-rem feather rolls down the already laid-out text, without moving it. */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 2rem), transparent);
+  mask-repeat: no-repeat;
+  mask-position: 0 -2rem;
+  animation-name: chat-uncover;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+@keyframes chat-uncover {
+  from { mask-size: 100% 2rem; }
+  to { mask-size: 100% calc(100% + 4rem); }
+}
 .chat-typing-dots {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
   display: flex;
   gap: 0.3rem;
 }
@@ -321,6 +336,10 @@ html.lenis body {
 }
 @media (prefers-reduced-motion: reduce) {
   .chat-typing-dots span { animation: none; }
+  .chat-message[data-phase="revealing"] .chat-reveal-copy {
+    animation: none;
+    mask-image: none;
+  }
 }
 .chat-sources {
   display: flex;
@@ -374,7 +393,7 @@ html.lenis body {
 }
 @media (min-width: 768px) {
   .demo-chat-log {
-    height: 28rem;
+    height: 38rem;
   }
   .chat-messages {
     padding: 1.5rem 1.25rem;

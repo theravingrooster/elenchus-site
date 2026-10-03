@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Newsreader } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SiteGrid } from "@/components/SiteGrid";
+import { SiteBackdrop } from "@/components/SiteBackdrop";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { chrome } from "@/content/chrome";
@@ -32,8 +32,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${newsreader.variable} ${plexMono.variable}`}>
       <body className="flex min-h-screen flex-col text-ink">
         <a href="#main-content" className="skip-link">{chrome.skipToContent}</a>
-        {/* Paper comes from <html>, so the fixed grid at z-index -1 shows through the body. */}
-        <SiteGrid />
+        {/* Paper comes from <html>, so the fixed etched backdrop shows through the body. */}
+        <SiteBackdrop />
         <SmoothScroll />
         <SiteHeader />
         <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
