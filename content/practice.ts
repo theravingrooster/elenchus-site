@@ -54,24 +54,24 @@ export const practice = {
         ],
         thread: [
           {
-            question: "Were 28 million lives actually saved?",
+            question: "Twenty-eight million fewer deaths compared with what?",
             feedback:
-              "The number is a five-year simulation result: 7.41% fewer modeled deaths under universal access to semaglutide.",
+              "The estimate compares simulated futures over five years. To interpret the difference, we need to know what treatment and care people receive in the scenario without universal access.",
           },
           {
-            question: "Who does “universal” include?",
+            question: "What makes that benefit hold across different patients and countries?",
             feedback:
-              "Adults who meet the model’s eligibility rules for obesity or type 2 diabetes. Those rules determine who counts.",
+              "The model spans 196 countries. Check whether the evidence supports the treatment effects assumed for those populations; different starting risks and care conditions could change the projected benefit.",
           },
           {
-            question: "Does access mean everyone takes it?",
+            question: "If half the eligible people take it, would half the benefit follow?",
             feedback:
-              "Availability alone doesn’t establish uptake. We need the model’s assumptions about treatment use and adherence to interpret the estimate.",
+              "That depends on who takes it and for how long. Half the people need not represent half the preventable deaths; the model needs to test that scenario.",
           },
           {
-            question: "What can we actually say?",
+            question: "Which assumption could change the estimate most?",
             feedback:
-              "A simulation projects roughly 28 million fewer deaths over five years under universal access. The word “could” carries the model’s conditions.",
+              "Ask how the estimate changes with lower uptake, more discontinuation, or smaller treatment effects. If plausible alternatives move it sharply, those conditions belong beside the 28 million figure.",
           },
         ],
       },
@@ -83,24 +83,24 @@ export const practice = {
         ],
         thread: [
           {
-            question: "Which students bounced back?",
+            question: "Why should reaching 2020 count as catching up?",
             feedback:
-              "Nine-year-olds improved on the 2025 long-term NAEP tests. Thirteen-year-olds remained below their pre-pandemic averages in both subjects.",
+              "Back to 2020 and on track for 2025 are different standards. Nine-year-olds’ reading was not significantly different from 2020; their math and thirteen-year-olds’ scores remained lower.",
           },
           {
-            question: "Did reading and math recover equally?",
+            question: "Did the same children recover, or did a new group score better?",
             feedback:
-              "For nine-year-olds, reading was not significantly different from 2020. Math improved since 2022, but was still four points lower than 2020.",
+              "NAEP samples age groups in different years; it does not follow the same children. A higher group average cannot show that the children who lost ground have caught up.",
           },
           {
-            question: "Caught up compared with when?",
+            question: "Who could still be behind even if the national average recovered?",
             feedback:
-              "A gain since 2022 is one comparison. Thirteen-year-olds’ 2025 reading average was not significantly different from 1971.",
+              "An average can hide different trajectories. Compare lower- and higher-scoring students with the same baseline before treating a national gain as recovery shared by everyone.",
           },
           {
-            question: "Can we say kids are caught up?",
+            question: "Does “not significantly different” rule out a meaningful learning gap?",
             feedback:
-              "We can say nine-year-olds’ average reading score is back near its 2020 level. That conclusion doesn’t extend to every age or subject.",
+              "It means the test did not detect a difference, not that the scores are proven equal. Examine the estimated gap and its uncertainty before deciding that any remaining difference is too small to matter.",
           },
         ],
       },
@@ -113,24 +113,24 @@ export const practice = {
         ],
         thread: [
           {
-            question: "What do the official numbers count?",
+            question: "Could the divorce-to-marriage ratio fall without marriages becoming more stable?",
             feedback:
-              "CDC’s 2023 figures count marriages and divorces per 1,000 residents. The divorce figures cover 45 states and D.C.",
+              "More new weddings can lower the ratio without reducing an existing marriage’s divorce risk. The counts also mix marriage years and, in CDC’s data, different geographic coverage.",
           },
           {
-            question: "Can I divide the divorce rate by the marriage rate?",
+            question: "Could Pew’s one-third figure rise even while annual divorce rates fall?",
             feedback:
-              "That compares events in one year. Those divorces mostly concern earlier weddings, and the two rates cover different populations.",
+              "One-third of ever-married people reported a first-marriage divorce by 2023. That cumulative share could rise as ongoing marriages end, even while annual divorce rates fall.",
           },
           {
-            question: "Does Pew’s one-third figure settle it?",
+            question: "Are newer marriages more stable, or have they just had less time to end?",
             feedback:
-              "One-third of ever-married Americans reported a first-marriage divorce by 2023. Some ongoing marriages could still end in divorce.",
+              "Newer marriage groups have had less time in which a divorce could occur. Compare groups at the same marriage duration before interpreting a lower observed share as greater stability.",
           },
           {
-            question: "What would support a prediction of less than half?",
+            question: "Could divorce fall because the people who marry have changed?",
             feedback:
-              "We’d need to define which marriages, distinguish divorce from separation, and estimate outcomes over a specified period.",
+              "Pew reports a shift toward more-educated adults in the married population. Compare similar couples at the same marriage duration before treating the decline as evidence that marriages themselves became more stable.",
           },
         ],
       },
