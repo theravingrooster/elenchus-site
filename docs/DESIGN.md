@@ -43,7 +43,7 @@ Rules:
 
 - Wide margins. Content column ~64–72ch for reading, full bleed only for the hero wordmark.
 - Hairline rules instead of cards-with-shadows.
-- The site is one scrolling page, ordered Home hero, Why we question, then Examine. Use aligned sections and enough spacing to make that sequence clear.
+- The site is one scrolling page, ordered Home hero, Why, then Examine. Use aligned sections and enough spacing to make that sequence clear.
 - A fixed overlay of flowing ink contours and sparse stippling on the black background replaces the square grid. Keep the formations at the viewport edges and their opacity low behind the reading column. It is static server-rendered SVG, with no scroll listeners or animation.
 - Section labels in mono, left or overline: `01 / WHY WE QUESTION`, `02 / EXAMINE`.
 
@@ -84,7 +84,7 @@ No forms in v1. Nothing on the site collects input.
 Images: two generated classical engravings in cream ink, with transparent backgrounds that let the black ground show through. The latest user request replaces the previous one-image constraint:
 
 - A full-body Socrates lounging in a toga sits on the right of the Home hero, replacing the old standing line drawing. Preserve the entire reclining figure and its drapery.
-- Rodin's Dante-inspired Thinker sits beneath the introduction in the left Why we question column. Match its etched linework and cream tone to Socrates and the surrounding ornament.
+- Rodin's Dante-inspired Thinker sits beneath the heading in the left Why column. Match its etched linework and cream tone to Socrates and the surrounding ornament.
 
 Keep both images static, scale them responsively, and give the text clear space. Preserve transparent edges rather than putting either image in a panel. No new captions, stock photographs, decorative copies, or images in the navigation.
 
@@ -99,7 +99,7 @@ Keep both images static, scale them responsively, and give the text clear space.
 
 ## Test
 
-Keep the two approved hero sentences exact. All authored information belongs below that hero on the same page, with Why we question before Examine. Its short rationale explains how school, work, and family settings can discourage questioning; it replaces the numbered Method instructions and practical note. Remove the Who section. Use aligned sections, short headings, and clear spacing while preserving the taller conversation window and elaborate black-ground overlay. Avoid duplicate labels and oversized closing questions.
+Keep the two approved hero sentences exact. All authored information belongs below that hero on the same page, with Why before Examine. The Why heading is exactly “Why we stopped questioning.” Its rationale uses two consecutive brief paragraphs: first the pressures of school, work, and family; then the habit of staying quiet and room to ask again. Use no context subheadings or separate closing divider. Remove the Who section. Use aligned sections, short headings, and clear spacing while preserving the taller conversation window and elaborate black-ground overlay. Avoid duplicate labels and oversized closing questions.
 
 Open the page next to nousresearch.com and wyandanch.consulting.
 If it looks like a third SaaS template, it failed.

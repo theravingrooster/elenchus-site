@@ -23,21 +23,8 @@ export function WhyBlock() {
             />
           </div>
         </div>
-        <div className="min-w-0 max-w-[48rem]">
-          <div className="space-y-7 md:space-y-9">
-            {why.contexts.map((context) => (
-              <div key={context.heading}>
-                <h3 className="mono-label text-ink/65">{context.heading}</h3>
-                <p className="mt-3 max-w-[40ch] font-serif text-2xl leading-[1.3] md:text-[1.75rem]">
-                  {context.body}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 max-w-[48ch] border-t border-rule pt-7 md:mt-10">
-            <p>{why.closing.reflection}</p>
-            <p className="mt-4 font-serif text-2xl italic leading-[1.2]">{why.closing.invitation}</p>
-          </div>
+        <div className="min-w-0 max-w-[46ch] space-y-6 font-serif text-xl leading-[1.5] md:space-y-8 md:text-2xl">
+          {why.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </div>
     </section>
