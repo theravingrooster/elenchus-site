@@ -1,7 +1,7 @@
 # Elenchus — Design
 
 Visual family: Nous Research + Wyandanch Consulting.
-Not a copy. Same discipline: one metaphor, huge type, tiny palette, interface chrome, almost no decoration.
+Same discipline: one metaphor, huge type, tiny palette, and restrained interface chrome. The Oct 3, 2026 background request adds fine etched ornament over the black ground.
 
 ## Metaphor
 
@@ -13,13 +13,13 @@ Classroom clipart, mortarboards, lightbulbs, brains, and purple AI glow are not.
 
 ## Color
 
-Two colors plus paper. No gradients.
+Keep the black ground and cream ink. Gradients may control opacity in the backdrop and reply reveal; they do not introduce another hue.
 
 | Token | Value | Use |
 |---|---|---|
 | Paper | `#0E0D0B` | Page ground |
 | Ink | `#EDE6D6` | Type, rules, UI |
-| Rule | `rgba(237,230,214,0.12)` | Grid, hairlines |
+| Rule | `rgba(237,230,214,0.12)` | Borders, hairlines |
 | Warn | `#EDE6D6` | Same as ink. Do not add a "brand accent" red/blue until v2 |
 
 Hover states invert ink and paper. Never introduce a third hue. No glow.
@@ -43,7 +43,7 @@ Rules:
 
 - Wide margins. Content column ~64–72ch for reading, full bleed only for the hero wordmark.
 - Hairline rules instead of cards-with-shadows.
-- Grid overlay at ~8% ink, the same grid on Home, Method, Examine, and Who. It stays mounted and visible while scrolling; never fade it to zero.
+- A fixed overlay of flowing ink contours and sparse stippling on every page replaces the square grid. Keep the formations at the viewport edges and their opacity low behind the reading column. It is static server-rendered SVG, with no scroll listeners or animation.
 - Section labels in mono, left or overline: `01 / METHOD`, `02 / DRILL`.
 
 ## Motion
@@ -55,10 +55,11 @@ Allowed:
 - Command palette (`⌘K`) that jumps to sections
 - 120ms ink wipes on buttons
 - Staggered section labels on first intersection
+- Demo replies uncover from top to bottom through a soft edge, like fabric rolling away, after the short typing pause. The text itself stays still.
 
 Forbidden:
 
-- Particle fields, 3D globes, looping gradients
+- Animated particle fields, 3D globes, looping gradients
 - Autoplaying video backgrounds
 - Bounce, elastic, confetti
 - Motion that delays reading the question
@@ -76,7 +77,7 @@ Do not build a fake terminal that types marketing copy.
 
 ## Components
 
-Site buttons stay rectangular. The Oct 2, 2026 follow-up makes the demo an example conversation: a rounded panel with short message bubbles, reader questions on the right in ink-on-paper inversion, and Elenchus replies on the left. Small example selectors replace the three full-width table cells. Keep the history in a bounded, keyboard-scrollable area; sending a question shows it immediately, followed by an 800ms typing pause and a gradual reveal of two words every 100ms; scroll only the chat as the reply grows. Keep the streaming bubble at its final width to prevent horizontal growth. Static dots replace the pulse for reduced-motion readers, who receive the whole reply after the pause. Hide partial text from the accessibility tree and announce the completed reply once in the log; keep a short status outside the log while replying. The message area is 28rem on desktop and 26rem on phones, with a slightly wider desktop panel. The composer is a button for the next prepared question, with a send arrow. Initially, only the headline is in the conversation; the reader must send the first question. Send and Previous remain unavailable throughout the pause and reveal. Previous removes the latest exchange; choosing or reselecting a claim cancels any pending reply and resets the conversation to the headline with no questions sent. Keep the Example label clear. Do not add a fake input field, fabricated online status, or live generation.
+Site buttons stay rectangular. The demo is an example conversation: a rounded panel with short message bubbles, reader questions on the right in ink-on-paper inversion, and Elenchus replies on the left. Small example selectors replace the three full-width table cells. Sending a question shows it immediately, followed by an 800ms typing pause and a 2600ms continuous uncover of the reply through a soft vertical mask. Reserve the full reply's width and height during the pause, so its lines and the surrounding history stay still throughout the reveal. Only the inner chat scrolls when a message is added. Static dots replace the pulse for reduced-motion readers, who receive the whole reply after the pause. Hide the provisional reply from the accessibility tree and announce the completed reply once in the log; keep a short status outside the log while replying. The bounded, keyboard-scrollable message area is 38rem on desktop and 32rem on phones. The composer is a button for the next prepared question, with a send arrow. Initially, only the headline is in the conversation; the reader must send the first question. Send and Previous remain unavailable throughout the pause and reveal. Previous removes the latest exchange; choosing or reselecting a claim cancels any pending reply and resets the conversation to the headline with no questions sent. Keep the Example label clear. Do not add a fake input field, fabricated online status, or live generation.
 No forms in v1. Nothing on the site collects input.
 Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets/socrates-source.jpg`), in paper and ink, never recolored and never a photograph. It is a mark on the right of the Home hero, not wallpaper: at most 0.22 opacity under type, or 1.0 in an empty right column; on phones hidden or at most 0.12, and never covering the display line or the sentence under it. Scaled so it sits close to the type without empty space beneath. Never in the nav, never tiled, no caption, laurel, or dates. Anywhere else, images must be diagrams or photographs of text, not stock thinkers.
 
@@ -91,7 +92,7 @@ Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets
 
 ## Test
 
-The Oct 2, 2026 copy and layout refresh supersedes the previous requirement for tall conversation threads and repeated full-page sections. Keep the two approved hero sentences exact. Below the hero, use compact aligned sections, short headings, and clear spacing. Avoid duplicate labels and oversized closing questions.
+Keep the two approved hero sentences exact. Below the hero, use aligned sections, short headings, and clear spacing. The Oct 3, 2026 follow-up explicitly asks for a taller conversation window and a more elaborate black-ground overlay. Avoid duplicate labels and oversized closing questions.
 
 Open the page next to nousresearch.com and wyandanch.consulting.
 If it looks like a third SaaS template, it failed.

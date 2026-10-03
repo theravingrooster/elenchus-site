@@ -44,8 +44,7 @@ export const practice = {
     typingLabel: "Preparing a reply…",
     streamingLabel: "Replying…",
     responseDelayMs: 800,
-    responseChunkSize: 2,
-    responseChunkDelayMs: 100,
+    responseRevealMs: 2600,
     // Default claim is the first (Medicine).
     defaultClaim: 0,
     claims: [
