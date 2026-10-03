@@ -172,12 +172,12 @@ html.lenis body {
 @media (min-width: 768px) {
   .socrates-mark {
     display: block;
-    height: min(45svh, 22rem);
+    height: min(56svh, 28rem);
   }
 }
 @media (min-width: 1024px) {
   .socrates-mark {
-    height: min(48svh, 26rem);
+    height: min(60svh, 34rem);
   }
 }
 
