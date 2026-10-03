@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SectionLabel } from "./SectionLabel";
 import { method } from "@/content/method";
 
@@ -11,6 +12,16 @@ export function MethodBlock() {
             {method.header.heading}
           </h2>
           <p className="mt-5 max-w-[32ch]">{method.header.body}</p>
+          <div aria-hidden="true" className="thinker-mark mt-8">
+            <Image
+              src="/thinker-method.webp"
+              alt=""
+              width={768}
+              height={1152}
+              sizes="(min-width: 1024px) 272px, 224px"
+              className="h-auto w-full"
+            />
+          </div>
         </div>
         <div className="grid min-w-0 gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] xl:gap-12">
           <div>
