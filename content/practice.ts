@@ -136,6 +136,35 @@ export const practice = {
           },
         ],
       },
+      {
+        bar: "Work",
+        claim: "Remote Work Raised Productivity 13 Percent, Study Finds.",
+        sources: [
+          { label: "LSE CEP · 2013", href: "https://cep.lse.ac.uk/pubs/download/dp1194.pdf" },
+        ],
+        thread: [
+          {
+            question: "Thirteen percent compared with which arrangement, over how long?",
+            feedback:
+              "For nine months, Ctrip call-center volunteers were randomly assigned to four home days plus one office day, or five office days. The result concerns that specific comparison.",
+          },
+          {
+            question: "Would the result apply to workers who didn’t volunteer?",
+            feedback:
+              "Participants wanted to work from home and needed broadband and a private workspace. Random assignment helps compare those participants; it does not make them representative of every worker.",
+          },
+          {
+            question: "Was output per hour 13 percent higher, or did people work more?",
+            feedback:
+              "About 9 percent came from more active minutes within shifts, and 4 percent from more calls per minute. The 13 percent combines time worked with output per active minute.",
+          },
+          {
+            question: "Which assumption, if weaker elsewhere, could shrink or erase the 13 percent?",
+            feedback:
+              "The gain combined extra active minutes with faster calls, which workers attributed to quieter homes. If another workplace offers less of either advantage, the gain could shrink; if neither holds, it could disappear.",
+          },
+        ],
+      },
     ] satisfies DemoClaim[],
   },
 };
