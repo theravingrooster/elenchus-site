@@ -21,7 +21,7 @@ export type DemoClaim = {
 export const practice = {
   title: "Practice",
   intro: {
-    label: "01 / EXAMINE",
+    label: "02 / EXAMINE",
     heading: "Start with a claim.",
     body: "Choose an example and follow the questions.",
     methodLink: "Read the method",

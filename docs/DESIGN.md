@@ -43,8 +43,9 @@ Rules:
 
 - Wide margins. Content column ~64–72ch for reading, full bleed only for the hero wordmark.
 - Hairline rules instead of cards-with-shadows.
-- A fixed overlay of flowing ink contours and sparse stippling on every page replaces the square grid. Keep the formations at the viewport edges and their opacity low behind the reading column. It is static server-rendered SVG, with no scroll listeners or animation.
-- Section labels in mono, left or overline: `01 / METHOD`, `02 / DRILL`.
+- The site is one scrolling page, ordered Home hero, Method, then Examine. Use aligned sections and enough spacing to make that sequence clear.
+- A fixed overlay of flowing ink contours and sparse stippling on the black background replaces the square grid. Keep the formations at the viewport edges and their opacity low behind the reading column. It is static server-rendered SVG, with no scroll listeners or animation.
+- Section labels in mono, left or overline: `01 / METHOD`, `02 / EXAMINE`.
 
 ## Motion
 
@@ -70,7 +71,7 @@ Use sparingly, as proof the site is an instrument:
 
 - Command palette placeholder: `Jump to a section`. The palette only navigates; it saves nothing.
 - On phones, the palette has a visible `Jump` button beside `Menu`; wider screens keep the `⌘K` hint.
-- Header: wordmark and navigation, without a repeated status bar.
+- Header: wordmark and Method / Examine anchor links, without a repeated status bar. The wordmark returns to Home; the palette offers Home, Method, and Examine.
 - Footer: wordmark and a `Back to top` link.
 
 Do not build a fake terminal that types marketing copy.
@@ -87,12 +88,12 @@ Images: one only, on Home. Ryan's single-ink Socrates line drawing (`docs/assets
 - Focus rings visible (ink outline, 2px).
 - Keyboard: `⌘K`, `Esc`, tab order through nav.
 - `Skip to content` is the first keyboard stop, appears on focus, and targets the main content.
-- Navigation marks the selected Home fragment with `aria-current="location"`; full pages use `aria-current="page"`.
+- Navigation marks the selected homepage fragment with `aria-current="location"`.
 - Reduced-motion: skip Lenis and hero settle.
 
 ## Test
 
-Keep the two approved hero sentences exact. Below the hero, use aligned sections, short headings, and clear spacing. The Oct 3, 2026 follow-up explicitly asks for a taller conversation window and a more elaborate black-ground overlay. Avoid duplicate labels and oversized closing questions.
+Keep the two approved hero sentences exact. All authored information belongs below that hero on the same page, with Method before Examine. Remove the Who section. Use aligned sections, short headings, and clear spacing while preserving the taller conversation window and elaborate black-ground overlay. Avoid duplicate labels and oversized closing questions.
 
 Open the page next to nousresearch.com and wyandanch.consulting.
 If it looks like a third SaaS template, it failed.

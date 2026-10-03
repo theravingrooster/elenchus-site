@@ -11,8 +11,6 @@ export const chrome = {
     home: "Home",
     method: "Method",
     practice: "Examine",
-    for: "Who",
-    ask: "Ask",
   },
   menu: {
     open: "Menu",

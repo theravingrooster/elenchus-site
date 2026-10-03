@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { PracticeCard } from "./PracticeCard";
 import { SectionLabel } from "./SectionLabel";
 import { practice } from "@/content/practice";
@@ -11,9 +10,9 @@ export function ExamineBlock() {
           <SectionLabel>{practice.intro.label}</SectionLabel>
           <h2 className="mt-5 max-w-[14ch] font-serif text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">{practice.intro.heading}</h2>
           <p className="mt-5 max-w-[32ch]">{practice.intro.body}</p>
-          <Link href="/method" className="mono-label mt-6 inline-flex items-center gap-3 underline underline-offset-[6px]">
-            {practice.intro.methodLink}<span aria-hidden="true">↗</span>
-          </Link>
+          <a href="#method" className="mono-label mt-6 inline-flex items-center gap-3 underline underline-offset-[6px]">
+            {practice.intro.methodLink}<span aria-hidden="true">↑</span>
+          </a>
         </div>
         <div className="min-w-0"><PracticeCard /></div>
       </div>
