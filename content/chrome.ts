@@ -9,7 +9,7 @@ export const chrome = {
   footerTop: "Back to top",
   nav: {
     home: "Home",
-    method: "Method",
+    why: "Why",
     practice: "Examine",
   },
   menu: {

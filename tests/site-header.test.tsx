@@ -46,7 +46,7 @@ function primaryLink(name: string) {
 
 describe("site navigation", () => {
   it.each([
-    ["method", "Method"],
+    ["method", "Why"],
     ["examine", "Examine"],
   ])("marks the section on an initial #%s visit", (hash, label) => {
     window.history.replaceState(null, "", `/#${hash}`);
@@ -67,14 +67,14 @@ describe("site navigation", () => {
       window.history.replaceState(null, "", "/#method");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
-    expect(primaryLink("Method")).toHaveAttribute("aria-current", "location");
+    expect(primaryLink("Why")).toHaveAttribute("aria-current", "location");
     expect(primaryLink("Examine")).not.toHaveAttribute("aria-current");
 
     act(() => {
       window.history.replaceState(null, "", "/");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
-    expect(primaryLink("Method")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Why")).not.toHaveAttribute("aria-current");
     expect(screen.getByRole("link", { name: "ELENCHUS" })).toHaveAttribute("aria-current", "page");
   });
 
@@ -83,15 +83,15 @@ describe("site navigation", () => {
     render(<SiteHeader />);
     const navigationLinks = within(screen.getByRole("navigation", { name: "Primary" })).getAllByRole("link");
     expect(navigationLinks.map((link) => link.getAttribute("href"))).toEqual(["/#method", "/#examine"]);
-    await user.click(primaryLink("Method"));
-    expect(primaryLink("Method")).toHaveAttribute("aria-current", "location");
+    await user.click(primaryLink("Why"));
+    expect(primaryLink("Why")).toHaveAttribute("aria-current", "location");
     await user.click(primaryLink("Examine"));
     expect(primaryLink("Examine")).toHaveAttribute("aria-current", "location");
-    expect(primaryLink("Method")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Why")).not.toHaveAttribute("aria-current");
 
     await user.click(screen.getByRole("link", { name: "ELENCHUS" }));
     expect(screen.getByRole("link", { name: "ELENCHUS" })).toHaveAttribute("aria-current", "page");
-    expect(primaryLink("Method")).not.toHaveAttribute("aria-current");
+    expect(primaryLink("Why")).not.toHaveAttribute("aria-current");
     expect(primaryLink("Examine")).not.toHaveAttribute("aria-current");
   });
 
@@ -110,17 +110,17 @@ describe("site navigation", () => {
     render(<SiteHeader />);
     await user.click(screen.getByRole("button", { name: "Jump to a section" }));
     expect(screen.getAllByRole("option")).toHaveLength(3);
-    for (const name of ["Home", "Method", "Examine"]) {
+    for (const name of ["Home", "Why", "Examine"]) {
       expect(screen.getByRole("option", { name })).toBeVisible();
     }
     expect(screen.queryByRole("option", { name: "Who" })).not.toBeInTheDocument();
     expect(screen.queryByRole("option", { name: "Ask" })).not.toBeInTheDocument();
-    await user.type(screen.getByRole("combobox"), "Method");
-    expect(screen.getByRole("option", { name: "Method" })).toBeVisible();
+    await user.type(screen.getByRole("combobox"), "Why");
+    expect(screen.getByRole("option", { name: "Why" })).toBeVisible();
     await user.keyboard("{Enter}");
     expect(navigation.push).toHaveBeenCalledWith("/#method");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(primaryLink("Method")).toHaveAttribute("aria-current", "location");
+    expect(primaryLink("Why")).toHaveAttribute("aria-current", "location");
   });
 
   it("dismisses the mobile drawer after selecting a section", async () => {

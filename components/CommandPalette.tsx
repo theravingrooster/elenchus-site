@@ -12,7 +12,7 @@ type Props = {
   onNavigate: (href: string) => void;
 };
 
-// DESIGN.md: ⌘K jumps to Home, Method, or Examine and saves nothing. Esc closes.
+// DESIGN.md: ⌘K jumps to Home, Why, or Examine and saves nothing. Esc closes.
 export function CommandPalette({ open, onOpenChange, onNavigate }: Props) {
   const router = useRouter();
 
