@@ -41,6 +41,8 @@ export const practice = {
     previousLabel: "Previous",
     previousAction: "Previous question",
     nextAction: "Next question",
+    typingLabel: "Preparing a reply…",
+    responseDelayMs: 800,
     // Default claim is the first (Medicine).
     defaultClaim: 0,
     claims: [

@@ -235,7 +235,7 @@ html.lenis body {
   text-underline-offset: 0.3em;
 }
 .demo-chat-log {
-  height: 24rem;
+  height: 26rem;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -294,6 +294,31 @@ html.lenis body {
   background: var(--color-ink);
   color: var(--color-paper);
 }
+.chat-typing {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+}
+.chat-typing-dots {
+  display: flex;
+  gap: 0.3rem;
+}
+.chat-typing-dots span {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: currentColor;
+  animation: chat-typing-pulse 900ms ease-in-out infinite alternate;
+}
+.chat-typing-dots span:nth-child(2) { animation-delay: 150ms; }
+.chat-typing-dots span:nth-child(3) { animation-delay: 300ms; }
+@keyframes chat-typing-pulse {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-typing-dots span { animation: none; }
+}
 .chat-sources {
   display: flex;
   flex-wrap: wrap;
@@ -325,10 +350,11 @@ html.lenis body {
   font-size: 1.0625rem;
   line-height: 1.35;
 }
-.chat-send:hover:not(:disabled) {
+.chat-send:hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--color-ink);
 }
-.chat-send:disabled {
+.chat-send:disabled,
+.chat-send[aria-disabled="true"] {
   opacity: 0.5;
   cursor: default;
 }
@@ -344,6 +370,9 @@ html.lenis body {
   font-family: var(--font-mono);
 }
 @media (min-width: 768px) {
+  .demo-chat-log {
+    height: 28rem;
+  }
   .chat-messages {
     padding: 1.5rem 1.25rem;
   }
