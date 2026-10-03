@@ -31,9 +31,10 @@ it.each(practice.demo.claims)("appends and removes recorded $bar replies within 
   }
 
   const previous = screen.getByRole("button", { name: "Previous question" });
-  const next = screen.getByRole("button", { name: "Next question" });
+  const next = screen.getByRole("button", { name: /^Next question:/ });
   expect(previous).toBeDisabled();
   expect(next).toBeEnabled();
+  expect(next).toHaveAccessibleName(`Next question: ${claim.thread[1].question}`);
   expectTranscript(claim, 0);
   await user.click(previous);
   expectTranscript(claim, 0);
@@ -44,6 +45,7 @@ it.each(practice.demo.claims)("appends and removes recorded $bar replies within 
     expect(previous).toBeEnabled();
   }
   expect(next).toBeDisabled();
+  expect(next).toHaveAccessibleName("Next question: End of example");
   await user.click(next);
   expectTranscript(claim, claim.thread.length - 1);
   await user.click(previous);
@@ -57,8 +59,8 @@ it("starts with Wine and replaces the transcript when a claim is selected", asyn
   render(<PracticeCard />);
   expect(screen.getByRole("button", { name: "Wine" })).toHaveAttribute("aria-pressed", "true");
   expectTranscript(wine, 0);
-  await user.click(screen.getByRole("button", { name: "Next question" }));
-  await user.click(screen.getByRole("button", { name: "Next question" }));
+  await user.click(screen.getByRole("button", { name: /^Next question:/ }));
+  await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   expectTranscript(wine, 2);
 
   await user.click(screen.getByRole("button", { name: water.bar }));
@@ -72,7 +74,7 @@ it("starts with Wine and replaces the transcript when a claim is selected", asyn
   expect(screen.getByRole("button", { name: "Previous question" })).toBeDisabled();
   await user.click(screen.getByRole("button", { name: wine.bar }));
   expectTranscript(wine, 0);
-  await user.click(screen.getByRole("button", { name: "Next question" }));
+  await user.click(screen.getByRole("button", { name: /^Next question:/ }));
   await user.click(screen.getByRole("button", { name: wine.bar }));
   expectTranscript(wine, 0);
 });

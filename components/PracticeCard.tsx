@@ -11,6 +11,7 @@ export function PracticeCard() {
   const logRef = useRef<HTMLDivElement>(null);
   const current = demo.claims[active];
   const atEnd = step === current.thread.length - 1;
+  const nextPrompt = atEnd ? demo.endLabel : current.thread[step + 1].question;
   const messages = [
     { key: "claim", side: "incoming", claim: true, text: current.claim },
     ...current.thread.slice(0, step + 1).flatMap((turn, index) => [
@@ -100,13 +101,13 @@ export function PracticeCard() {
         </div>
         <button
           type="button"
-          aria-label={demo.nextAction}
+          aria-label={demo.nextAction + ": " + nextPrompt}
           aria-controls={conversationId}
           disabled={atEnd}
           onClick={() => setStep((value) => Math.min(current.thread.length - 1, value + 1))}
           className="chat-send"
         >
-          <span>{atEnd ? demo.endLabel : current.thread[step + 1].question}</span>
+          <span>{nextPrompt}</span>
           <span aria-hidden="true" className="chat-send-icon">↑</span>
         </button>
       </div>
