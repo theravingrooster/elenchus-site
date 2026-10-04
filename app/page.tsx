@@ -2,9 +2,12 @@ import Image from "next/image";
 import { ExamineBlock } from "@/components/ExamineBlock";
 import { WhyBlock } from "@/components/WhyBlock";
 import { home } from "@/content/home";
+import { ClaimsProvider } from "@/components/ClaimsProvider";
+import { getClaims } from "@/lib/claims";
 
 // The whole site reads in order: introduction, why we question, and example conversation.
-export default function Home() {
+export default async function Home() {
+  const claims = await getClaims();
   return (
     <>
       <section className="relative">
@@ -31,7 +34,9 @@ export default function Home() {
       </section>
 
       <WhyBlock />
-      <ExamineBlock />
+      <ClaimsProvider claims={claims}>
+        <ExamineBlock />
+      </ClaimsProvider>
     </>
   );
 }

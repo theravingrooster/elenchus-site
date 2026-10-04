@@ -22,9 +22,8 @@ export const practice = {
   title: "Practice",
   intro: {
     label: "02 / EXAMINE",
-    heading: "Start with a claim.",
-    body: "Choose an example and follow the questions.",
-    whyLink: "Why we question",
+    heading: "Compared with what?",
+    body: "Follow three headlines. Test the comparison behind each claim.",
   },
   demo: {
     name: "Elenchus",
@@ -33,8 +32,11 @@ export const practice = {
     conversationLabel: "Example conversation",
     readerLabel: "You",
     endLabel: "End of example",
+    nextHeadlineLabel: "Next headline",
+    nextHeadlineAction: "Next headline",
+    trackEndLabel: "End of track",
     // Accessible name for the example selectors.
-    switcherLabel: "Choose a claim",
+    switcherLabel: "Headlines in order",
     // The first message identifies the claim being examined.
     claimLabel: "Headline",
     sourcesLabel: "Sources",
@@ -45,38 +47,9 @@ export const practice = {
     streamingLabel: "Replying…",
     responseDelayMs: 800,
     responseRevealMs: 2600,
-    // Default claim is the first (Medicine).
+    // Default claim is the first (School).
     defaultClaim: 0,
     claims: [
-      {
-        bar: "Medicine",
-        claim: "Universal Semaglutide Access Could Save 28 Million Lives in 5 Years, Study Finds.",
-        sources: [
-          { label: "ADA abstract · 2025", href: "https://doi.org/10.2337/db25-2043-LB" },
-        ],
-        thread: [
-          {
-            question: "Twenty-eight million fewer deaths compared with what?",
-            feedback:
-              "The estimate compares simulated futures over five years. To interpret the difference, we need to know what treatment and care people receive in the scenario without universal access.",
-          },
-          {
-            question: "What makes that benefit hold across different patients and countries?",
-            feedback:
-              "The model spans 196 countries. Check whether the evidence supports the treatment effects assumed for those populations; different starting risks and care conditions could change the projected benefit.",
-          },
-          {
-            question: "If half the eligible people take it, would half the benefit follow?",
-            feedback:
-              "That depends on who takes it and for how long. Half the people need not represent half the preventable deaths; the model needs to test that scenario.",
-          },
-          {
-            question: "Which assumption could change the estimate most?",
-            feedback:
-              "Ask how the estimate changes with lower uptake, more discontinuation, or smaller treatment effects. If plausible alternatives move it sharply, those conditions belong beside the 28 million figure.",
-          },
-        ],
-      },
       {
         bar: "School",
         claim: "Younger Students’ Test Scores Bounce Back After the Pandemic.",
@@ -133,6 +106,35 @@ export const practice = {
             question: "Could divorce fall because the people who marry have changed?",
             feedback:
               "Pew reports a shift toward more-educated adults in the married population. Compare similar couples at the same marriage duration before treating the decline as evidence that marriages themselves became more stable.",
+          },
+        ],
+      },
+      {
+        bar: "Medicine",
+        claim: "Universal Semaglutide Access Could Save 28 Million Lives in 5 Years, Study Finds.",
+        sources: [
+          { label: "ADA abstract · 2025", href: "https://doi.org/10.2337/db25-2043-LB" },
+        ],
+        thread: [
+          {
+            question: "Twenty-eight million fewer deaths compared with what?",
+            feedback:
+              "The estimate compares simulated futures over five years. To interpret the difference, we need to know what treatment and care people receive in the scenario without universal access.",
+          },
+          {
+            question: "What makes that benefit hold across different patients and countries?",
+            feedback:
+              "The model spans 196 countries. Check whether the evidence supports the treatment effects assumed for those populations; different starting risks and care conditions could change the projected benefit.",
+          },
+          {
+            question: "If half the eligible people take it, would half the benefit follow?",
+            feedback:
+              "That depends on who takes it and for how long. Half the people need not represent half the preventable deaths; the model needs to test that scenario.",
+          },
+          {
+            question: "Which assumption could change the estimate most?",
+            feedback:
+              "Ask how the estimate changes with lower uptake, more discontinuation, or smaller treatment effects. If plausible alternatives move it sharply, those conditions belong beside the 28 million figure.",
           },
         ],
       },

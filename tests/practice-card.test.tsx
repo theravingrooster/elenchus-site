@@ -62,13 +62,15 @@ it.each(practice.demo.claims)("appends and removes recorded $bar replies within 
     expect(previous).toBeEnabled();
   }
   expect(next).toBeDisabled();
-  expect(next).toHaveAccessibleName("Next question: End of example");
+  const endLabel = claim === practice.demo.claims.at(-1) ? practice.demo.trackEndLabel : practice.demo.endLabel;
+  expect(next).toHaveAccessibleName(`Next question: ${endLabel}`);
   fireEvent.click(next);
   expectTranscript(claim, claim.thread.length);
   for (let sentTurns = claim.thread.length - 1; sentTurns >= 0; sentTurns--) {
     fireEvent.click(previous);
     expectTranscript(claim, sentTurns);
     expect(next).toBeEnabled();
+    expect(screen.queryByRole("button", { name: /^Next headline:/ })).not.toBeInTheDocument();
   }
   expect(previous).toBeDisabled();
   expect(next).toHaveAccessibleName(`Next question: ${claim.thread[0].question}`);
@@ -105,6 +107,65 @@ it("starts with the default example and replaces the transcript when a claim is 
   fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
   fireEvent.click(screen.getByRole("button", { name: initialClaim.bar }));
   expectTranscript(initialClaim, 0);
+});
+
+it("walks through the headline track in order and waits for each final reply before advancing", () => {
+  render(<PracticeCard />);
+  const claims = practice.demo.claims;
+  const selectors = within(screen.getByRole("group", { name: practice.demo.switcherLabel }));
+  expect(selectors.getAllByRole("button")).toHaveLength(claims.length);
+  selectors.getAllByRole("button").forEach((button, index) => expect(button).toHaveAccessibleName(claims[index].bar));
+
+  for (const [index, claim] of claims.entries()) {
+    expect(selectors.getByRole("button", { name: claim.bar })).toHaveAttribute("aria-pressed", "true");
+    expectTranscript(claim, 0);
+    expect(screen.queryByRole("button", { name: /^Next headline:/ })).not.toBeInTheDocument();
+    const composer = screen.getByRole("button", { name: /^Next question:/ });
+    expect(composer).toHaveAccessibleName(`Next question: ${claim.thread[0].question}`);
+
+    for (let turn = 0; turn < claim.thread.length - 1; turn++) {
+      fireEvent.click(composer);
+      finishReply();
+      expectTranscript(claim, turn + 1);
+      expect(screen.queryByRole("button", { name: /^Next headline:/ })).not.toBeInTheDocument();
+    }
+
+    fireEvent.click(composer);
+    const following = claims[index + 1];
+    const advance = following
+      ? screen.getByRole("button", { name: `${practice.demo.nextHeadlineAction}: ${following.bar}` })
+      : null;
+    if (advance) {
+      expect(advance).toHaveTextContent(practice.demo.nextHeadlineLabel);
+      expect(advance).toBeDisabled();
+      fireEvent.click(advance);
+      expect(screen.getByText(claim.claim)).toBeVisible();
+    }
+    act(() => vi.advanceTimersByTime(practice.demo.responseDelayMs));
+    if (advance) expect(advance).toBeDisabled();
+    act(() => vi.advanceTimersByTime(practice.demo.responseRevealMs - 1));
+    if (advance) expect(advance).toBeDisabled();
+    act(() => vi.advanceTimersByTime(1));
+    expectTranscript(claim, claim.thread.length);
+    expect(composer).toBeDisabled();
+
+    if (advance && following) {
+      expect(composer).toHaveAccessibleName(`Next question: ${practice.demo.endLabel}`);
+      expect(advance).toBeEnabled();
+      advance.focus();
+      fireEvent.click(advance);
+      expectTranscript(following, 0);
+      expect(screen.queryByText(claim.claim)).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Previous question" })).toBeDisabled();
+      expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveFocus();
+    } else {
+      expect(screen.queryByRole("button", { name: /^Next headline:/ })).not.toBeInTheDocument();
+      expect(composer).toHaveAccessibleName(`Next question: ${practice.demo.trackEndLabel}`);
+      fireEvent.click(composer);
+      finishReply();
+      expectTranscript(claim, claim.thread.length);
+    }
+  }
 });
 
 it("shows each example's sources and clears sources from the previous example", () => {
