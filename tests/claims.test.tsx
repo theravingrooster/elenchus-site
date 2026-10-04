@@ -36,6 +36,12 @@ const otherClaim: DemoClaim = {
   bar: "Transport",
   claim: "A new report predicts shorter journeys.",
   sources: [{ label: "Transport report", href: "https://example.test/transport" }],
+  thread: [
+    { question: "Which journeys become shorter?", feedback: "Check which routes are included in the forecast." },
+    { question: "What happens at the busiest times?", feedback: "Compare the estimate across travel periods." },
+    { question: "Does the projection assume fewer travelers?", feedback: "Identify the travel demand behind the forecast." },
+    { question: "Which change would erase the saving?", feedback: "Test how sensitive the result is to changing demand." },
+  ],
 };
 
 beforeEach(() => {
@@ -133,30 +139,48 @@ describe("server claim loading", () => {
   });
 });
 
-it("uses loaded examples for the selectors, sources, composer, and conversation", async () => {
+it("advances through loaded examples in query order with their own sources and conversation", async () => {
   sdk.abortSignal.mockResolvedValue({ data: [claim, otherClaim], error: null });
   const claims = await getClaims();
   vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
   render(<ClaimsProvider claims={claims}><PracticeCard /></ClaimsProvider>);
 
   const selectors = within(screen.getByRole("group", { name: practice.demo.switcherLabel }));
-  expect(selectors.getAllByRole("button").map((button) => button.textContent)).toEqual([claim.bar, otherClaim.bar]);
+  const buttons = selectors.getAllByRole("button");
+  expect(buttons).toHaveLength(claims.length);
+  buttons.forEach((button, index) => expect(button).toHaveAccessibleName(claims[index].bar));
   expect(screen.getByText(claim.claim)).toBeVisible();
   expect(screen.getByRole("link", { name: /Energy report/ })).toHaveAttribute("href", claim.sources[0].href);
   expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveAccessibleName(`Next question: ${claim.thread[0].question}`);
-  for (const localClaim of practice.demo.claims) {
-    expect(selectors.queryByRole("button", { name: localClaim.bar })).not.toBeInTheDocument();
+  for (let sent = 0; sent < claim.thread.length; sent++) {
+    fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
+    act(() => vi.runAllTimers());
   }
 
-  fireEvent.click(selectors.getByRole("button", { name: otherClaim.bar }));
+  const advance = screen.getByRole("button", { name: `${practice.demo.nextHeadlineAction}: ${otherClaim.bar}` });
+  advance.focus();
+  fireEvent.click(advance);
   expect(screen.getByText(otherClaim.claim)).toBeVisible();
   expect(screen.queryByText(claim.claim)).not.toBeInTheDocument();
   expect(screen.queryByRole("link", { name: /Energy report/ })).not.toBeInTheDocument();
   expect(screen.getByRole("link", { name: /Transport report/ })).toHaveAttribute("href", otherClaim.sources[0].href);
+  const initialTranscript = within(screen.getByRole("log", { name: practice.demo.conversationLabel }));
+  expect(initialTranscript.getAllByRole("listitem")).toHaveLength(1);
+  expect(initialTranscript.queryByText(otherClaim.thread[0].question)).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Previous question" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveAccessibleName(`Next question: ${otherClaim.thread[0].question}`);
+  expect(screen.getByRole("button", { name: /^Next question:/ })).toHaveFocus();
   fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
   act(() => vi.runAllTimers());
   const transcript = within(screen.getByRole("log", { name: practice.demo.conversationLabel }));
   expect(transcript.getByText(otherClaim.thread[0].question)).toBeVisible();
   expect(transcript.getByText(otherClaim.thread[0].feedback)).toBeVisible();
   expect(transcript.getAllByRole("listitem")).toHaveLength(3);
+  for (let sent = 1; sent < otherClaim.thread.length; sent++) {
+    fireEvent.click(screen.getByRole("button", { name: /^Next question:/ }));
+    act(() => vi.runAllTimers());
+  }
+  expect(screen.queryByRole("button", { name: /^Next headline:/ })).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: `Next question: ${practice.demo.trackEndLabel}` })).toBeDisabled();
+  expect(screen.getByText(otherClaim.claim)).toBeVisible();
 });

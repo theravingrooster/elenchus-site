@@ -15,12 +15,15 @@ export function PracticeCard() {
   const conversationId = useId();
   const logRef = useRef<HTMLDivElement>(null);
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const composerRef = useRef<HTMLButtonElement>(null);
+  const focusComposer = useRef(false);
   const current = claims[active];
+  const nextClaim = claims[active + 1];
   const atEnd = sentTurns === current.thread.length;
   const replyStatus = isReplyRevealing ? demo.streamingLabel : demo.typingLabel;
   const nextPrompt = isReplyPending
     ? replyStatus
-    : atEnd ? demo.endLabel : current.thread[sentTurns].question;
+    : atEnd ? (nextClaim ? demo.endLabel : demo.trackEndLabel) : current.thread[sentTurns].question;
   const answeredTurns = sentTurns - (isReplyPending ? 1 : 0);
   const messages = [
     { key: "claim", side: "incoming", claim: true, text: current.claim },
@@ -42,13 +45,27 @@ export function PracticeCard() {
     if (replyTimer.current !== null) clearTimeout(replyTimer.current);
   }, []);
 
+  useEffect(() => {
+    if (focusComposer.current) {
+      composerRef.current?.focus();
+      focusComposer.current = false;
+    }
+  }, [active]);
+
   function selectClaim(index: number) {
+    if (index < 0 || index >= claims.length) return;
     if (replyTimer.current !== null) clearTimeout(replyTimer.current);
     replyTimer.current = null;
     setIsReplyPending(false);
     setIsReplyRevealing(false);
     setActive(index);
     setSentTurns(0);
+  }
+
+  function advanceClaim() {
+    if (!atEnd || isReplyPending || !nextClaim) return;
+    focusComposer.current = true;
+    selectClaim(active + 1);
   }
 
   function sendQuestion() {
@@ -84,19 +101,23 @@ export function PracticeCard() {
             <p className="mono-label mt-2">{demo.exampleLabel}</p>
           </div>
         </div>
-        <div role="group" aria-label={demo.switcherLabel} className="flex flex-wrap gap-2">
-          {claims.map((claim, index) => (
-            <button
-              key={claim.bar}
-              type="button"
-              aria-pressed={index === active}
-              aria-controls={conversationId}
-              onClick={() => selectClaim(index)}
-              className="chat-claim-selector mono-label"
-            >
-              {claim.bar}
-            </button>
-          ))}
+        <div role="group" aria-label={demo.switcherLabel}>
+          <ol className="flex flex-wrap gap-2">
+            {claims.map((claim, index) => (
+              <li key={claim.bar}>
+                <button
+                  type="button"
+                  aria-label={claim.bar}
+                  aria-pressed={index === active}
+                  aria-controls={conversationId}
+                  onClick={() => selectClaim(index)}
+                  className="chat-claim-selector mono-label"
+                >
+                  <span aria-hidden="true">{String(index + 1).padStart(2, "0")} / </span>{claim.bar}
+                </button>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
 
@@ -160,7 +181,7 @@ export function PracticeCard() {
       <p role="status" className="sr-only">{isReplyPending ? nextPrompt : ""}</p>
 
       <div className="border-t border-rule px-4 pt-2 pb-4 md:px-5">
-        <div className="mb-2 flex items-center justify-between gap-3">
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
           <button
             type="button"
             aria-label={demo.previousAction}
@@ -171,11 +192,24 @@ export function PracticeCard() {
           >
             <span aria-hidden="true">←</span> {demo.previousLabel}
           </button>
+          {atEnd && nextClaim && (
+            <button
+              type="button"
+              aria-label={demo.nextHeadlineAction + ": " + nextClaim.bar}
+              aria-controls={conversationId}
+              disabled={isReplyPending}
+              onClick={advanceClaim}
+              className="example-nav mono-label"
+            >
+              {demo.nextHeadlineLabel} <span aria-hidden="true">→</span>
+            </button>
+          )}
           <p className="mono-label shrink-0 whitespace-nowrap tabular-nums">
             {String(sentTurns).padStart(2, "0")} / {String(current.thread.length).padStart(2, "0")}
           </p>
         </div>
         <button
+          ref={composerRef}
           type="button"
           aria-label={demo.nextAction + ": " + nextPrompt}
           aria-controls={conversationId}
