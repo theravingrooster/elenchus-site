@@ -24,7 +24,6 @@ export const practice = {
     label: "02 / EXAMINE",
     heading: "Compared with what?",
     body: "Follow three headlines. Test the comparison behind each claim.",
-    whyLink: "Why we question",
   },
   demo: {
     name: "Elenchus",
