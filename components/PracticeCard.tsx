@@ -3,9 +3,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { practice } from "@/content/practice";
 import { ReplyReveal } from "@/components/ReplyReveal";
+import { useClaims } from "@/components/ClaimsProvider";
 
 export function PracticeCard() {
   const { demo } = practice;
+  const claims = useClaims();
   const [active, setActive] = useState(demo.defaultClaim);
   const [sentTurns, setSentTurns] = useState(0);
   const [isReplyPending, setIsReplyPending] = useState(false);
@@ -13,7 +15,7 @@ export function PracticeCard() {
   const conversationId = useId();
   const logRef = useRef<HTMLDivElement>(null);
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const current = demo.claims[active];
+  const current = claims[active];
   const atEnd = sentTurns === current.thread.length;
   const replyStatus = isReplyRevealing ? demo.streamingLabel : demo.typingLabel;
   const nextPrompt = isReplyPending
@@ -83,7 +85,7 @@ export function PracticeCard() {
           </div>
         </div>
         <div role="group" aria-label={demo.switcherLabel} className="flex flex-wrap gap-2">
-          {demo.claims.map((claim, index) => (
+          {claims.map((claim, index) => (
             <button
               key={claim.bar}
               type="button"
